@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ingredients from "../data/ingredients.json";
 import { resizeImageFile } from "../lib/resizeImage";
+import { ALL_TAGS, tagLabel } from "../lib/tags";
 
 const CATEGORY_LABELS_TR = {
   legumes: "Bakliyat",
@@ -26,6 +27,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedIngredientIds, setSelectedIngredientIds] = useState([]);
+  const [selectedTags, setSelectedTags] = useState([]);
   const [busy, setBusy] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -59,12 +61,17 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
     );
   }
 
+  function toggleTag(tag) {
+    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+  }
+
   function reset() {
     setPhotoFile(null);
     setPhotoPreviewUrl(null);
     setTitle("");
     setDescription("");
     setSelectedIngredientIds([]);
+    setSelectedTags([]);
   }
 
   async function handleSubmit() {
@@ -76,6 +83,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
         title: title.trim(),
         description: description.trim(),
         ingredientIds: selectedIngredientIds,
+        tags: selectedTags,
       });
       reset();
     } finally {
@@ -145,6 +153,28 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
                 rows={2}
                 className="mt-2 w-full resize-none rounded-xl border border-[var(--color-cream-dark)] px-3.5 py-2.5 text-sm outline-none focus:border-[var(--color-paprika)]"
               />
+
+              <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">
+                Etiketler (opsiyonel)
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {ALL_TAGS.map((tag) => {
+                  const isSelected = selectedTags.includes(tag);
+                  return (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                        isSelected
+                          ? "bg-[var(--color-paprika)] text-white"
+                          : "bg-[var(--color-cream)] text-[var(--color-ink-soft)]"
+                      }`}
+                    >
+                      {tagLabel(tag)}
+                    </button>
+                  );
+                })}
+              </div>
 
               <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">
                 Kullandığın Malzemeler ({selectedIngredientIds.length} seçili)

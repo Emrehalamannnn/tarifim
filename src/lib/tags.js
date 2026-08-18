@@ -17,3 +17,5 @@ const TAG_LABELS_TR = {
 export function tagLabel(tag) {
   return TAG_LABELS_TR[tag] ?? tag;
 }
+
+export const ALL_TAGS = Object.keys(TAG_LABELS_TR);

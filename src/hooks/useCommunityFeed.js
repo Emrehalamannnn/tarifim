@@ -47,6 +47,7 @@ export function useCommunityFeed(currentUserId) {
         authorIsOwner: post.author?.is_owner ?? false,
         isOfficial: post.author_id === null,
         recipeId: post.recipe_id,
+        tags: post.tags ?? [],
         photoUrl: post.photo_url,
         title: post.title,
         description: post.description,
@@ -66,7 +67,7 @@ export function useCommunityFeed(currentUserId) {
     refresh();
   }, [refresh]);
 
-  async function addPost({ photoFile, title, description, ingredientIds }) {
+  async function addPost({ photoFile, title, description, ingredientIds, tags = [] }) {
     const path = `${currentUserId}/${Date.now()}-${photoFile.name}`;
     const { error: uploadError } = await supabase.storage
       .from("post-photos")
@@ -83,6 +84,7 @@ export function useCommunityFeed(currentUserId) {
       title,
       description,
       ingredient_ids: ingredientIds,
+      tags,
     });
     if (insertError) throw insertError;
 

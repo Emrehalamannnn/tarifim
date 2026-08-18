@@ -147,11 +147,23 @@ export default function PostCard({
           <button
             onClick={() => onToggleSave(post.id, post.savedByMe)}
             disabled={!currentUserId}
-            className="ml-auto flex items-center gap-1.5 text-sm active:scale-95 disabled:opacity-60"
+            aria-label={post.savedByMe ? "Kaydedilenlerden çıkar" : "Kaydet"}
+            className={`ml-auto active:scale-95 disabled:opacity-60 ${
+              post.savedByMe ? "text-[var(--color-paprika)]" : "text-[var(--color-ink-soft)]"
+            }`}
           >
-            <span className={post.savedByMe ? "text-[var(--color-paprika)]" : "text-[var(--color-ink-soft)]"}>
-              {post.savedByMe ? "🔖" : "📑"}
-            </span>
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill={post.savedByMe ? "currentColor" : "none"}
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+            </svg>
           </button>
         </div>
 

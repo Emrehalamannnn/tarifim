@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useCommunityFeed } from "../hooks/useCommunityFeed";
 import { useFollowingIds } from "../hooks/useFollowingIds";
+import { ALL_TAGS, tagLabel } from "../lib/tags";
 import PageFade from "../components/PageFade";
 import PostCard from "../components/PostCard";
 import CreatePostModal from "../components/CreatePostModal";
 import CommentsModal from "../components/CommentsModal";
 
-const FILTERS = [
+const AUDIENCE_FILTERS = [
   { value: "all", label: "Tümü" },
   { value: "following", label: "Takip Ettiklerim" },
+];
+
+const SORT_OPTIONS = [
+  { value: "recent", label: "En Yeni" },
+  { value: "popular", label: "En Popüler" },
 ];
 
 export default function SocialPage() {
@@ -19,12 +25,23 @@ export default function SocialPage() {
   const { followingIds } = useFollowingIds(user?.id);
   const [createOpen, setCreateOpen] = useState(false);
   const [commentsPostId, setCommentsPostId] = useState(null);
-  const [filter, setFilter] = useState("all");
+  const [audienceFilter, setAudienceFilter] = useState("all");
+  const [tagFilter, setTagFilter] = useState(null);
+  const [sort, setSort] = useState("recent");
 
   const visiblePosts = useMemo(() => {
-    if (filter !== "following") return posts;
-    return posts.filter((p) => followingIds.has(p.authorId));
-  }, [posts, filter, followingIds]);
+    let result = posts;
+    if (audienceFilter === "following") {
+      result = result.filter((p) => followingIds.has(p.authorId));
+    }
+    if (tagFilter) {
+      result = result.filter((p) => p.tags?.includes(tagFilter));
+    }
+    if (sort === "popular") {
+      result = [...result].sort((a, b) => b.likes - a.likes);
+    }
+    return result;
+  }, [posts, audienceFilter, tagFilter, sort, followingIds]);
 
   async function handleSubmit(post) {
     await addPost(post);
@@ -63,13 +80,13 @@ export default function SocialPage() {
         </p>
       )}
 
-      <div className="flex gap-2 px-4 pb-3">
-        {FILTERS.map((f) => (
+      <div className="flex gap-2 px-4 pb-2">
+        {AUDIENCE_FILTERS.map((f) => (
           <button
             key={f.value}
-            onClick={() => setFilter(f.value)}
+            onClick={() => setAudienceFilter(f.value)}
             className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-              filter === f.value
+              audienceFilter === f.value
                 ? "bg-[var(--color-ink)] text-white"
                 : "bg-white text-[var(--color-ink-soft)] shadow-sm"
             }`}
@@ -77,11 +94,59 @@ export default function SocialPage() {
             {f.label}
           </button>
         ))}
+
+        <div className="ml-auto flex gap-1 rounded-full bg-white p-0.5 shadow-sm">
+          {SORT_OPTIONS.map((s) => (
+            <button
+              key={s.value}
+              onClick={() => setSort(s.value)}
+              className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors ${
+                sort === s.value
+                  ? "bg-[var(--color-olive)] text-white"
+                  : "text-[var(--color-ink-soft)]"
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {filter === "following" && visiblePosts.length === 0 && (
+      <div className="flex gap-1.5 overflow-x-auto px-4 pb-3">
+        <button
+          onClick={() => setTagFilter(null)}
+          className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+            tagFilter === null
+              ? "bg-[var(--color-paprika)] text-white"
+              : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+          }`}
+        >
+          Tüm Kategoriler
+        </button>
+        {ALL_TAGS.map((tag) => (
+          <button
+            key={tag}
+            onClick={() => setTagFilter((prev) => (prev === tag ? null : tag))}
+            className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+              tagFilter === tag
+                ? "bg-[var(--color-paprika)] text-white"
+                : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+            }`}
+          >
+            {tagLabel(tag)}
+          </button>
+        ))}
+      </div>
+
+      {audienceFilter === "following" && followingIds.size === 0 && (
         <p className="mx-4 mb-2 rounded-xl bg-[var(--color-cream)] px-3.5 py-2.5 text-xs text-[var(--color-ink-soft)]">
           Henüz kimseyi takip etmiyorsun. Paylaşımlardaki "Takip Et" butonuyla başlayabilirsin.
+        </p>
+      )}
+
+      {visiblePosts.length === 0 && (audienceFilter !== "following" || followingIds.size > 0) && (
+        <p className="mx-4 mb-2 rounded-xl bg-[var(--color-cream)] px-3.5 py-2.5 text-xs text-[var(--color-ink-soft)]">
+          Bu filtrelere uyan bir paylaşım yok.
         </p>
       )}
 

@@ -114,6 +114,7 @@ create table if not exists public.posts (
   description text not null default '',
   ingredient_ids text[] not null default '{}',
   recipe_id text,
+  tags text[] not null default '{}',
   created_at timestamptz not null default now()
 );
 
@@ -121,6 +122,12 @@ create table if not exists public.posts (
 -- were adjusted) in place. No-ops on a fresh table that matches already.
 alter table public.posts alter column author_id drop not null;
 alter table public.posts add column if not exists recipe_id text;
+-- tags uses the same vocabulary as recipes.json (src/lib/tags.js's
+-- TAG_LABELS_TR) — powers SocialPage's filter chips. Optional on
+-- user-submitted posts (CreatePostModal), populated from the linked
+-- recipe's own tags on official posts (seed_recipe_posts.sql).
+alter table public.posts add column if not exists tags text[] not null default '{}';
+create index if not exists posts_tags_idx on public.posts using gin (tags);
 
 create index if not exists posts_created_at_idx on public.posts (created_at desc);
 create index if not exists posts_author_id_idx on public.posts (author_id);
