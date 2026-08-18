@@ -1,46 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ingredients from "../data/ingredients.json";
-
-const MAX_DIMENSION = 800;
-
-// Resizes client-side same as before, but now produces a File (for upload
-// to the post-photos Supabase Storage bucket) instead of a base64 data URL
-// (which used to get stored directly inside communityPosts in localStorage).
-function resizeImageFile(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = reject;
-    reader.onload = () => {
-      const img = new Image();
-      img.onerror = reject;
-      img.onload = () => {
-        const scale = Math.min(1, MAX_DIMENSION / Math.max(img.width, img.height));
-        const canvas = document.createElement("canvas");
-        canvas.width = Math.round(img.width * scale);
-        canvas.height = Math.round(img.height * scale);
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) {
-              reject(new Error("Image resize failed"));
-              return;
-            }
-            resolve({
-              file: new File([blob], `${Date.now()}.jpg`, { type: "image/jpeg" }),
-              previewUrl: URL.createObjectURL(blob),
-            });
-          },
-          "image/jpeg",
-          0.78
-        );
-      };
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
+import { resizeImageFile } from "../lib/resizeImage";
 
 const CATEGORY_LABELS_TR = {
   legumes: "Bakliyat",

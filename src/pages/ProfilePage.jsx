@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppStore } from "../store/useAppStore";
 import { useAuth } from "../hooks/useAuth";
 import { useFollowStats } from "../hooks/useFollows";
 import { useSavedPosts } from "../hooks/useSavedPosts";
+import { useUserPosts } from "../hooks/useUserPosts";
+import { supabase } from "../lib/supabase";
+import { resizeImageFile } from "../lib/resizeImage";
 import chains from "../data/chains.json";
 import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
@@ -26,9 +30,11 @@ const PROVIDER_LABELS = {
 };
 
 export default function ProfilePage() {
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, signOut, refreshProfile } = useAuth();
   const { followers, following } = useFollowStats(user?.id);
   const { posts: savedPosts } = useSavedPosts(user?.id);
+  const { posts: userPosts } = useUserPosts(user?.id);
+  const [avatarUploading, setAvatarUploading] = useState(false);
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
   const city = useAppStore((s) => s.city);
@@ -36,6 +42,34 @@ export default function ProfilePage() {
   const resetDeck = useAppStore((s) => s.resetDeck);
   const preferredChainIds = useAppStore((s) => s.preferredChainIds);
   const togglePreferredChain = useAppStore((s) => s.togglePreferredChain);
+
+  async function handleAvatarChange(e) {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+    setAvatarUploading(true);
+    try {
+      const { file: resized } = await resizeImageFile(file, 400, 0.82);
+      const path = `${user.id}/${Date.now()}.jpg`;
+      const { error: uploadError } = await supabase.storage.from("avatars").upload(path, resized);
+      if (uploadError) throw uploadError;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("avatars").getPublicUrl(path);
+
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({ avatar_url: publicUrl })
+        .eq("id", user.id);
+      if (updateError) throw updateError;
+
+      await refreshProfile();
+    } catch (err) {
+      console.error("Failed to update profile picture", err);
+    } finally {
+      setAvatarUploading(false);
+    }
+  }
 
   return (
     <PageFade className="flex flex-1 flex-col gap-6 px-5 py-5">
@@ -48,9 +82,25 @@ export default function ProfilePage() {
         <LoginPanel />
       ) : (
         <section className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-sm">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-paprika)] text-xl font-bold text-white">
-            {initialsFrom(profile?.name ?? user.email) || "🧑‍🍳"}
-          </div>
+          <label className="relative flex h-16 w-16 cursor-pointer items-center justify-center rounded-full active:scale-95">
+            <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-[var(--color-paprika)] text-xl font-bold text-white">
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt="" className="h-full w-full object-cover" />
+              ) : (
+                initialsFrom(profile?.name ?? user.email) || "🧑‍🍳"
+              )}
+            </div>
+            <span className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-olive)] text-[10px] text-white ring-2 ring-white">
+              {avatarUploading ? "…" : "📷"}
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              disabled={avatarUploading}
+              onChange={handleAvatarChange}
+            />
+          </label>
           <div>
             <h2 className="flex items-center justify-center gap-1.5 text-base font-bold text-[var(--color-ink)]">
               {profile?.name ?? user.email}
@@ -96,6 +146,31 @@ export default function ProfilePage() {
             Premium
           </h2>
           <PremiumPaywall userId={user.id} compact />
+        </section>
+      )}
+
+      {user && (
+        <section>
+          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+            Paylaşımlarım
+          </h2>
+          {userPosts.length === 0 ? (
+            <p className="text-xs text-[var(--color-ink-soft)]">
+              Henüz bir paylaşımın yok — Topluluk sekmesinden "+ Tarif Paylaş" ile başlayabilirsin.
+            </p>
+          ) : (
+            <div className="grid grid-cols-3 gap-2">
+              {userPosts.map((post) => (
+                <Link
+                  key={post.id}
+                  to={`/post/${post.id}`}
+                  className="aspect-square overflow-hidden rounded-xl bg-[var(--color-cream)]"
+                >
+                  <img src={post.photoUrl} alt={post.title} className="h-full w-full object-cover" />
+                </Link>
+              ))}
+            </div>
+          )}
         </section>
       )}
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
 
 // Real Supabase auth session, replacing useAppStore's old mocked
@@ -25,6 +25,16 @@ export function useAuth() {
 
     return () => subscription.subscription.unsubscribe();
   }, []);
+
+  const refreshProfile = useCallback(async () => {
+    if (!isSupabaseConfigured || !session?.user) return;
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", session.user.id)
+      .single();
+    setProfile(data);
+  }, [session?.user?.id]);
 
   useEffect(() => {
     if (!isSupabaseConfigured || !session?.user) {
@@ -77,6 +87,7 @@ export function useAuth() {
     loading,
     user: session?.user ?? null,
     profile,
+    refreshProfile,
     signInWithGoogle,
     signInWithApple,
     signInWithEmail,

@@ -326,3 +326,25 @@ drop policy if exists "users can delete their own post photos" on storage.object
 create policy "users can delete their own post photos"
   on storage.objects for delete
   using (bucket_id = 'post-photos' and owner = auth.uid());
+
+-- ============================================================
+-- Storage bucket for profile pictures.
+-- ============================================================
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true)
+on conflict (id) do nothing;
+
+drop policy if exists "avatars are publicly readable" on storage.objects;
+create policy "avatars are publicly readable"
+  on storage.objects for select
+  using (bucket_id = 'avatars');
+
+drop policy if exists "authenticated users can upload avatars" on storage.objects;
+create policy "authenticated users can upload avatars"
+  on storage.objects for insert
+  with check (bucket_id = 'avatars' and auth.role() = 'authenticated');
+
+drop policy if exists "users can delete their own avatars" on storage.objects;
+create policy "users can delete their own avatars"
+  on storage.objects for delete
+  using (bucket_id = 'avatars' and owner = auth.uid());
