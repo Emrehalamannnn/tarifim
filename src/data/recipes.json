@@ -4104,5 +4104,591 @@
       "Süt ve şekeri ayrı bir tencerede kaynatıp sıcak haliyle irmiğin üzerine dökün, karıştırmadan kısık ateşte demlendirin.",
       "Karıştırıp servis tabağına alın, üzerine çam fıstığı serperek sıcak veya ılık servis edin."
     ]
+  },
+  {
+    "id": "recipe_083",
+    "name": "İzmir Köfte",
+    "name_en": "Izmir Meatballs",
+    "description": "Domates soslu, patatesli fırında pişen İzmir usulü köfte.",
+    "image_url": "/images/recipes/recipe_083.webp",
+    "emoji": "🍽️",
+    "cook_time_minutes": 50,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Kıyma, ezilmiş sarımsak ve yumurtayı yoğurup küçük köfteler yapın.",
+      "Köfteleri hafifçe kızartıp fırın kabına dizin.",
+      "Küp doğranmış patatesleri köftelerin arasına yerleştirin.",
+      "Üzerine dilimlenmiş domatesleri koyup fırında 30-35 dakika pişirin."
+    ]
+  },
+  {
+    "id": "recipe_084",
+    "name": "Bulgur Pilavı",
+    "name_en": "Bulgur Pilaf",
+    "description": "Domates ve yeşil biberle hazırlanan tereyağlı bulgur pilavı.",
+    "image_url": "/images/recipes/recipe_084.webp",
+    "emoji": "🌾",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_bulgur",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Tereyağında soğan ve biberi yumuşayana kadar kavurun.",
+      "Rendelenmiş domatesi ekleyip birkaç dakika pişirin.",
+      "Bulguru ekleyip kısaca kavurun, sıcak su ilave edin.",
+      "Kısık ateşte suyunu çekene kadar pişirip demlendirdikten sonra servis edin."
+    ]
+  },
+  {
+    "id": "recipe_085",
+    "name": "Yaz Türlü",
+    "name_en": "Summer Vegetable Stew",
+    "description": "Patlıcan, kabak ve biberin bir arada pişirildiği mevsim sebze yemeği.",
+    "image_url": "/images/recipes/recipe_085.webp",
+    "emoji": "🥘",
+    "cook_time_minutes": 45,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_eggplant",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_zucchini",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Tüm sebzeleri iri küpler halinde doğrayın.",
+      "Zeytinyağında sırasıyla patates, patlıcan ve kabağı hafifçe soteleyin.",
+      "Biber ve rendelenmiş domatesi ekleyip karıştırın.",
+      "Az su ilave edip kısık ateşte sebzeler yumuşayana kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_086",
+    "name": "Domates Çorbası",
+    "name_en": "Tomato Soup",
+    "description": "Kremamsı, tereyağlı klasik bir domates çorbası.",
+    "image_url": "/images/recipes/recipe_086.webp",
+    "emoji": "🍅",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "soup",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 5,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Tereyağında soğanı pembeleşene kadar kavurup unu ekleyerek kısaca kavurun.",
+      "Rendelenmiş domatesleri ekleyip birkaç dakika pişirin.",
+      "Sıcak su ilave edip 15 dakika kaynatın, blenderdan geçirin.",
+      "Sütü ekleyip karıştırarak bir taşım kaynatıp servis edin."
+    ]
+  },
+  {
+    "id": "recipe_087",
+    "name": "Kıymalı Ispanak",
+    "name_en": "Spinach with Ground Meat",
+    "description": "Kıyma ve pirinçle pişirilen doyurucu ıspanak yemeği.",
+    "image_url": "/images/recipes/recipe_087.webp",
+    "emoji": "🥬",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_spinach",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Kıyma ve soğanı bir tencerede kavurun.",
+      "Doğranmış ıspanağı ekleyip suyunu salana kadar pişirin.",
+      "Pirinç ve az su ekleyip kısık ateşte pirinç yumuşayana kadar pişirin.",
+      "Yanında yoğurtla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_088",
+    "name": "Tavuk Şiş",
+    "name_en": "Chicken Skewers",
+    "description": "Yoğurtlu marinasyonla hazırlanan, ızgarada pişen tavuk şiş.",
+    "image_url": "/images/recipes/recipe_088.webp",
+    "emoji": "🍗",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chicken_breast",
+        "quantity": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Tavuk göğsünü küp doğrayıp yoğurt ve ezilmiş sarımsakla marine edin, en az 1 saat bekletin.",
+      "Tavukları biber ve domatesle sırayla şişlere dizin.",
+      "Izgarada çevirerek her tarafı pişene kadar közleyin.",
+      "Sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_089",
+    "name": "Fırında Kaşarlı Makarna",
+    "name_en": "Baked Pasta with Cheese",
+    "description": "Beşamel sos ve bol kaşar peyniriyle fırınlanan pratik bir makarna.",
+    "image_url": "/images/recipes/recipe_089.webp",
+    "emoji": "🧀",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "main"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_pasta",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Makarnayı tarifine göre haşlayıp süzün.",
+      "Tereyağında unu kavurup sütü azar azar ekleyerek beşamel sos hazırlayın.",
+      "Sosun yarısını rendelenmiş kaşarla karıştırıp makarnayla harmanlayın.",
+      "Fırın kabına alıp üzerine kalan kaşarı serpin, fırında peynir eriyip kızarana kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_090",
+    "name": "Ezme",
+    "name_en": "Turkish Spicy Tomato Salsa",
+    "description": "Domates, biber ve salçayla hazırlanan acılı bir meze.",
+    "image_url": "/images/recipes/recipe_090.webp",
+    "emoji": "🌶️",
+    "cook_time_minutes": 15,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "meze",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_pepper_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      }
+    ],
+    "steps": [
+      "Domates, soğan ve biberi küçük küpler halinde doğrayın.",
+      "Salça, limon suyu ve zeytinyağını ekleyip karıştırın.",
+      "Doğranmış maydanozu ilave edin.",
+      "En az 15 dakika dinlendirip soğuk servis edin."
+    ]
+  },
+  {
+    "id": "recipe_091",
+    "name": "Sucuklu Pide",
+    "name_en": "Sausage Pide",
+    "description": "Kayık şeklinde açılan hamurun üzerine sucuk ve kaşarla hazırlanan pide.",
+    "image_url": "/images/recipes/recipe_091.webp",
+    "emoji": "🫓",
+    "cook_time_minutes": 45,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 3,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_yeast",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_sucuk",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Un, maya, su ve tuzla hamur yoğurup mayalandırın.",
+      "Hamuru kayık şeklinde açıp kenarlarını kıvırın.",
+      "Dilimlenmiş sucuk ve rendelenmiş kaşarı üzerine yayın.",
+      "Ortasına yumurta kırıp önceden ısıtılmış fırında pişirin."
+    ]
+  },
+  {
+    "id": "recipe_092",
+    "name": "Havuç Tarator",
+    "name_en": "Carrot Yogurt Dip",
+    "description": "Sarımsaklı yoğurtla hazırlanan haşlanmış havuç mezesi.",
+    "image_url": "/images/recipes/recipe_092.webp",
+    "emoji": "🥕",
+    "cook_time_minutes": 20,
+    "servings": 4,
+    "tags": [
+      "meze",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_carrot",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_dill",
+        "quantity": 1,
+        "unit": "bunch"
+      }
+    ],
+    "steps": [
+      "Havuçları rendeleyip zeytinyağında yumuşayana kadar soteleyin.",
+      "Soğuduktan sonra ezilmiş sarımsaklı yoğurtla karıştırın.",
+      "Doğranmış dereotunu ekleyin.",
+      "Soğuk meze olarak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_093",
+    "name": "Kabak Çorbası",
+    "name_en": "Zucchini Soup",
+    "description": "Zeytinyağı gezdirilerek servis edilen hafif ve kremamsı kabak çorbası.",
+    "image_url": "/images/recipes/recipe_093.webp",
+    "emoji": "🥒",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "soup",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_zucchini",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Tereyağında soğanı kavurup doğranmış kabak ve patatesi ekleyin.",
+      "Üzerini geçecek kadar sıcak su ekleyip sebzeler yumuşayana kadar pişirin.",
+      "Blenderdan geçirip sütü ekleyin.",
+      "Bir taşım kaynatıp zeytinyağı gezdirerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_094",
+    "name": "Havuç Köftesi",
+    "name_en": "Carrot Fritters",
+    "description": "Rendelenmiş havuç ve cevizle hazırlanan pratik bir meze.",
+    "image_url": "/images/recipes/recipe_094.webp",
+    "emoji": "🥕",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "meze",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_carrot",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      }
+    ],
+    "steps": [
+      "Havuçları rendeleyip hafifçe haşlayın ve suyunu süzün.",
+      "Yumurta, un, dövülmüş ceviz ve maydanozu ekleyip karıştırın.",
+      "Küçük köfteler halinde şekillendirin.",
+      "Tavada az yağda her iki tarafını kızartıp sıcak servis edin."
+    ]
   }
 ]
