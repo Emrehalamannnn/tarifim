@@ -2288,5 +2288,637 @@
       "Karışımı bisküvi tabanının üzerine dökün, en az 4 saat buzdolabında dinlendirin.",
       "Servis öncesi üzerini dilimlenmiş taze çilekle süsleyin."
     ]
+  },
+  {
+    "id": "recipe_047",
+    "name": "İskender Kebap",
+    "name_en": "Iskender Kebab",
+    "description": "Tereyağlı domates sosu ve yoğurtla servis edilen ekmek üstü kebap.",
+    "image_url": "/images/recipes/recipe_047.webp",
+    "emoji": "🍖",
+    "cook_time_minutes": 40,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_lamb_cubes",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_bread",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Kuzu eti ince dilimleyip yüksek ateşte kavurun.",
+      "Salçayı su ile açıp kaynatarak domates sosunu hazırlayın.",
+      "Ekmeği küp doğrayıp servis tabağına yayın, üzerine et ve sosu ekleyin.",
+      "Bir yanına yoğurt koyup üzerine eritilmiş tereyağını cızırdatarak gezdirin."
+    ]
+  },
+  {
+    "id": "recipe_048",
+    "name": "Adana Kebap",
+    "name_en": "Adana Kebab",
+    "description": "Acılı kıyma harcından şişte pişirilen ızgara kebap.",
+    "image_url": "/images/recipes/recipe_048.webp",
+    "emoji": "🍢",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_bread",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Kıymayı rendelenmiş soğan, pul biber ve tuzla iyice yoğurun, dinlendirin.",
+      "Harcı şişlere yassı ve uzun şekilde sarın.",
+      "Közde veya ızgarada çevirerek pişirin, yanında domates ve biberi de közleyin.",
+      "Sıcak ekmek ve maydanozla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_049",
+    "name": "Hünkar Beğendi",
+    "name_en": "Sultan's Delight",
+    "description": "Közlenmiş patlıcan püresi üzerinde servis edilen kuzu güveç.",
+    "image_url": "/images/recipes/recipe_049.webp",
+    "emoji": "🍆",
+    "cook_time_minutes": 75,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_lamb_cubes",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_eggplant",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Kuzu kuşbaşıyı soğanla birlikte kısık ateşte 1 saat güveç şeklinde pişirin.",
+      "Patlıcanları ateşte veya fırında köz haline getirip kabuklarını soyun.",
+      "Tereyağında unu kavurup sütü azar azar ekleyerek beşamel kıvamına getirin, közlenmiş patlıcanı ve kaşarı ekleyip pürüzsüzleştirin.",
+      "Beğendiyi tabağa alıp üzerine sıcak kuzu güvecini koyarak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_050",
+    "name": "İmam Bayıldı",
+    "name_en": "Imam Bayildi",
+    "description": "Soğan ve domatesle doldurulup zeytinyağında pişen bütün patlıcan.",
+    "image_url": "/images/recipes/recipe_050.webp",
+    "emoji": "🍆",
+    "cook_time_minutes": 55,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "main"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_eggplant",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 3,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 4,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Patlıcanların kabuklarını yer yer soyup az yağda hafifçe kızartın.",
+      "Soğan, biber ve sarımsağı zeytinyağında kavurup doğranmış domatesi ekleyin.",
+      "Patlıcanları ortadan yararak harcı içlerine doldurun.",
+      "Tepsiye dizip biraz su ilave ederek fırında veya ocakta yumuşayana kadar pişirin, soğuk servis edin."
+    ]
+  },
+  {
+    "id": "recipe_051",
+    "name": "Kısır",
+    "name_en": "Kisir (Bulgur Salad)",
+    "description": "Domates salçalı, limonlu ve maydanozlu bulgur salatası.",
+    "image_url": "/images/recipes/recipe_051.webp",
+    "emoji": "🥙",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "salad",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_bulgur",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_pepper_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_cucumber",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "İnce bulguru sıcak suda 15 dakika bekletip kabartın.",
+      "Salçaları ve zeytinyağını ekleyip iyice karıştırın.",
+      "Küçük doğranmış domates, salatalık ve maydanozu ekleyin.",
+      "Limon suyunu gezdirip karıştırdıktan sonra soğuk servis edin."
+    ]
+  },
+  {
+    "id": "recipe_052",
+    "name": "Piyaz",
+    "name_en": "Piyaz (White Bean Salad)",
+    "description": "Haşlanmış kuru fasulyeyle hazırlanan, haşlanmış yumurtayla süslenen salata.",
+    "image_url": "/images/recipes/recipe_052.webp",
+    "emoji": "🥗",
+    "cook_time_minutes": 20,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "salad",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_white_beans",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 2,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Haşlanmış kuru fasulyeyi süzüp bir kaba alın.",
+      "İnce doğranmış soğan, domates ve maydanozu ekleyin.",
+      "Zeytinyağı ve limon suyuyla harmanlayın.",
+      "Haşlanmış yumurta dilimleriyle süsleyerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_053",
+    "name": "Mantı",
+    "name_en": "Turkish Dumplings",
+    "description": "Sarımsaklı yoğurt ve tereyağlı biberle servis edilen minik kıymalı mantı.",
+    "image_url": "/images/recipes/recipe_053.webp",
+    "emoji": "🥟",
+    "cook_time_minutes": 60,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Un, yumurta ve suyla sert bir hamur yoğurup dinlendirin.",
+      "Kıyma ve rendelenmiş soğanı karıştırıp iç harcı hazırlayın.",
+      "Hamuru ince açıp küçük kareler halinde kesin, ortasına harçtan koyup kapatın.",
+      "Kaynar suda haşlayıp sarımsaklı yoğurt ve pul biberli tereyağıyla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_054",
+    "name": "Sigara Böreği",
+    "name_en": "Cigarette Pastry",
+    "description": "Beyaz peynir ve maydanozla doldurulup kızartılan çıtır yufka böreği.",
+    "image_url": "/images/recipes/recipe_054.webp",
+    "emoji": "🥠",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "meze",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_phyllo_dough",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_white_cheese",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 300,
+        "unit": "ml"
+      }
+    ],
+    "steps": [
+      "Beyaz peyniri ezip doğranmış maydanozla karıştırın.",
+      "Yufkaları üçgen şeritler halinde kesip bir ucuna harçtan koyun, sigara böreği şeklinde sarın.",
+      "Uçlarını çırpılmış yumurtayla yapıştırın.",
+      "Kızgın yağda her iki tarafı altın rengi olana kadar kızartıp sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_055",
+    "name": "Simit",
+    "name_en": "Turkish Sesame Bread Rings",
+    "description": "Pekmez şerbetine batırılıp geleneksel şekilde pişirilen halka ekmek.",
+    "image_url": "/images/recipes/recipe_055.webp",
+    "emoji": "🥯",
+    "cook_time_minutes": 40,
+    "servings": 6,
+    "tags": [
+      "breakfast",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 3,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_yeast",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_pekmez",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Un, maya, şeker ve ılık suyla yumuşak bir hamur yoğurup mayalanmaya bırakın.",
+      "Hamuru parçalayıp ince uzun şeritler haline getirin, ikişer ikişer bükerek halka şekli verin.",
+      "Pekmez şerbetine batırıp fırın tepsisine dizin.",
+      "Önceden ısıtılmış fırında altın rengi ve çıtır olana kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_056",
+    "name": "Künefe",
+    "name_en": "Kunefe",
+    "description": "Eriyen peynirle dolgulanıp şerbetlenen sıcak servis edilen tatlı.",
+    "image_url": "/images/recipes/recipe_056.webp",
+    "emoji": "🧡",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_phyllo_dough",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_mozzarella",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 30,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Şeker, su ve limon suyunu kaynatıp koyulaştırarak şerbeti hazırlayın, soğumaya bırakın.",
+      "Yufkayı ince ince didikleyip eritilmiş tereyağıyla harmanlayın.",
+      "Tepsiye yarısını serip üzerine peyniri, kalan yufkayı da üstüne kapatın.",
+      "Her iki tarafı altın rengi olana kadar pişirip sıcakken soğuk şerbeti gezdirin, dövülmüş cevizle servis edin."
+    ]
+  },
+  {
+    "id": "recipe_057",
+    "name": "Aşure",
+    "name_en": "Noah's Pudding",
+    "description": "Tahıl, kuru meyve ve cevizle hazırlanan bereket dolu geleneksel tatlı.",
+    "image_url": "/images/recipes/recipe_057.webp",
+    "emoji": "🍲",
+    "cook_time_minutes": 90,
+    "servings": 8,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chickpeas",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_white_beans",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_apple",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_cinnamon",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Nohut, kuru fasulye ve pirinci ayrı ayrı haşlayıp yumuşatın.",
+      "Hepsini geniş bir tencerede birleştirip üzerine su ekleyin.",
+      "Küp doğranmış elma ve şekeri ekleyip karıştırarak 30-40 dakika kaynatın.",
+      "Kaselere paylaştırıp üzerine ceviz ve tarçın serperek soğuk servis edin."
+    ]
+  },
+  {
+    "id": "recipe_058",
+    "name": "Kazandibi",
+    "name_en": "Kazandibi (Caramelized Milk Pudding)",
+    "description": "Altı hafifçe karamelize edilen kadifemsi süt tatlısı.",
+    "image_url": "/images/recipes/recipe_058.webp",
+    "emoji": "🍮",
+    "cook_time_minutes": 40,
+    "servings": 6,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "l"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_semolina",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_vanilla",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Sütü şeker ve irmikle karıştırıp kısık ateşte koyulaşana kadar pişirin.",
+      "Karışımı yağlanmış bir tepsiye dökün.",
+      "Tepsiyi doğrudan ocak üzerinde altı hafifçe karamelize olana kadar pişirin.",
+      "Soğuyunca dilimleyip rulo şeklinde sararak servis edin."
+    ]
   }
 ]
