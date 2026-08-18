@@ -1264,5 +1264,53 @@
       "Sürekli karıştırarak kıvam alana kadar pişirin.",
       "Kaselere paylaştırıp vanilya ekleyin ve servis etmeden önce soğutun."
     ]
+  },
+  {
+    "id": "recipe_026",
+    "name": "Tarhana Çorbası",
+    "name_en": "Tarhana Soup",
+    "description": "Fermente tarhana ile hazırlanan, ekşimsi ve doyurucu geleneksel Anadolu çorbası.",
+    "image_url": "/images/recipes/recipe_026.webp",
+    "emoji": "🥣",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "soup",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_tarhana",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_mint",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Tarhanayı bir kaba alıp 1 su bardağı ılık suyla açın, pürüzsüz olana kadar karıştırın.",
+      "Tereyağını tencerede eritip salçayı ekleyip birkaç dakika kavurun.",
+      "Açılmış tarhanayı ve kalan suyu ekleyip karıştırarak orta ateşte 15-20 dakika, arada karıştırarak pişirin.",
+      "Pul biber ve nane ile tatlandırılmış tereyağını üzerinde gezdirerek sıcak servis edin."
+    ]
   }
 ]
