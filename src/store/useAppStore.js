@@ -7,42 +7,12 @@ export const recipeIds = recipes.map((r) => r.id);
 const recipesById = new Map(recipes.map((r) => [r.id, r]));
 const allChainIds = chains.map((c) => c.id);
 
-const SEED_COMMUNITY_POSTS = [
-  {
-    id: "post_seed_1",
-    author: "elifyemekte",
-    photoUrl: "/images/recipes/recipe_024.webp",
-    title: "Anneannemin Baklavası",
-    description: "Bayramdan kalma son dilimler 😅 Tarifi tamamen anneannemden.",
-    ingredientIds: ["ing_phyllo_dough", "ing_walnuts", "ing_butter", "ing_sugar", "ing_lemon"],
-    createdAt: "2026-08-10T18:30:00.000Z",
-    likes: 42,
-    likedByMe: false,
-  },
-  {
-    id: "post_seed_2",
-    author: "mutfaktaahmet",
-    photoUrl: "/images/recipes/recipe_009.webp",
-    title: "Pazar Kuzu Tandırım",
-    description: "4 saat kısık ateşte, kemikten et ayrılıyor. Afiyet olsun!",
-    ingredientIds: ["ing_lamb_cubes", "ing_onion", "ing_garlic", "ing_cumin", "ing_olive_oil"],
-    createdAt: "2026-08-14T12:00:00.000Z",
-    likes: 27,
-    likedByMe: false,
-  },
-  {
-    id: "post_seed_3",
-    author: "vegan_selin",
-    photoUrl: "/images/recipes/recipe_016.webp",
-    title: "Hızlı Humus Tarifim",
-    description: "10 dakikada hazır, ekmek arasına da harika gidiyor.",
-    ingredientIds: ["ing_chickpeas", "ing_tahini", "ing_lemon", "ing_garlic", "ing_olive_oil"],
-    createdAt: "2026-08-16T09:15:00.000Z",
-    likes: 15,
-    likedByMe: false,
-  },
-];
-
+// Auth (`user`) and the community feed (`communityPosts` + likes/follows)
+// used to be mocked fields here. They're now real, backed by Supabase —
+// see src/hooks/useAuth.js, useCommunityFeed.js, useFollows.js. They stay
+// out of this persisted store deliberately: Supabase already persists its
+// own session token, and duplicating server-owned data into localStorage
+// would just invite the two copies to drift.
 export const useAppStore = create(
   persist(
     (set) => ({
@@ -131,30 +101,6 @@ export const useAppStore = create(
 
       setDietaryFilter: (filter) => set({ dietaryFilter: filter }),
       setCity: (city) => set({ city }),
-
-      // Mocked auth — there is no backend, so Apple/Google are simulated
-      // sign-ins that create a local-only profile. See CLAUDE.md.
-      user: null,
-      login: (provider, profile) => set({ user: { provider, ...profile } }),
-      logout: () => set({ user: null }),
-
-      // Community feed — local-only, seeded with a few sample posts so the
-      // feed isn't empty on first launch. Not shared between users/devices.
-      communityPosts: SEED_COMMUNITY_POSTS,
-      addCommunityPost: (post) =>
-        set((state) => ({ communityPosts: [post, ...state.communityPosts] })),
-      toggleLikeCommunityPost: (postId) =>
-        set((state) => ({
-          communityPosts: state.communityPosts.map((p) =>
-            p.id === postId
-              ? { ...p, likedByMe: !p.likedByMe, likes: p.likes + (p.likedByMe ? -1 : 1) }
-              : p
-          ),
-        })),
-      deleteCommunityPost: (postId) =>
-        set((state) => ({
-          communityPosts: state.communityPosts.filter((p) => p.id !== postId),
-        })),
     }),
     { name: "tarifim-store" }
   )

@@ -1,20 +1,41 @@
 import { useState } from "react";
-import { useAppStore } from "../store/useAppStore";
+import { useAuth } from "../hooks/useAuth";
 
-// Apple/Google are simulated sign-ins (instant, local-only) since this app
-// has no backend to run real OAuth against. Email just captures a local
-// profile — there is no password because nothing verifies it. See
-// CLAUDE.md "Mocked auth & social features" before treating this as real.
+// Real Supabase auth: Google/Apple are OAuth redirects (each needs its
+// provider enabled with real credentials in the Supabase dashboard before
+// the button will work — see CLAUDE.md "Real accounts & social backend").
+// Email is a real magic-link sign-in (no password, same UX as the old
+// mocked flow, but the link actually gets emailed and verified now).
 export default function LoginPanel() {
-  const login = useAppStore((s) => s.login);
+  const { isConfigured, signInWithGoogle, signInWithApple, signInWithEmail } = useAuth();
   const [showEmailForm, setShowEmailForm] = useState(false);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState(null);
 
-  function handleEmailSubmit(e) {
+  async function handleEmailSubmit(e) {
     e.preventDefault();
-    if (!name.trim() || !email.trim()) return;
-    login("email", { name: name.trim(), email: email.trim() });
+    if (!email.trim()) return;
+    setError(null);
+    const { error: signInError } = await signInWithEmail(email.trim());
+    if (signInError) setError(signInError.message);
+    else setSent(true);
+  }
+
+  if (!isConfigured) {
+    return (
+      <div className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-sm">
+        <span className="text-4xl">⚙️</span>
+        <div>
+          <h2 className="text-base font-bold text-[var(--color-ink)]">Hesaplar Henüz Ayarlanmadı</h2>
+          <p className="mt-1 text-xs text-[var(--color-ink-soft)]">
+            Giriş yapabilmek için bir Supabase projesi bağlanmalı. <code>.env.example</code> dosyasını{" "}
+            <code>.env</code> olarak kopyalayıp proje bilgilerini gir, sonra{" "}
+            <code>supabase/schema.sql</code>'i projenin SQL Editor'ünde çalıştır.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -29,13 +50,13 @@ export default function LoginPanel() {
 
       <div className="flex w-full flex-col gap-2.5">
         <button
-          onClick={() => login("apple", { name: "Apple Kullanıcısı", email: "kullanici@icloud.com" })}
+          onClick={signInWithApple}
           className="flex items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-sm font-semibold text-white active:scale-95"
         >
           <span></span> Apple ile Giriş Yap
         </button>
         <button
-          onClick={() => login("google", { name: "Google Kullanıcısı", email: "kullanici@gmail.com" })}
+          onClick={signInWithGoogle}
           className="flex items-center justify-center gap-2 rounded-full border border-[var(--color-cream-dark)] bg-white px-4 py-3 text-sm font-semibold text-[var(--color-ink)] active:scale-95"
         >
           <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#4285F4] text-[10px] font-bold text-white">
@@ -50,15 +71,8 @@ export default function LoginPanel() {
           ✉️ E-posta ile Giriş Yap
         </button>
 
-        {showEmailForm && (
+        {showEmailForm && !sent && (
           <form onSubmit={handleEmailSubmit} className="flex flex-col gap-2 pt-1 text-left">
-            <input
-              type="text"
-              placeholder="Ad Soyad"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="rounded-xl border border-[var(--color-cream-dark)] px-3.5 py-2.5 text-sm outline-none focus:border-[var(--color-paprika)]"
-            />
             <input
               type="email"
               placeholder="E-posta"
@@ -66,19 +80,26 @@ export default function LoginPanel() {
               onChange={(e) => setEmail(e.target.value)}
               className="rounded-xl border border-[var(--color-cream-dark)] px-3.5 py-2.5 text-sm outline-none focus:border-[var(--color-paprika)]"
             />
+            {error && <p className="text-xs text-[var(--color-tomato)]">{error}</p>}
             <button
               type="submit"
-              disabled={!name.trim() || !email.trim()}
+              disabled={!email.trim()}
               className="rounded-full bg-[var(--color-paprika)] px-4 py-2.5 text-sm font-bold text-white active:scale-95 disabled:opacity-40"
             >
-              Giriş Yap
+              Giriş Bağlantısı Gönder
             </button>
           </form>
+        )}
+
+        {sent && (
+          <p className="pt-1 text-xs text-[var(--color-olive)]">
+            📩 {email} adresine bir giriş bağlantısı gönderdik — gelen kutunu kontrol et.
+          </p>
         )}
       </div>
 
       <p className="text-[10px] text-[var(--color-ink-soft)]">
-        Bu bir demo girişidir — bilgilerin yalnızca bu cihazda saklanır.
+        Giriş yaparak hesabını oluşturmuş olursun — bilgilerin Supabase üzerinde güvenle saklanır.
       </p>
     </div>
   );

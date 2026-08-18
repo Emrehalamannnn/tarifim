@@ -4,6 +4,9 @@ import ingredients from "../data/ingredients.json";
 
 const MAX_DIMENSION = 800;
 
+// Resizes client-side same as before, but now produces a File (for upload
+// to the post-photos Supabase Storage bucket) instead of a base64 data URL
+// (which used to get stored directly inside communityPosts in localStorage).
 function resizeImageFile(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -18,7 +21,20 @@ function resizeImageFile(file) {
         canvas.height = Math.round(img.height * scale);
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        resolve(canvas.toDataURL("image/jpeg", 0.78));
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error("Image resize failed"));
+              return;
+            }
+            resolve({
+              file: new File([blob], `${Date.now()}.jpg`, { type: "image/jpeg" }),
+              previewUrl: URL.createObjectURL(blob),
+            });
+          },
+          "image/jpeg",
+          0.78
+        );
       };
       img.src = reader.result;
     };
@@ -44,11 +60,13 @@ const CATEGORY_LABELS_TR = {
 const CATEGORIES = Array.from(new Set(ingredients.map((i) => i.category)));
 
 export default function CreatePostModal({ open, onClose, onSubmit }) {
-  const [photoDataUrl, setPhotoDataUrl] = useState(null);
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreviewUrl, setPhotoPreviewUrl] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedIngredientIds, setSelectedIngredientIds] = useState([]);
   const [busy, setBusy] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const ingredientsByCategory = useMemo(() => {
     const map = new Map();
@@ -66,8 +84,9 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
     if (!file) return;
     setBusy(true);
     try {
-      const dataUrl = await resizeImageFile(file);
-      setPhotoDataUrl(dataUrl);
+      const { file: resized, previewUrl } = await resizeImageFile(file);
+      setPhotoFile(resized);
+      setPhotoPreviewUrl(previewUrl);
     } finally {
       setBusy(false);
     }
@@ -80,21 +99,27 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
   }
 
   function reset() {
-    setPhotoDataUrl(null);
+    setPhotoFile(null);
+    setPhotoPreviewUrl(null);
     setTitle("");
     setDescription("");
     setSelectedIngredientIds([]);
   }
 
-  function handleSubmit() {
-    if (!photoDataUrl || !title.trim() || selectedIngredientIds.length === 0) return;
-    onSubmit({
-      photoUrl: photoDataUrl,
-      title: title.trim(),
-      description: description.trim(),
-      ingredientIds: selectedIngredientIds,
-    });
-    reset();
+  async function handleSubmit() {
+    if (!photoFile || !title.trim() || selectedIngredientIds.length === 0) return;
+    setSubmitting(true);
+    try {
+      await onSubmit({
+        photoFile,
+        title: title.trim(),
+        description: description.trim(),
+        ingredientIds: selectedIngredientIds,
+      });
+      reset();
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   function handleClose() {
@@ -102,7 +127,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
     onClose();
   }
 
-  const canSubmit = photoDataUrl && title.trim() && selectedIngredientIds.length > 0;
+  const canSubmit = photoFile && title.trim() && selectedIngredientIds.length > 0 && !submitting;
 
   return (
     <AnimatePresence>
@@ -135,8 +160,8 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
 
             <div className="flex-1 overflow-y-auto px-5 py-4">
               <label className="flex h-36 w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-[var(--color-cream-dark)] bg-[var(--color-cream)]">
-                {photoDataUrl ? (
-                  <img src={photoDataUrl} alt="" className="h-full w-full object-cover" />
+                {photoPreviewUrl ? (
+                  <img src={photoPreviewUrl} alt="" className="h-full w-full object-cover" />
                 ) : (
                   <span className="text-sm text-[var(--color-ink-soft)]">
                     {busy ? "Yükleniyor…" : "📷 Fotoğraf Ekle"}
@@ -198,7 +223,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
                 disabled={!canSubmit}
                 className="w-full rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-95 disabled:opacity-40"
               >
-                Paylaş
+                {submitting ? "Paylaşılıyor…" : "Paylaş"}
               </button>
             </div>
           </motion.div>

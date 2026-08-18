@@ -1,9 +1,11 @@
 import { useAppStore } from "../store/useAppStore";
+import { useAuth } from "../hooks/useAuth";
+import { useFollowStats } from "../hooks/useFollows";
 import chains from "../data/chains.json";
 import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
-import { mockSocialStats, initialsFrom } from "../lib/mockSocial";
+import { initialsFrom } from "../lib/mockSocial";
 
 const DIETARY_OPTIONS = [
   { value: null, label: "Hepsi" },
@@ -21,8 +23,8 @@ const PROVIDER_LABELS = {
 };
 
 export default function ProfilePage() {
-  const user = useAppStore((s) => s.user);
-  const logout = useAppStore((s) => s.logout);
+  const { user, profile, signOut } = useAuth();
+  const { followers, following } = useFollowStats(user?.id);
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
   const city = useAppStore((s) => s.city);
@@ -43,40 +45,29 @@ export default function ProfilePage() {
       ) : (
         <section className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-sm">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-paprika)] text-xl font-bold text-white">
-            {initialsFrom(user.name) || "🧑‍🍳"}
+            {initialsFrom(profile?.name ?? user.email) || "🧑‍🍳"}
           </div>
           <div>
-            <h2 className="text-base font-bold text-[var(--color-ink)]">{user.name}</h2>
+            <h2 className="text-base font-bold text-[var(--color-ink)]">{profile?.name ?? user.email}</h2>
             <p className="text-xs text-[var(--color-ink-soft)]">{user.email}</p>
             <p className="mt-1 text-[10px] text-[var(--color-ink-soft)]">
-              {PROVIDER_LABELS[user.provider] ?? user.provider} ile giriş yapıldı
+              {PROVIDER_LABELS[profile?.provider] ?? profile?.provider} ile giriş yapıldı
             </p>
           </div>
 
           <div className="flex items-center gap-6">
-            {(() => {
-              const stats = mockSocialStats(user.name + user.email);
-              return (
-                <>
-                  <div>
-                    <p className="text-base font-bold text-[var(--color-ink)]">
-                      {stats.followers}
-                    </p>
-                    <p className="text-[11px] text-[var(--color-ink-soft)]">Takipçi</p>
-                  </div>
-                  <div>
-                    <p className="text-base font-bold text-[var(--color-ink)]">
-                      {stats.following}
-                    </p>
-                    <p className="text-[11px] text-[var(--color-ink-soft)]">Takip Edilen</p>
-                  </div>
-                </>
-              );
-            })()}
+            <div>
+              <p className="text-base font-bold text-[var(--color-ink)]">{followers}</p>
+              <p className="text-[11px] text-[var(--color-ink-soft)]">Takipçi</p>
+            </div>
+            <div>
+              <p className="text-base font-bold text-[var(--color-ink)]">{following}</p>
+              <p className="text-[11px] text-[var(--color-ink-soft)]">Takip Edilen</p>
+            </div>
           </div>
 
           <button
-            onClick={logout}
+            onClick={signOut}
             className="mt-1 rounded-full bg-[var(--color-cream)] px-4 py-2 text-xs font-semibold text-[var(--color-tomato)] active:scale-95"
           >
             Çıkış Yap

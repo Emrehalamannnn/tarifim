@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ingredients from "../data/ingredients.json";
-import { useAppStore } from "../store/useAppStore";
+import { useAuth } from "../hooks/useAuth";
+import { useCommunityFeed } from "../hooks/useCommunityFeed";
+import { useIsFollowing } from "../hooks/useFollows";
 import { initialsFrom } from "../lib/mockSocial";
 import PageFade from "../components/PageFade";
 import CreatePostModal from "../components/CreatePostModal";
@@ -10,10 +12,25 @@ const ingredientsById = new Map(ingredients.map((i) => [i.id, i]));
 
 const dateFormatter = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short" });
 
-function PostCard({ post }) {
-  const toggleLike = useAppStore((s) => s.toggleLikeCommunityPost);
-  const deletePost = useAppStore((s) => s.deleteCommunityPost);
+function FollowButton({ currentUserId, authorId }) {
+  const { isFollowing, loading, toggleFollow } = useIsFollowing(currentUserId, authorId);
+  if (!currentUserId || currentUserId === authorId || loading) return null;
 
+  return (
+    <button
+      onClick={toggleFollow}
+      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold active:scale-95 ${
+        isFollowing
+          ? "bg-[var(--color-cream)] text-[var(--color-ink-soft)]"
+          : "bg-[var(--color-olive)] text-white"
+      }`}
+    >
+      {isFollowing ? "Takip Ediliyor" : "Takip Et"}
+    </button>
+  );
+}
+
+function PostCard({ post, currentUserId, onToggleLike, onDelete }) {
   return (
     <li className="overflow-hidden rounded-2xl bg-white shadow-sm">
       <div className="flex items-center gap-2.5 px-4 pt-3.5">
@@ -26,9 +43,10 @@ function PostCard({ post }) {
             {dateFormatter.format(new Date(post.createdAt))}
           </p>
         </div>
+        <FollowButton currentUserId={currentUserId} authorId={post.authorId} />
         {post.ownedByMe && (
           <button
-            onClick={() => deletePost(post.id)}
+            onClick={() => onDelete(post.id)}
             aria-label="Paylaşımı sil"
             className="text-xs text-[var(--color-tomato)]"
           >
@@ -57,8 +75,9 @@ function PostCard({ post }) {
         </div>
 
         <button
-          onClick={() => toggleLike(post.id)}
-          className="mt-1 flex w-fit items-center gap-1.5 text-sm active:scale-95"
+          onClick={() => onToggleLike(post.id, post.likedByMe)}
+          disabled={!currentUserId}
+          className="mt-1 flex w-fit items-center gap-1.5 text-sm active:scale-95 disabled:opacity-60"
         >
           <span className={post.likedByMe ? "text-[var(--color-tomato)]" : "text-[var(--color-ink-soft)]"}>
             {post.likedByMe ? "❤️" : "🤍"}
@@ -71,21 +90,12 @@ function PostCard({ post }) {
 }
 
 export default function SocialPage() {
-  const user = useAppStore((s) => s.user);
-  const posts = useAppStore((s) => s.communityPosts);
-  const addCommunityPost = useAppStore((s) => s.addCommunityPost);
+  const { isConfigured, user } = useAuth();
+  const { posts, addPost, toggleLike, deletePost } = useCommunityFeed(user?.id);
   const [createOpen, setCreateOpen] = useState(false);
 
-  function handleSubmit(post) {
-    addCommunityPost({
-      id: `post_${Date.now()}`,
-      author: user.name,
-      createdAt: new Date().toISOString(),
-      likes: 0,
-      likedByMe: false,
-      ownedByMe: true,
-      ...post,
-    });
+  async function handleSubmit(post) {
+    await addPost(post);
     setCreateOpen(false);
   }
 
@@ -115,9 +125,21 @@ export default function SocialPage() {
         )}
       </header>
 
+      {!isConfigured && (
+        <p className="mx-4 mb-2 rounded-xl bg-[var(--color-cream)] px-3.5 py-2.5 text-xs text-[var(--color-ink-soft)]">
+          ⚙️ Topluluk akışı Supabase'e bağlı değil — bkz. Profil sekmesi kurulum talimatları için.
+        </p>
+      )}
+
       <ul className="flex flex-col gap-3 px-4 pb-4">
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <PostCard
+            key={post.id}
+            post={post}
+            currentUserId={user?.id}
+            onToggleLike={toggleLike}
+            onDelete={deletePost}
+          />
         ))}
       </ul>
 
