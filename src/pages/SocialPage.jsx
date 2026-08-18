@@ -1,98 +1,30 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import ingredients from "../data/ingredients.json";
 import { useAuth } from "../hooks/useAuth";
 import { useCommunityFeed } from "../hooks/useCommunityFeed";
-import { useIsFollowing } from "../hooks/useFollows";
-import { initialsFrom } from "../lib/mockSocial";
+import { useFollowingIds } from "../hooks/useFollowingIds";
 import PageFade from "../components/PageFade";
+import PostCard from "../components/PostCard";
 import CreatePostModal from "../components/CreatePostModal";
+import CommentsModal from "../components/CommentsModal";
 
-const ingredientsById = new Map(ingredients.map((i) => [i.id, i]));
-
-const dateFormatter = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short" });
-
-function FollowButton({ currentUserId, authorId }) {
-  const { isFollowing, loading, toggleFollow } = useIsFollowing(currentUserId, authorId);
-  if (!currentUserId || currentUserId === authorId || loading) return null;
-
-  return (
-    <button
-      onClick={toggleFollow}
-      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold active:scale-95 ${
-        isFollowing
-          ? "bg-[var(--color-cream)] text-[var(--color-ink-soft)]"
-          : "bg-[var(--color-olive)] text-white"
-      }`}
-    >
-      {isFollowing ? "Takip Ediliyor" : "Takip Et"}
-    </button>
-  );
-}
-
-function PostCard({ post, currentUserId, onToggleLike, onDelete }) {
-  return (
-    <li className="overflow-hidden rounded-2xl bg-white shadow-sm">
-      <div className="flex items-center gap-2.5 px-4 pt-3.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-olive)] text-xs font-bold text-white">
-          {initialsFrom(post.author) || "🧑‍🍳"}
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-[var(--color-ink)]">{post.author}</p>
-          <p className="text-[11px] text-[var(--color-ink-soft)]">
-            {dateFormatter.format(new Date(post.createdAt))}
-          </p>
-        </div>
-        <FollowButton currentUserId={currentUserId} authorId={post.authorId} />
-        {post.ownedByMe && (
-          <button
-            onClick={() => onDelete(post.id)}
-            aria-label="Paylaşımı sil"
-            className="text-xs text-[var(--color-tomato)]"
-          >
-            Sil
-          </button>
-        )}
-      </div>
-
-      <img src={post.photoUrl} alt={post.title} className="mt-3 h-56 w-full object-cover" />
-
-      <div className="flex flex-col gap-2 px-4 py-3.5">
-        <h3 className="text-sm font-bold text-[var(--color-ink)]">{post.title}</h3>
-        {post.description && (
-          <p className="text-sm text-[var(--color-ink-soft)]">{post.description}</p>
-        )}
-
-        <div className="flex flex-wrap gap-1.5">
-          {post.ingredientIds.map((id) => (
-            <span
-              key={id}
-              className="rounded-full bg-[var(--color-cream)] px-2 py-0.5 text-[11px] text-[var(--color-ink-soft)]"
-            >
-              {ingredientsById.get(id)?.name ?? id}
-            </span>
-          ))}
-        </div>
-
-        <button
-          onClick={() => onToggleLike(post.id, post.likedByMe)}
-          disabled={!currentUserId}
-          className="mt-1 flex w-fit items-center gap-1.5 text-sm active:scale-95 disabled:opacity-60"
-        >
-          <span className={post.likedByMe ? "text-[var(--color-tomato)]" : "text-[var(--color-ink-soft)]"}>
-            {post.likedByMe ? "❤️" : "🤍"}
-          </span>
-          <span className="text-[var(--color-ink-soft)]">{post.likes}</span>
-        </button>
-      </div>
-    </li>
-  );
-}
+const FILTERS = [
+  { value: "all", label: "Tümü" },
+  { value: "following", label: "Takip Ettiklerim" },
+];
 
 export default function SocialPage() {
   const { isConfigured, user } = useAuth();
-  const { posts, addPost, toggleLike, deletePost } = useCommunityFeed(user?.id);
+  const { posts, addPost, toggleLike, toggleSave, deletePost } = useCommunityFeed(user?.id);
+  const { followingIds } = useFollowingIds(user?.id);
   const [createOpen, setCreateOpen] = useState(false);
+  const [commentsPostId, setCommentsPostId] = useState(null);
+  const [filter, setFilter] = useState("all");
+
+  const visiblePosts = useMemo(() => {
+    if (filter !== "following") return posts;
+    return posts.filter((p) => followingIds.has(p.authorId));
+  }, [posts, filter, followingIds]);
 
   async function handleSubmit(post) {
     await addPost(post);
@@ -131,13 +63,37 @@ export default function SocialPage() {
         </p>
       )}
 
+      <div className="flex gap-2 px-4 pb-3">
+        {FILTERS.map((f) => (
+          <button
+            key={f.value}
+            onClick={() => setFilter(f.value)}
+            className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+              filter === f.value
+                ? "bg-[var(--color-ink)] text-white"
+                : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+            }`}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      {filter === "following" && visiblePosts.length === 0 && (
+        <p className="mx-4 mb-2 rounded-xl bg-[var(--color-cream)] px-3.5 py-2.5 text-xs text-[var(--color-ink-soft)]">
+          Henüz kimseyi takip etmiyorsun. Paylaşımlardaki "Takip Et" butonuyla başlayabilirsin.
+        </p>
+      )}
+
       <ul className="flex flex-col gap-3 px-4 pb-4">
-        {posts.map((post) => (
+        {visiblePosts.map((post) => (
           <PostCard
             key={post.id}
             post={post}
             currentUserId={user?.id}
             onToggleLike={toggleLike}
+            onToggleSave={toggleSave}
+            onOpenComments={setCommentsPostId}
             onDelete={deletePost}
           />
         ))}
@@ -150,6 +106,13 @@ export default function SocialPage() {
           onSubmit={handleSubmit}
         />
       )}
+
+      <CommentsModal
+        postId={commentsPostId}
+        currentUserId={user?.id}
+        open={commentsPostId !== null}
+        onClose={() => setCommentsPostId(null)}
+      />
     </PageFade>
   );
 }

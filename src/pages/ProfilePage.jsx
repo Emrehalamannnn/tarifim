@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import { useAppStore } from "../store/useAppStore";
 import { useAuth } from "../hooks/useAuth";
 import { useFollowStats } from "../hooks/useFollows";
+import { useSavedPosts } from "../hooks/useSavedPosts";
 import chains from "../data/chains.json";
 import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
+import PremiumPaywall from "../components/PremiumPaywall";
 import { initialsFrom } from "../lib/mockSocial";
 
 const DIETARY_OPTIONS = [
@@ -25,6 +28,7 @@ const PROVIDER_LABELS = {
 export default function ProfilePage() {
   const { user, profile, signOut } = useAuth();
   const { followers, following } = useFollowStats(user?.id);
+  const { posts: savedPosts } = useSavedPosts(user?.id);
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
   const city = useAppStore((s) => s.city);
@@ -72,6 +76,40 @@ export default function ProfilePage() {
           >
             Çıkış Yap
           </button>
+        </section>
+      )}
+
+      {user && (
+        <section>
+          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+            Premium
+          </h2>
+          <PremiumPaywall userId={user.id} compact />
+        </section>
+      )}
+
+      {user && (
+        <section>
+          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+            Kaydedilenler
+          </h2>
+          {savedPosts.length === 0 ? (
+            <p className="text-xs text-[var(--color-ink-soft)]">
+              Henüz kaydettiğin bir paylaşım yok — Topluluk sekmesinde 🔖 ile kaydedebilirsin.
+            </p>
+          ) : (
+            <div className="grid grid-cols-3 gap-2">
+              {savedPosts.map((post) => (
+                <Link
+                  key={post.id}
+                  to={`/post/${post.id}`}
+                  className="aspect-square overflow-hidden rounded-xl bg-[var(--color-cream)]"
+                >
+                  <img src={post.photoUrl} alt={post.title} className="h-full w-full object-cover" />
+                </Link>
+              ))}
+            </div>
+          )}
         </section>
       )}
 

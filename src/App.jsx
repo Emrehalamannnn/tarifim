@@ -6,6 +6,8 @@ import RecipeDetailPage from "./pages/RecipeDetailPage";
 import ProfilePage from "./pages/ProfilePage";
 import OnboardingPage from "./pages/OnboardingPage";
 import SocialPage from "./pages/SocialPage";
+import PostDetailPage from "./pages/PostDetailPage";
+import CoachPage from "./pages/CoachPage";
 import { useAppStore } from "./store/useAppStore";
 
 function RequireOnboarding({ children }) {
@@ -52,6 +54,22 @@ export default function App() {
             element={
               <RequireOnboarding>
                 <SocialPage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
+            path="/post/:id"
+            element={
+              <RequireOnboarding>
+                <PostDetailPage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
+            path="/coach"
+            element={
+              <RequireOnboarding>
+                <CoachPage />
               </RequireOnboarding>
             }
           />

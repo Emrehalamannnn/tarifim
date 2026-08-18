@@ -4,6 +4,7 @@ const TABS = [
   { to: "/", label: "Keşfet", emoji: "🔥", end: true },
   { to: "/cart", label: "Sepetim", emoji: "🛒" },
   { to: "/social", label: "Topluluk", emoji: "📸" },
+  { to: "/coach", label: "Koç", emoji: "🩺" },
   { to: "/profile", label: "Profil", emoji: "🧑‍🍳" },
 ];
 
