@@ -1,0 +1,112 @@
+[
+  {
+    "ingredient_id": "ing_red_lentils",
+    "calories_per_100g": 315,
+    "calorie_source": "migros_product_page",
+    "migros": {
+      "product_name": "Migros Kırmızı Mercimek 1 Kg",
+      "product_url": "https://www.migros.com.tr/migros-kirmizi-mercimek-1000-g-p-1053a2",
+      "package_size": 1000,
+      "package_unit": "g"
+    }
+  },
+  {
+    "ingredient_id": "ing_rice",
+    "calories_per_100g": 345,
+    "calorie_source": "migros_product_page",
+    "migros": {
+      "product_name": "Migros Osmancık Pirinç 2,5 Kg",
+      "product_url": "https://www.migros.com.tr/migros-osmancik-pirinc-2500-g-p-f6dee",
+      "package_size": 2500,
+      "package_unit": "g"
+    }
+  },
+  {
+    "ingredient_id": "ing_olive_oil",
+    "calories_per_100g": 900,
+    "calorie_source": "migros_product_page",
+    "migros": {
+      "product_name": "Komili Sızma Zeytinyağı 5 L",
+      "product_url": "https://www.migros.com.tr/komili-sizma-zyagi-5-lt-p-3f121c",
+      "package_size": 5000,
+      "package_unit": "ml"
+    }
+  },
+  {
+    "ingredient_id": "ing_egg",
+    "calories_per_100g": 130,
+    "calorie_source": "migros_product_page",
+    "migros": {
+      "product_name": "Keskinoğlu L Büyük Boy Yumurta 30'lu (63-72 G)",
+      "product_url": "https://www.migros.com.tr/keskinoglu-l-buyuk-boy-yumurta-30lu-63-72-g-p-1312d32",
+      "package_size": 30,
+      "package_unit": "piece"
+    }
+  },
+  {
+    "ingredient_id": "ing_milk",
+    "calories_per_100g": 57,
+    "calorie_source": "migros_product_page",
+    "migros": {
+      "product_name": "Migros Uht Yağlı Süt 1 L",
+      "product_url": "https://www.migros.com.tr/migros-uht-yagli-sut-1-l-p-a805ba",
+      "package_size": 1000,
+      "package_unit": "ml"
+    }
+  },
+  {
+    "ingredient_id": "ing_yogurt",
+    "calories_per_100g": 105,
+    "calorie_source": "migros_product_page",
+    "migros": {
+      "product_name": "Migros Süzme Yoğurt 900 G",
+      "product_url": "https://www.migros.com.tr/migros-suzme-yogurt-900-g-p-bec38e",
+      "package_size": 900,
+      "package_unit": "g"
+    }
+  },
+  {
+    "ingredient_id": "ing_ground_beef",
+    "calories_per_100g": 250,
+    "calorie_source": "general_reference",
+    "migros": {
+      "product_name": "Dana Kıymalık Kg",
+      "product_url": "https://www.migros.com.tr/dana-kiymalik-kg-p-17d9f99",
+      "package_size": 1000,
+      "package_unit": "g"
+    }
+  },
+  {
+    "ingredient_id": "ing_chicken_breast",
+    "calories_per_100g": 120,
+    "calorie_source": "general_reference",
+    "migros": {
+      "product_name": "Banvit Piliç Bonfile Kg",
+      "product_url": "https://www.migros.com.tr/banvit-pilic-bonfile-kg-p-2be844b",
+      "package_size": 1000,
+      "package_unit": "g"
+    }
+  },
+  {
+    "ingredient_id": "ing_tomato",
+    "calories_per_100g": 18,
+    "calorie_source": "general_reference",
+    "migros": {
+      "product_name": "Domates Kg",
+      "product_url": "https://www.migros.com.tr/domates-kg-p-1ac7780",
+      "package_size": 1000,
+      "package_unit": "g"
+    }
+  },
+  {
+    "ingredient_id": "ing_onion",
+    "calories_per_100g": 40,
+    "calorie_source": "general_reference",
+    "migros": {
+      "product_name": "Migros Seçilmiş Soğan Kuru 2 Kg",
+      "product_url": "https://www.migros.com.tr/migros-secilmis-sogan-kuru-2-kg-p-1b1b986",
+      "package_size": 2000,
+      "package_unit": "g"
+    }
+  }
+]

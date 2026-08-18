@@ -1,0 +1,721 @@
+[
+  {
+    "id": "ing_red_lentils",
+    "name": "Kırmızı Mercimek",
+    "name_en": "Red Lentils",
+    "base_unit": "kg",
+    "category": "legumes",
+    "calories_per_100g": 315
+  },
+  {
+    "id": "ing_green_lentils",
+    "name": "Yeşil Mercimek",
+    "name_en": "Green Lentils",
+    "base_unit": "kg",
+    "category": "legumes",
+    "calories_per_100g": 320
+  },
+  {
+    "id": "ing_chickpeas",
+    "name": "Nohut",
+    "name_en": "Chickpeas",
+    "base_unit": "kg",
+    "category": "legumes",
+    "calories_per_100g": 364
+  },
+  {
+    "id": "ing_white_beans",
+    "name": "Kuru Fasulye",
+    "name_en": "White Beans",
+    "base_unit": "kg",
+    "category": "legumes",
+    "calories_per_100g": 333
+  },
+  {
+    "id": "ing_bulgur",
+    "name": "Bulgur",
+    "name_en": "Bulgur",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 342
+  },
+  {
+    "id": "ing_rice",
+    "name": "Pirinç",
+    "name_en": "Rice",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 345
+  },
+  {
+    "id": "ing_flour",
+    "name": "Un",
+    "name_en": "Flour",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 364
+  },
+  {
+    "id": "ing_pasta",
+    "name": "Makarna",
+    "name_en": "Pasta",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 371
+  },
+  {
+    "id": "ing_semolina",
+    "name": "İrmik",
+    "name_en": "Semolina",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 360
+  },
+  {
+    "id": "ing_phyllo_dough",
+    "name": "Yufka",
+    "name_en": "Phyllo Dough",
+    "base_unit": "kg",
+    "category": "bakery",
+    "calories_per_100g": 280
+  },
+  {
+    "id": "ing_onion",
+    "name": "Soğan",
+    "name_en": "Onion",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 150,
+    "calories_per_100g": 40
+  },
+  {
+    "id": "ing_carrot",
+    "name": "Havuç",
+    "name_en": "Carrot",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 80,
+    "calories_per_100g": 41
+  },
+  {
+    "id": "ing_potato",
+    "name": "Patates",
+    "name_en": "Potato",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 150,
+    "calories_per_100g": 77
+  },
+  {
+    "id": "ing_tomato",
+    "name": "Domates",
+    "name_en": "Tomato",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 120,
+    "calories_per_100g": 18
+  },
+  {
+    "id": "ing_green_pepper",
+    "name": "Yeşil Biber",
+    "name_en": "Green Pepper",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 100,
+    "calories_per_100g": 20
+  },
+  {
+    "id": "ing_bell_pepper_red",
+    "name": "Kırmızı Biber",
+    "name_en": "Red Bell Pepper",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 130,
+    "calories_per_100g": 31
+  },
+  {
+    "id": "ing_garlic",
+    "name": "Sarımsak",
+    "name_en": "Garlic",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 5,
+    "calories_per_100g": 149
+  },
+  {
+    "id": "ing_eggplant",
+    "name": "Patlıcan",
+    "name_en": "Eggplant",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 250,
+    "calories_per_100g": 25
+  },
+  {
+    "id": "ing_zucchini",
+    "name": "Kabak",
+    "name_en": "Zucchini",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 200,
+    "calories_per_100g": 17
+  },
+  {
+    "id": "ing_spinach",
+    "name": "Ispanak",
+    "name_en": "Spinach",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "calories_per_100g": 23
+  },
+  {
+    "id": "ing_cucumber",
+    "name": "Salatalık",
+    "name_en": "Cucumber",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 200,
+    "calories_per_100g": 15
+  },
+  {
+    "id": "ing_lettuce",
+    "name": "Marul",
+    "name_en": "Lettuce",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 300,
+    "calories_per_100g": 15
+  },
+  {
+    "id": "ing_parsley",
+    "name": "Maydanoz",
+    "name_en": "Parsley",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 50,
+    "calories_per_100g": 36
+  },
+  {
+    "id": "ing_mint",
+    "name": "Nane",
+    "name_en": "Mint",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 30,
+    "calories_per_100g": 44
+  },
+  {
+    "id": "ing_dill",
+    "name": "Dereotu",
+    "name_en": "Dill",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 30,
+    "calories_per_100g": 43
+  },
+  {
+    "id": "ing_lemon",
+    "name": "Limon",
+    "name_en": "Lemon",
+    "base_unit": "kg",
+    "category": "fruits",
+    "avg_piece_weight_g": 100,
+    "calories_per_100g": 29
+  },
+  {
+    "id": "ing_apple",
+    "name": "Elma",
+    "name_en": "Apple",
+    "base_unit": "kg",
+    "category": "fruits",
+    "avg_piece_weight_g": 150,
+    "calories_per_100g": 52
+  },
+  {
+    "id": "ing_banana",
+    "name": "Muz",
+    "name_en": "Banana",
+    "base_unit": "kg",
+    "category": "fruits",
+    "avg_piece_weight_g": 120,
+    "calories_per_100g": 89
+  },
+  {
+    "id": "ing_walnuts",
+    "name": "Ceviz",
+    "name_en": "Walnuts",
+    "base_unit": "kg",
+    "category": "nuts",
+    "calories_per_100g": 654
+  },
+  {
+    "id": "ing_pine_nuts",
+    "name": "Çam Fıstığı",
+    "name_en": "Pine Nuts",
+    "base_unit": "kg",
+    "category": "nuts",
+    "calories_per_100g": 673
+  },
+  {
+    "id": "ing_butter",
+    "name": "Tereyağı",
+    "name_en": "Butter",
+    "base_unit": "kg",
+    "category": "dairy",
+    "calories_per_100g": 717
+  },
+  {
+    "id": "ing_olive_oil",
+    "name": "Zeytinyağı",
+    "name_en": "Olive Oil",
+    "base_unit": "l",
+    "category": "oils",
+    "calories_per_100g": 900
+  },
+  {
+    "id": "ing_sunflower_oil",
+    "name": "Ayçiçek Yağı",
+    "name_en": "Sunflower Oil",
+    "base_unit": "l",
+    "category": "oils",
+    "calories_per_100g": 884
+  },
+  {
+    "id": "ing_salt",
+    "name": "Tuz",
+    "name_en": "Salt",
+    "base_unit": "kg",
+    "category": "spices",
+    "calories_per_100g": 0
+  },
+  {
+    "id": "ing_black_pepper",
+    "name": "Karabiber",
+    "name_en": "Black Pepper",
+    "base_unit": "kg",
+    "category": "spices",
+    "calories_per_100g": 251
+  },
+  {
+    "id": "ing_red_pepper_flakes",
+    "name": "Pul Biber",
+    "name_en": "Red Pepper Flakes",
+    "base_unit": "kg",
+    "category": "spices",
+    "calories_per_100g": 282
+  },
+  {
+    "id": "ing_cumin",
+    "name": "Kimyon",
+    "name_en": "Cumin",
+    "base_unit": "kg",
+    "category": "spices",
+    "calories_per_100g": 375
+  },
+  {
+    "id": "ing_cinnamon",
+    "name": "Tarçın",
+    "name_en": "Cinnamon",
+    "base_unit": "kg",
+    "category": "spices",
+    "calories_per_100g": 247
+  },
+  {
+    "id": "ing_paprika",
+    "name": "Kırmızı Toz Biber",
+    "name_en": "Paprika",
+    "base_unit": "kg",
+    "category": "spices",
+    "calories_per_100g": 282
+  },
+  {
+    "id": "ing_sugar",
+    "name": "Şeker",
+    "name_en": "Sugar",
+    "base_unit": "kg",
+    "category": "baking",
+    "calories_per_100g": 387
+  },
+  {
+    "id": "ing_vanilla",
+    "name": "Vanilya",
+    "name_en": "Vanilla Sachet",
+    "base_unit": "piece",
+    "category": "baking",
+    "avg_piece_weight_g": 5,
+    "calories_per_100g": 288
+  },
+  {
+    "id": "ing_baking_powder",
+    "name": "Kabartma Tozu",
+    "name_en": "Baking Powder",
+    "base_unit": "kg",
+    "category": "baking",
+    "calories_per_100g": 53
+  },
+  {
+    "id": "ing_yeast",
+    "name": "Maya",
+    "name_en": "Yeast",
+    "base_unit": "kg",
+    "category": "baking",
+    "calories_per_100g": 105
+  },
+  {
+    "id": "ing_honey",
+    "name": "Bal",
+    "name_en": "Honey",
+    "base_unit": "kg",
+    "category": "condiments",
+    "calories_per_100g": 304
+  },
+  {
+    "id": "ing_pekmez",
+    "name": "Pekmez",
+    "name_en": "Grape Molasses",
+    "base_unit": "kg",
+    "category": "condiments",
+    "calories_per_100g": 290
+  },
+  {
+    "id": "ing_tahini",
+    "name": "Tahin",
+    "name_en": "Tahini",
+    "base_unit": "kg",
+    "category": "condiments",
+    "calories_per_100g": 595
+  },
+  {
+    "id": "ing_tomato_paste",
+    "name": "Domates Salçası",
+    "name_en": "Tomato Paste",
+    "base_unit": "kg",
+    "category": "condiments",
+    "calories_per_100g": 82
+  },
+  {
+    "id": "ing_egg",
+    "name": "Yumurta",
+    "name_en": "Egg",
+    "base_unit": "piece",
+    "category": "dairy",
+    "avg_piece_weight_g": 55,
+    "calories_per_100g": 130
+  },
+  {
+    "id": "ing_milk",
+    "name": "Süt",
+    "name_en": "Milk",
+    "base_unit": "l",
+    "category": "dairy",
+    "calories_per_100g": 57
+  },
+  {
+    "id": "ing_yogurt",
+    "name": "Yoğurt",
+    "name_en": "Yogurt",
+    "base_unit": "kg",
+    "category": "dairy",
+    "calories_per_100g": 61
+  },
+  {
+    "id": "ing_white_cheese",
+    "name": "Beyaz Peynir",
+    "name_en": "White Cheese",
+    "base_unit": "kg",
+    "category": "dairy",
+    "calories_per_100g": 264
+  },
+  {
+    "id": "ing_kasar_cheese",
+    "name": "Kaşar Peyniri",
+    "name_en": "Kashar Cheese",
+    "base_unit": "kg",
+    "category": "dairy",
+    "calories_per_100g": 350
+  },
+  {
+    "id": "ing_ground_beef",
+    "name": "Kıyma",
+    "name_en": "Ground Beef",
+    "base_unit": "kg",
+    "category": "meat",
+    "calories_per_100g": 250
+  },
+  {
+    "id": "ing_chicken_breast",
+    "name": "Tavuk Göğsü",
+    "name_en": "Chicken Breast",
+    "base_unit": "kg",
+    "category": "meat",
+    "calories_per_100g": 120
+  },
+  {
+    "id": "ing_chicken_thigh",
+    "name": "Tavuk But",
+    "name_en": "Chicken Thigh",
+    "base_unit": "kg",
+    "category": "meat",
+    "calories_per_100g": 177
+  },
+  {
+    "id": "ing_lamb_cubes",
+    "name": "Kuşbaşı Kuzu Eti",
+    "name_en": "Lamb Cubes",
+    "base_unit": "kg",
+    "category": "meat",
+    "calories_per_100g": 294
+  },
+  {
+    "id": "ing_sucuk",
+    "name": "Sucuk",
+    "name_en": "Turkish Sausage",
+    "base_unit": "kg",
+    "category": "meat",
+    "calories_per_100g": 415
+  },
+  {
+    "id": "ing_tarhana",
+    "name": "Tarhana",
+    "name_en": "Tarhana",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 350
+  },
+  {
+    "id": "ing_broccoli",
+    "name": "Brokoli",
+    "name_en": "Broccoli",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 400,
+    "calories_per_100g": 34
+  },
+  {
+    "id": "ing_pumpkin",
+    "name": "Bal Kabağı",
+    "name_en": "Pumpkin",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "calories_per_100g": 26
+  },
+  {
+    "id": "ing_mushroom",
+    "name": "Mantar",
+    "name_en": "Mushroom",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "calories_per_100g": 22
+  },
+  {
+    "id": "ing_vermicelli",
+    "name": "Şehriye",
+    "name_en": "Vermicelli",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 371
+  },
+  {
+    "id": "ing_purslane",
+    "name": "Semizotu",
+    "name_en": "Purslane",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "calories_per_100g": 20
+  },
+  {
+    "id": "ing_arugula",
+    "name": "Roka",
+    "name_en": "Arugula",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "calories_per_100g": 25
+  },
+  {
+    "id": "ing_fish_fillet",
+    "name": "Balık Fileto",
+    "name_en": "Fish Fillet",
+    "base_unit": "kg",
+    "category": "seafood",
+    "calories_per_100g": 105
+  },
+  {
+    "id": "ing_shrimp",
+    "name": "Karides",
+    "name_en": "Shrimp",
+    "base_unit": "kg",
+    "category": "seafood",
+    "calories_per_100g": 99
+  },
+  {
+    "id": "ing_okra",
+    "name": "Bamya",
+    "name_en": "Okra",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "calories_per_100g": 33
+  },
+  {
+    "id": "ing_grape_leaves",
+    "name": "Asma Yaprağı",
+    "name_en": "Grape Leaves",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "calories_per_100g": 93
+  },
+  {
+    "id": "ing_beef_cubes",
+    "name": "Dana Kuşbaşı",
+    "name_en": "Beef Cubes",
+    "base_unit": "kg",
+    "category": "meat",
+    "calories_per_100g": 250
+  },
+  {
+    "id": "ing_bread",
+    "name": "Ekmek",
+    "name_en": "Bread",
+    "base_unit": "kg",
+    "category": "bakery",
+    "calories_per_100g": 265
+  },
+  {
+    "id": "ing_burger_bun",
+    "name": "Hamburger Ekmeği",
+    "name_en": "Burger Bun",
+    "base_unit": "piece",
+    "category": "bakery",
+    "avg_piece_weight_g": 80,
+    "calories_per_100g": 280
+  },
+  {
+    "id": "ing_cabbage",
+    "name": "Lahana",
+    "name_en": "Cabbage",
+    "base_unit": "kg",
+    "category": "vegetables",
+    "avg_piece_weight_g": 1200,
+    "calories_per_100g": 25
+  },
+  {
+    "id": "ing_mozzarella",
+    "name": "Mozzarella Peyniri",
+    "name_en": "Mozzarella",
+    "base_unit": "kg",
+    "category": "dairy",
+    "calories_per_100g": 280
+  },
+  {
+    "id": "ing_ketchup",
+    "name": "Ketçap",
+    "name_en": "Ketchup",
+    "base_unit": "kg",
+    "category": "condiments",
+    "calories_per_100g": 112
+  },
+  {
+    "id": "ing_mayonnaise",
+    "name": "Mayonez",
+    "name_en": "Mayonnaise",
+    "base_unit": "kg",
+    "category": "condiments",
+    "calories_per_100g": 680
+  },
+  {
+    "id": "ing_pepper_paste",
+    "name": "Biber Salçası",
+    "name_en": "Pepper Paste",
+    "base_unit": "kg",
+    "category": "condiments",
+    "calories_per_100g": 85
+  },
+  {
+    "id": "ing_oats",
+    "name": "Yulaf",
+    "name_en": "Oats",
+    "base_unit": "kg",
+    "category": "grains",
+    "calories_per_100g": 389
+  },
+  {
+    "id": "ing_coffee",
+    "name": "Türk Kahvesi",
+    "name_en": "Turkish Coffee",
+    "base_unit": "kg",
+    "category": "beverages",
+    "calories_per_100g": 2
+  },
+  {
+    "id": "ing_salep",
+    "name": "Salep Tozu",
+    "name_en": "Salep Powder",
+    "base_unit": "kg",
+    "category": "beverages",
+    "calories_per_100g": 317
+  },
+  {
+    "id": "ing_turnip_juice",
+    "name": "Şalgam",
+    "name_en": "Turnip Juice",
+    "base_unit": "l",
+    "category": "beverages",
+    "calories_per_100g": 20
+  },
+  {
+    "id": "ing_cocoa_powder",
+    "name": "Kakao",
+    "name_en": "Cocoa Powder",
+    "base_unit": "kg",
+    "category": "baking",
+    "calories_per_100g": 228
+  },
+  {
+    "id": "ing_dark_chocolate",
+    "name": "Bitter Çikolata",
+    "name_en": "Dark Chocolate",
+    "base_unit": "kg",
+    "category": "baking",
+    "calories_per_100g": 546
+  },
+  {
+    "id": "ing_cream",
+    "name": "Krema",
+    "name_en": "Cream",
+    "base_unit": "l",
+    "category": "dairy",
+    "calories_per_100g": 340
+  },
+  {
+    "id": "ing_cream_cheese",
+    "name": "Krem Peynir",
+    "name_en": "Cream Cheese",
+    "base_unit": "kg",
+    "category": "dairy",
+    "calories_per_100g": 342
+  },
+  {
+    "id": "ing_digestive_biscuit",
+    "name": "Bisküvi",
+    "name_en": "Digestive Biscuit",
+    "base_unit": "kg",
+    "category": "baking",
+    "calories_per_100g": 471
+  },
+  {
+    "id": "ing_orange",
+    "name": "Portakal",
+    "name_en": "Orange",
+    "base_unit": "kg",
+    "category": "fruits",
+    "avg_piece_weight_g": 200,
+    "calories_per_100g": 47
+  },
+  {
+    "id": "ing_strawberry",
+    "name": "Çilek",
+    "name_en": "Strawberry",
+    "base_unit": "kg",
+    "category": "fruits",
+    "calories_per_100g": 32
+  }
+]

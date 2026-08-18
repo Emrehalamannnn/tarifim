@@ -1,0 +1,1268 @@
+[
+  {
+    "id": "recipe_001",
+    "name": "Mercimek Çorbası",
+    "name_en": "Red Lentil Soup",
+    "description": "Kremamsı ve iç ısıtan klasik Türk kırmızı mercimek çorbası.",
+    "image_url": "/images/recipes/recipe_001.webp",
+    "emoji": "🍲",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "soup",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_red_lentils",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_carrot",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_cumin",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Mercimekleri yıkayın ve sebzeleri doğrayın.",
+      "Soğan ve havucu tereyağında yumuşayana kadar kavurun, salçayı ekleyip karıştırın.",
+      "Mercimek, patates ve suyu ekleyip yumuşayana kadar 20 dakika pişirin.",
+      "Pürüzsüz olana kadar blenderdan geçirin, kimyonla tatlandırıp limonla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_002",
+    "name": "Ezogelin Çorbası",
+    "name_en": "Ezogelin Soup",
+    "description": "Nane ve pul biberle tamamlanan baharatlı kırmızı mercimek ve bulgur çorbası.",
+    "image_url": "/images/recipes/recipe_002.webp",
+    "emoji": "🥣",
+    "cook_time_minutes": 40,
+    "servings": 6,
+    "tags": [
+      "vegetarian",
+      "soup",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_red_lentils",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_bulgur",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_mint",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Doğranmış soğanı tereyağında pembeleşene kadar kavurun.",
+      "Salçayı ekleyin, ardından mercimek, bulgur ve pirinci suyla birlikte ekleyin.",
+      "Her şey yumuşayana kadar ara ara karıştırarak 30 dakika pişirin.",
+      "Servis etmeden önce eritilmiş tereyağı, nane ve pul biberle süsleyin."
+    ]
+  },
+  {
+    "id": "recipe_003",
+    "name": "Yayla Çorbası",
+    "name_en": "Yogurt Rice Soup",
+    "description": "Taze naneyle tatlandırılmış, pirinçli ipeksi yoğurt çorbası.",
+    "image_url": "/images/recipes/recipe_003.webp",
+    "emoji": "🍜",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "soup"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_mint",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Pirinci suda yumuşayana kadar haşlayın.",
+      "Yoğurt, un ve yumurtayı çırpın, sıcak suyla temperleyin.",
+      "Yoğurt karışımını tencereye ekleyip kaynatmadan hafifçe pişirin.",
+      "Üzerine nane ile eritilmiş tereyağı gezdirerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_004",
+    "name": "Karnıyarık",
+    "name_en": "Stuffed Eggplant with Ground Beef",
+    "description": "Lezzetli kıymalı domates iç harcıyla doldurulmuş yarılmış patlıcanlar.",
+    "image_url": "/images/recipes/recipe_004.webp",
+    "emoji": "🍆",
+    "cook_time_minutes": 60,
+    "servings": 4,
+    "tags": [
+      "main"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_eggplant",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Patlıcanları yumuşayana kadar kızartın, sonra uzunlamasına yarın.",
+      "Kıymayı soğan, biber ve sarımsakla kahverengileşene kadar pişirin.",
+      "Domates ve salçayı ekleyip koyu bir iç harç oluşana kadar pişirin.",
+      "Patlıcanları doldurun, üzerine domates dilimi koyup fırınlayın."
+    ]
+  },
+  {
+    "id": "recipe_005",
+    "name": "Kuru Fasulye",
+    "name_en": "White Bean Stew",
+    "description": "Domates sosunda pişirilmiş, Türk mutfağının vazgeçilmezi kuru fasulye.",
+    "image_url": "/images/recipes/recipe_005.webp",
+    "emoji": "🫘",
+    "cook_time_minutes": 90,
+    "servings": 5,
+    "tags": [
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_white_beans",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_sucuk",
+        "quantity": 100,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Fasulyeleri bir gece suda bekletin, sonra yumuşayana kadar haşlayın.",
+      "Soğan ve sucuğu yağda kavurun, salçayı ekleyin.",
+      "Fasulyeleri haşlama suyuyla birlikte ekleyip 30 dakika pişirin.",
+      "Pul biberle tatlandırıp pilavla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_006",
+    "name": "Nohutlu Pilav",
+    "name_en": "Chickpea Rice Pilaf",
+    "description": "Yumuşacık nohutlarla zenginleştirilmiş tereyağlı pilav.",
+    "image_url": "/images/recipes/recipe_006.webp",
+    "emoji": "🍚",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_chickpeas",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Pirinci iyice yıkayıp kısa süre bekletin.",
+      "Soğanı tereyağında altın rengi olana kadar kavurun, süzülmüş nohutu ekleyin.",
+      "Pirinci ekleyip 2 dakika kavurun, ardından sıcak su ekleyin.",
+      "Kapağını kapatıp pirinç yumuşayana kadar pişirin, demlendirip servis edin."
+    ]
+  },
+  {
+    "id": "recipe_007",
+    "name": "Izgara Tavuk",
+    "name_en": "Grilled Chicken Breast",
+    "description": "Limon ve sarımsakla marine edilmiş ızgara tavuk göğsü.",
+    "image_url": "/images/recipes/recipe_007.webp",
+    "emoji": "🍗",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chicken_breast",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_paprika",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Tavuğu zeytinyağı, limon suyu, sarımsak ve kırmızı toz biberle marine edin.",
+      "En az 20 dakika dinlendirin.",
+      "Orta-yüksek ateşte ızgarada veya tavada pişirin.",
+      "Dilimlemeden önce birkaç dakika dinlendirin."
+    ]
+  },
+  {
+    "id": "recipe_008",
+    "name": "Tavuk Sote",
+    "name_en": "Chicken Sauté",
+    "description": "Biber, soğan ve domatesle sotelenmiş küp tavuk but.",
+    "image_url": "/images/recipes/recipe_008.webp",
+    "emoji": "🍛",
+    "cook_time_minutes": 40,
+    "servings": 4,
+    "tags": [
+      "main"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chicken_thigh",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Tavuk butlarını küp küp doğrayıp baharatlayın.",
+      "Sıcak yağda altın rengi olana kadar mühürleyip kenara alın.",
+      "Soğan ve biberleri soteleyin, domatesi ekleyip pişirin.",
+      "Tavuğu tekrar tencereye ekleyip pişene kadar kısık ateşte pişirin."
+    ]
+  },
+  {
+    "id": "recipe_009",
+    "name": "Kuzu Tandır",
+    "name_en": "Slow-Cooked Lamb",
+    "description": "Sarımsak ve kimyonla ağır ateşte pişirilmiş, ağızda dağılan kuzu eti.",
+    "image_url": "/images/recipes/recipe_009.webp",
+    "emoji": "🍖",
+    "cook_time_minutes": 120,
+    "servings": 5,
+    "tags": [
+      "main"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_lamb_cubes",
+        "quantity": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 3,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_cumin",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Kuzu kuşbaşıları zeytinyağında her tarafı kızarana kadar mühürleyin.",
+      "Soğan, sarımsak ve kimyonu ekleyip su ile kapatın.",
+      "Kapağı kapatıp et dağılana kadar kısık ateşte pişirin.",
+      "Sonunda kapağı açıp sosun biraz koyulaşmasını bekleyin."
+    ]
+  },
+  {
+    "id": "recipe_010",
+    "name": "Sebzeli Güveç",
+    "name_en": "Vegetable Casserole",
+    "description": "Zeytinyağında pişirilmiş mevsim sebzelerinden rustik bir güveç.",
+    "image_url": "/images/recipes/recipe_010.webp",
+    "emoji": "🥘",
+    "cook_time_minutes": 55,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "vegetarian",
+      "main"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_eggplant",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_zucchini",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Tüm sebzeleri iri parçalar halinde doğrayın.",
+      "Sebzeleri zeytinyağı ve sarımsakla birlikte bir tencereye ya da güveç kabına dizin.",
+      "Kapağını kapatıp ara sıra karıştırarak kısık ateşte sebzeler yumuşayana kadar pişirin.",
+      "Sıcak ya da oda sıcaklığında servis edin."
+    ]
+  },
+  {
+    "id": "recipe_011",
+    "name": "Makarna Napoliten",
+    "name_en": "Pasta Napoli",
+    "description": "Domates sosunda, üzerine eritilmiş kaşar peyniri gezdirilmiş sade makarna.",
+    "image_url": "/images/recipes/recipe_011.webp",
+    "emoji": "🍝",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_pasta",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 100,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Makarnayı tuzlu suda diri kalacak şekilde haşlayın.",
+      "Sarımsağı zeytinyağında soteleyip salça ve doğranmış domatesi ekleyin.",
+      "Sos kıvamına gelince süzülmüş makarnayla karıştırın.",
+      "Üzerine rendelenmiş kaşar peyniri serpip sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_012",
+    "name": "Fırında Tavuk But",
+    "name_en": "Baked Chicken Thighs",
+    "description": "Kırmızı toz biberle fırınlanmış, altın renkli patatesli tavuk but.",
+    "image_url": "/images/recipes/recipe_012.webp",
+    "emoji": "🍗",
+    "cook_time_minutes": 50,
+    "servings": 4,
+    "tags": [
+      "main"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chicken_thigh",
+        "quantity": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_paprika",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Tavuk butlarını ve küp patatesleri zeytinyağı ve kırmızı toz biberle harmanlayın.",
+      "Fırın tepsisine tek sıra halinde dizin.",
+      "Yüksek ısıda, bir kez çevirerek altın rengi ve iyi pişene kadar fırınlayın.",
+      "Servis etmeden önce kısa süre dinlendirin."
+    ]
+  },
+  {
+    "id": "recipe_013",
+    "name": "Çoban Salatası",
+    "name_en": "Shepherd's Salad",
+    "description": "İnce doğranmış domates, salatalık ve biberden, limon ve zeytinyağlı taze bir salata.",
+    "image_url": "/images/recipes/recipe_013.webp",
+    "emoji": "🥗",
+    "cook_time_minutes": 10,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "salad",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_cucumber",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 0.5,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Domates, salatalık, biber ve soğanı küçük ve eşit parçalar halinde doğrayın.",
+      "Maydanozu ince kıyıp hepsini bir kapta birleştirin.",
+      "Zeytinyağı, limon suyu ve tuzla harmanlayın.",
+      "İyice karıştırıp hemen servis edin."
+    ]
+  },
+  {
+    "id": "recipe_014",
+    "name": "Gavurdağı Salatası",
+    "name_en": "Gavurdağı Salad",
+    "description": "İri doğranmış domates ve cevizden, ekşimsi pul biber soslu bir salata.",
+    "image_url": "/images/recipes/recipe_014.webp",
+    "emoji": "🥙",
+    "cook_time_minutes": 15,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "salad"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Domates ve soğanı iri parçalar halinde doğrayın.",
+      "Cevizi ve maydanozu kabaca kıyın.",
+      "Hepsini zeytinyağı ve pul biberle birleştirin.",
+      "Hafifçe karıştırıp 5 dakika dinlendirdikten sonra servis edin."
+    ]
+  },
+  {
+    "id": "recipe_015",
+    "name": "Mercimek Köftesi",
+    "name_en": "Lentil Balls",
+    "description": "Bol otlu ve limonlu, pişirmeden hazırlanan mercimek-bulgur köftesi.",
+    "image_url": "/images/recipes/recipe_015.webp",
+    "emoji": "🥗",
+    "cook_time_minutes": 40,
+    "servings": 6,
+    "tags": [
+      "vegan",
+      "meze",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_red_lentils",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_bulgur",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_cumin",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Mercimekleri yumuşayana kadar haşlayın, ocaktan alıp bulguru ekleyin ve demlendirin.",
+      "Soğanı salçayla birlikte zeytinyağında kokusu çıkana kadar soteleyin.",
+      "Mercimek-bulgur karışımına kimyon ve kıyılmış maydanozla birlikte ekleyin.",
+      "Küçük köfteler şekillendirip limon dilimleriyle servis edin."
+    ]
+  },
+  {
+    "id": "recipe_016",
+    "name": "Humus",
+    "name_en": "Hummus",
+    "description": "Tahinli kremamsı nohut ezmesi, üzerine zeytinyağı gezdirilerek servis edilir.",
+    "image_url": "/images/recipes/recipe_016.webp",
+    "emoji": "🧆",
+    "cook_time_minutes": 15,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "meze"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chickpeas",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_tahini",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_cumin",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Haşlanmış nohutu tahin, limon suyu ve sarımsakla blenderdan geçirin.",
+      "Kıvam alana kadar yavaş yavaş soğuk su ekleyin.",
+      "Kimyon ve tuzla tatlandırın.",
+      "Bir tabağa yayıp üzerine zeytinyağı gezdirerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_017",
+    "name": "Babagannuş",
+    "name_en": "Baba Ganoush",
+    "description": "Tahinli ve sarımsaklı, dumanımsı közlenmiş patlıcan ezmesi.",
+    "image_url": "/images/recipes/recipe_017.webp",
+    "emoji": "🍆",
+    "cook_time_minutes": 40,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "meze"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_eggplant",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tahini",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Patlıcanları ateşte ya da fırında yumuşayana kadar közleyin.",
+      "İçini çıkarıp kısa süre süzülmeye bırakın.",
+      "Tahin, limon suyu ve sarımsakla ezin.",
+      "Servis etmeden önce zeytinyağı gezdirin."
+    ]
+  },
+  {
+    "id": "recipe_018",
+    "name": "Cacık",
+    "name_en": "Yogurt Cucumber Dip",
+    "description": "Taze dereotlu, serinletici yoğurt-salatalık mezesi.",
+    "image_url": "/images/recipes/recipe_018.webp",
+    "emoji": "🥒",
+    "cook_time_minutes": 10,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "meze",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_cucumber",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_dill",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Salatalığı rendeleyin ya da küçük küpler halinde doğrayın.",
+      "Sarımsağı ezip dereotunu kıyın.",
+      "Hepsini bir tutam tuzla yoğurda karıştırın.",
+      "Zeytinyağı gezdirip servis etmeden önce soğutun."
+    ]
+  },
+  {
+    "id": "recipe_019",
+    "name": "Menemen",
+    "name_en": "Turkish Scrambled Eggs",
+    "description": "Domates ve yeşil biberle pişirilmiş, yumuşacık Türk usulü çırpma yumurta.",
+    "image_url": "/images/recipes/recipe_019.webp",
+    "emoji": "🍳",
+    "cook_time_minutes": 20,
+    "servings": 2,
+    "tags": [
+      "vegetarian",
+      "breakfast",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Doğranmış yeşil biberi yağda yumuşayana kadar soteleyin.",
+      "Küp domatesi ekleyip sulu bir kıvama gelene kadar pişirin.",
+      "Yumurtaları kırıp hafifçe karıştırarak kıvamına gelene kadar pişirin.",
+      "Üzerine pul biber serpip tavadan sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_020",
+    "name": "Sucuklu Yumurta",
+    "name_en": "Eggs with Turkish Sausage",
+    "description": "Kızarmış sucuk ve yumurtadan oluşan, sevilen bir kahvaltı ikilisi.",
+    "image_url": "/images/recipes/recipe_020.webp",
+    "emoji": "🍳",
+    "cook_time_minutes": 15,
+    "servings": 2,
+    "tags": [
+      "breakfast"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_sucuk",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Sucuğu dilimleyip yağını bırakana kadar tavada kızartın.",
+      "Sucuğu bir kenara itip yumurtaları kırın.",
+      "Yumurtalar istediğiniz kıvama gelene kadar pişirin.",
+      "Sıcak olarak ekmekle servis edin."
+    ]
+  },
+  {
+    "id": "recipe_021",
+    "name": "Kaşarlı Omlet",
+    "name_en": "Cheese Omelet",
+    "description": "Eritilmiş kaşar peynirli, sade katlama omlet.",
+    "image_url": "/images/recipes/recipe_021.webp",
+    "emoji": "🍳",
+    "cook_time_minutes": 10,
+    "servings": 1,
+    "tags": [
+      "vegetarian",
+      "breakfast",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Yumurtaları bir tutam tuzla çırpın.",
+      "Tavada tereyağını eritip yumurtaları dökün.",
+      "Pişerken bir yarısına rendelenmiş peynir serpin.",
+      "Katlayıp peynir eriyene kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_022",
+    "name": "Sütlaç",
+    "name_en": "Rice Pudding",
+    "description": "Üzeri hafif karamelize edilmiş, kremamsı fırın sütlacı.",
+    "image_url": "/images/recipes/recipe_022.webp",
+    "emoji": "🍮",
+    "cook_time_minutes": 60,
+    "servings": 6,
+    "tags": [
+      "vegetarian",
+      "dessert"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "l"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 0.75,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_vanilla",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Pirinci suda tamamen yumuşayana kadar kaynatın.",
+      "Süt, şeker ve vanilyayı ekleyip kıvam alana kadar pişirin.",
+      "Kaselere paylaştırıp üzeri hafif altın rengi olana kadar fırınlayın.",
+      "Servis etmeden önce soğutun."
+    ]
+  },
+  {
+    "id": "recipe_023",
+    "name": "Revani",
+    "name_en": "Semolina Cake",
+    "description": "Tatlı şerbetine batırılmış hafif irmik keki.",
+    "image_url": "/images/recipes/recipe_023.webp",
+    "emoji": "🍰",
+    "cook_time_minutes": 55,
+    "servings": 8,
+    "tags": [
+      "vegetarian",
+      "dessert"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_semolina",
+        "quantity": 1.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_baking_powder",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Yumurtaları şekerin bir kısmıyla kabarana kadar çırpın, ardından yağ ve yoğurdu ekleyin.",
+      "İrmik, un ve kabartma tozunu ekleyip hamur kıvamına getirin.",
+      "Altın rengi alıp kürdan temiz çıkana kadar pişirin.",
+      "Sıcak keke soğumuş şerbeti gezdirip iyice çekmesini bekleyin."
+    ]
+  },
+  {
+    "id": "recipe_024",
+    "name": "Baklava",
+    "name_en": "Baklava",
+    "description": "Cevizli, şerbete batırılmış çıtır yufka katmanlarından oluşan baklava.",
+    "image_url": "/images/recipes/recipe_024.webp",
+    "emoji": "🥮",
+    "cook_time_minutes": 75,
+    "servings": 12,
+    "tags": [
+      "vegetarian",
+      "dessert"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_phyllo_dough",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Tereyağlı yufka katmanlarının arasına kıyılmış ceviz serperek dizin.",
+      "Fırınlamadan önce baklava dilimi şeklinde kesin.",
+      "Altın rengi ve çıtır olana kadar fırınlayın.",
+      "Sıcak baklavaya soğumuş limonlu şerbeti gezdirip iyice çekmesini bekleyin."
+    ]
+  },
+  {
+    "id": "recipe_025",
+    "name": "Muhallebi",
+    "name_en": "Milk Pudding",
+    "description": "Hafif vanilya aromalı, narin soğuk süt muhallebisi.",
+    "image_url": "/images/recipes/recipe_025.webp",
+    "emoji": "🍮",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "dessert",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "l"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_vanilla",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Unu bir miktar soğuk sütle pürüzsüz olana kadar karıştırın.",
+      "Kalan sütü şekerle ısıtın, ardından un karışımını ekleyin.",
+      "Sürekli karıştırarak kıvam alana kadar pişirin.",
+      "Kaselere paylaştırıp vanilya ekleyin ve servis etmeden önce soğutun."
+    ]
+  }
+]

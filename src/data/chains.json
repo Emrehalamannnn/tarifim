@@ -1,0 +1,7 @@
+[
+  { "id": "migros", "name": "Migros", "color": "#E85D04", "text": "#FFFFFF" },
+  { "id": "carrefoursa", "name": "CarrefourSA", "color": "#0B4F9C", "text": "#FFFFFF" },
+  { "id": "a101", "name": "A101", "color": "#D7263D", "text": "#FFFFFF" },
+  { "id": "bim", "name": "BİM", "color": "#F7B32B", "text": "#1F2937" },
+  { "id": "sok", "name": "Şok", "color": "#9D4EDD", "text": "#FFFFFF" }
+]

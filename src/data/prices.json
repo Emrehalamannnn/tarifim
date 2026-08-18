@@ -1,0 +1,3047 @@
+[
+  {
+    "ingredient_id": "ing_red_lentils",
+    "chain": "migros",
+    "price_try": 60.38,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_lentils",
+    "chain": "carrefoursa",
+    "price_try": 60.68,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_lentils",
+    "chain": "a101",
+    "price_try": 53.06,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_lentils",
+    "chain": "bim",
+    "price_try": 47.58,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_lentils",
+    "chain": "sok",
+    "price_try": 51.34,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_lentils",
+    "chain": "migros",
+    "price_try": 64.48,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_lentils",
+    "chain": "carrefoursa",
+    "price_try": 61.36,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_lentils",
+    "chain": "a101",
+    "price_try": 59.52,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_lentils",
+    "chain": "bim",
+    "price_try": 51.34,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_lentils",
+    "chain": "sok",
+    "price_try": 52.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chickpeas",
+    "chain": "migros",
+    "price_try": 55.27,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chickpeas",
+    "chain": "carrefoursa",
+    "price_try": 51.45,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chickpeas",
+    "chain": "a101",
+    "price_try": 48.58,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chickpeas",
+    "chain": "bim",
+    "price_try": 45.38,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chickpeas",
+    "chain": "sok",
+    "price_try": 45.15,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_beans",
+    "chain": "migros",
+    "price_try": 72.92,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_beans",
+    "chain": "carrefoursa",
+    "price_try": 69.48,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_beans",
+    "chain": "a101",
+    "price_try": 66.99,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_beans",
+    "chain": "bim",
+    "price_try": 55.08,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_beans",
+    "chain": "sok",
+    "price_try": 60.52,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bulgur",
+    "chain": "migros",
+    "price_try": 39.89,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bulgur",
+    "chain": "carrefoursa",
+    "price_try": 37.38,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bulgur",
+    "chain": "a101",
+    "price_try": 34.18,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bulgur",
+    "chain": "bim",
+    "price_try": 32.16,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bulgur",
+    "chain": "sok",
+    "price_try": 33.31,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_rice",
+    "chain": "migros",
+    "price_try": 48.82,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_rice",
+    "chain": "carrefoursa",
+    "price_try": 49.73,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_rice",
+    "chain": "a101",
+    "price_try": 43.07,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_rice",
+    "chain": "bim",
+    "price_try": 39.14,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_rice",
+    "chain": "sok",
+    "price_try": 40.21,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_flour",
+    "chain": "migros",
+    "price_try": 28.52,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_flour",
+    "chain": "carrefoursa",
+    "price_try": 26.97,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_flour",
+    "chain": "a101",
+    "price_try": 25.96,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_flour",
+    "chain": "bim",
+    "price_try": 21.31,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_flour",
+    "chain": "sok",
+    "price_try": 22.75,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pasta",
+    "chain": "migros",
+    "price_try": 33.53,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pasta",
+    "chain": "carrefoursa",
+    "price_try": 33.69,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pasta",
+    "chain": "a101",
+    "price_try": 30.75,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pasta",
+    "chain": "bim",
+    "price_try": 25.9,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pasta",
+    "chain": "sok",
+    "price_try": 27.71,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_semolina",
+    "chain": "migros",
+    "price_try": 32.73,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_semolina",
+    "chain": "carrefoursa",
+    "price_try": 31.29,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_semolina",
+    "chain": "a101",
+    "price_try": 31.16,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_semolina",
+    "chain": "bim",
+    "price_try": 26.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_semolina",
+    "chain": "sok",
+    "price_try": 28.21,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_phyllo_dough",
+    "chain": "migros",
+    "price_try": 76.76,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_phyllo_dough",
+    "chain": "carrefoursa",
+    "price_try": 76.86,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_phyllo_dough",
+    "chain": "a101",
+    "price_try": 69.95,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_phyllo_dough",
+    "chain": "bim",
+    "price_try": 63.13,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_phyllo_dough",
+    "chain": "sok",
+    "price_try": 61.63,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_onion",
+    "chain": "migros",
+    "price_try": 21.65,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_onion",
+    "chain": "carrefoursa",
+    "price_try": 21.08,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_onion",
+    "chain": "a101",
+    "price_try": 19.58,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_onion",
+    "chain": "bim",
+    "price_try": 18.26,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_onion",
+    "chain": "sok",
+    "price_try": 17.8,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_carrot",
+    "chain": "migros",
+    "price_try": 20.16,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_carrot",
+    "chain": "carrefoursa",
+    "price_try": 19.99,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_carrot",
+    "chain": "a101",
+    "price_try": 18.4,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_carrot",
+    "chain": "bim",
+    "price_try": 15.28,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_carrot",
+    "chain": "sok",
+    "price_try": 16.35,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_potato",
+    "chain": "migros",
+    "price_try": 21.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_potato",
+    "chain": "carrefoursa",
+    "price_try": 20.62,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_potato",
+    "chain": "a101",
+    "price_try": 20.78,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_potato",
+    "chain": "bim",
+    "price_try": 17.87,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_potato",
+    "chain": "sok",
+    "price_try": 17.64,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato",
+    "chain": "migros",
+    "price_try": 29.72,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato",
+    "chain": "carrefoursa",
+    "price_try": 28.93,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato",
+    "chain": "a101",
+    "price_try": 26.46,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato",
+    "chain": "bim",
+    "price_try": 25.22,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato",
+    "chain": "sok",
+    "price_try": 24.88,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_pepper",
+    "chain": "migros",
+    "price_try": 34.25,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_pepper",
+    "chain": "carrefoursa",
+    "price_try": 31.6,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_pepper",
+    "chain": "a101",
+    "price_try": 30.58,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_pepper",
+    "chain": "bim",
+    "price_try": 25.79,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_green_pepper",
+    "chain": "sok",
+    "price_try": 28.12,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bell_pepper_red",
+    "chain": "migros",
+    "price_try": 41.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bell_pepper_red",
+    "chain": "carrefoursa",
+    "price_try": 42.07,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bell_pepper_red",
+    "chain": "a101",
+    "price_try": 39.27,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bell_pepper_red",
+    "chain": "bim",
+    "price_try": 35.07,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bell_pepper_red",
+    "chain": "sok",
+    "price_try": 36.24,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_garlic",
+    "chain": "migros",
+    "price_try": 126.47,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_garlic",
+    "chain": "carrefoursa",
+    "price_try": 130.57,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_garlic",
+    "chain": "a101",
+    "price_try": 123.87,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_garlic",
+    "chain": "bim",
+    "price_try": 101.57,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_garlic",
+    "chain": "sok",
+    "price_try": 107.51,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_eggplant",
+    "chain": "migros",
+    "price_try": 35.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_eggplant",
+    "chain": "carrefoursa",
+    "price_try": 33.68,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_eggplant",
+    "chain": "a101",
+    "price_try": 30.51,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_eggplant",
+    "chain": "bim",
+    "price_try": 29.56,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_eggplant",
+    "chain": "sok",
+    "price_try": 28.34,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_zucchini",
+    "chain": "migros",
+    "price_try": 26.8,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_zucchini",
+    "chain": "carrefoursa",
+    "price_try": 25.75,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_zucchini",
+    "chain": "a101",
+    "price_try": 23.97,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_zucchini",
+    "chain": "bim",
+    "price_try": 23.06,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_zucchini",
+    "chain": "sok",
+    "price_try": 23.66,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_spinach",
+    "chain": "migros",
+    "price_try": 39.64,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_spinach",
+    "chain": "carrefoursa",
+    "price_try": 36.13,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_spinach",
+    "chain": "a101",
+    "price_try": 34.65,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_spinach",
+    "chain": "bim",
+    "price_try": 31.68,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_spinach",
+    "chain": "sok",
+    "price_try": 31.28,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cucumber",
+    "chain": "migros",
+    "price_try": 25.1,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cucumber",
+    "chain": "carrefoursa",
+    "price_try": 23.96,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cucumber",
+    "chain": "a101",
+    "price_try": 21.84,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cucumber",
+    "chain": "bim",
+    "price_try": 19.49,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cucumber",
+    "chain": "sok",
+    "price_try": 20.75,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lettuce",
+    "chain": "migros",
+    "price_try": 34.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lettuce",
+    "chain": "carrefoursa",
+    "price_try": 33.16,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lettuce",
+    "chain": "a101",
+    "price_try": 29.06,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lettuce",
+    "chain": "bim",
+    "price_try": 27.18,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lettuce",
+    "chain": "sok",
+    "price_try": 26.89,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_parsley",
+    "chain": "migros",
+    "price_try": 46.08,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_parsley",
+    "chain": "carrefoursa",
+    "price_try": 42.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_parsley",
+    "chain": "a101",
+    "price_try": 38.52,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_parsley",
+    "chain": "bim",
+    "price_try": 33.66,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_parsley",
+    "chain": "sok",
+    "price_try": 35.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mint",
+    "chain": "migros",
+    "price_try": 68.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mint",
+    "chain": "carrefoursa",
+    "price_try": 61.26,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mint",
+    "chain": "a101",
+    "price_try": 58.73,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mint",
+    "chain": "bim",
+    "price_try": 54.49,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mint",
+    "chain": "sok",
+    "price_try": 55.38,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dill",
+    "chain": "migros",
+    "price_try": 53.79,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dill",
+    "chain": "carrefoursa",
+    "price_try": 50.85,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dill",
+    "chain": "a101",
+    "price_try": 50.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dill",
+    "chain": "bim",
+    "price_try": 45.62,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dill",
+    "chain": "sok",
+    "price_try": 44.11,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lemon",
+    "chain": "migros",
+    "price_try": 37.61,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lemon",
+    "chain": "carrefoursa",
+    "price_try": 36.31,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lemon",
+    "chain": "a101",
+    "price_try": 36.21,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lemon",
+    "chain": "bim",
+    "price_try": 30.1,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lemon",
+    "chain": "sok",
+    "price_try": 32.22,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_apple",
+    "chain": "migros",
+    "price_try": 33.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_apple",
+    "chain": "carrefoursa",
+    "price_try": 30.9,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_apple",
+    "chain": "a101",
+    "price_try": 28.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_apple",
+    "chain": "bim",
+    "price_try": 26.27,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_apple",
+    "chain": "sok",
+    "price_try": 28.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_banana",
+    "chain": "migros",
+    "price_try": 48.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_banana",
+    "chain": "carrefoursa",
+    "price_try": 50.53,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_banana",
+    "chain": "a101",
+    "price_try": 44.83,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_banana",
+    "chain": "bim",
+    "price_try": 40.39,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_banana",
+    "chain": "sok",
+    "price_try": 39.61,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_walnuts",
+    "chain": "migros",
+    "price_try": 345.6,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_walnuts",
+    "chain": "carrefoursa",
+    "price_try": 341.02,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_walnuts",
+    "chain": "a101",
+    "price_try": 328.05,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_walnuts",
+    "chain": "bim",
+    "price_try": 293.82,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_walnuts",
+    "chain": "sok",
+    "price_try": 277.56,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pine_nuts",
+    "chain": "migros",
+    "price_try": 986.1,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pine_nuts",
+    "chain": "carrefoursa",
+    "price_try": 994.99,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pine_nuts",
+    "chain": "a101",
+    "price_try": 873.95,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pine_nuts",
+    "chain": "bim",
+    "price_try": 809.26,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pine_nuts",
+    "chain": "sok",
+    "price_try": 809.23,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_butter",
+    "chain": "migros",
+    "price_try": 298.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_butter",
+    "chain": "carrefoursa",
+    "price_try": 282.59,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_butter",
+    "chain": "a101",
+    "price_try": 258.05,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_butter",
+    "chain": "bim",
+    "price_try": 221.93,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_butter",
+    "chain": "sok",
+    "price_try": 243.17,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_olive_oil",
+    "chain": "migros",
+    "price_try": 231.25,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_olive_oil",
+    "chain": "carrefoursa",
+    "price_try": 244.74,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_olive_oil",
+    "chain": "a101",
+    "price_try": 214.2,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_olive_oil",
+    "chain": "bim",
+    "price_try": 189.41,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_olive_oil",
+    "chain": "sok",
+    "price_try": 208.82,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sunflower_oil",
+    "chain": "migros",
+    "price_try": 94.17,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sunflower_oil",
+    "chain": "carrefoursa",
+    "price_try": 98.3,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sunflower_oil",
+    "chain": "a101",
+    "price_try": 86.25,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sunflower_oil",
+    "chain": "bim",
+    "price_try": 76.84,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sunflower_oil",
+    "chain": "sok",
+    "price_try": 83.39,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salt",
+    "chain": "migros",
+    "price_try": 10.75,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salt",
+    "chain": "carrefoursa",
+    "price_try": 10.92,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salt",
+    "chain": "a101",
+    "price_try": 9.59,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salt",
+    "chain": "bim",
+    "price_try": 8.82,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salt",
+    "chain": "sok",
+    "price_try": 8.92,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_black_pepper",
+    "chain": "migros",
+    "price_try": 427.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_black_pepper",
+    "chain": "carrefoursa",
+    "price_try": 437.23,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_black_pepper",
+    "chain": "a101",
+    "price_try": 404.74,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_black_pepper",
+    "chain": "bim",
+    "price_try": 341.7,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_black_pepper",
+    "chain": "sok",
+    "price_try": 376.57,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_pepper_flakes",
+    "chain": "migros",
+    "price_try": 190.89,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_pepper_flakes",
+    "chain": "carrefoursa",
+    "price_try": 195.51,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_pepper_flakes",
+    "chain": "a101",
+    "price_try": 174.91,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_pepper_flakes",
+    "chain": "bim",
+    "price_try": 161,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_red_pepper_flakes",
+    "chain": "sok",
+    "price_try": 156.22,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cumin",
+    "chain": "migros",
+    "price_try": 279.28,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cumin",
+    "chain": "carrefoursa",
+    "price_try": 257.48,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cumin",
+    "chain": "a101",
+    "price_try": 241.93,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cumin",
+    "chain": "bim",
+    "price_try": 214.18,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cumin",
+    "chain": "sok",
+    "price_try": 231.38,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cinnamon",
+    "chain": "migros",
+    "price_try": 326.85,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cinnamon",
+    "chain": "carrefoursa",
+    "price_try": 320.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cinnamon",
+    "chain": "a101",
+    "price_try": 305.51,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cinnamon",
+    "chain": "bim",
+    "price_try": 269.26,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cinnamon",
+    "chain": "sok",
+    "price_try": 282.27,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_paprika",
+    "chain": "migros",
+    "price_try": 214.96,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_paprika",
+    "chain": "carrefoursa",
+    "price_try": 220.53,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_paprika",
+    "chain": "a101",
+    "price_try": 201.96,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_paprika",
+    "chain": "bim",
+    "price_try": 183.92,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_paprika",
+    "chain": "sok",
+    "price_try": 176.94,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sugar",
+    "chain": "migros",
+    "price_try": 30.99,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sugar",
+    "chain": "carrefoursa",
+    "price_try": 28.9,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sugar",
+    "chain": "a101",
+    "price_try": 26.83,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sugar",
+    "chain": "bim",
+    "price_try": 24.23,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sugar",
+    "chain": "sok",
+    "price_try": 25.07,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vanilla",
+    "chain": "migros",
+    "price_try": 8.6,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vanilla",
+    "chain": "carrefoursa",
+    "price_try": 8.91,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vanilla",
+    "chain": "a101",
+    "price_try": 7.69,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vanilla",
+    "chain": "bim",
+    "price_try": 7.06,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vanilla",
+    "chain": "sok",
+    "price_try": 7.62,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_baking_powder",
+    "chain": "migros",
+    "price_try": 95.9,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_baking_powder",
+    "chain": "carrefoursa",
+    "price_try": 96.61,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_baking_powder",
+    "chain": "a101",
+    "price_try": 87.45,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_baking_powder",
+    "chain": "bim",
+    "price_try": 81.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_baking_powder",
+    "chain": "sok",
+    "price_try": 78.02,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yeast",
+    "chain": "migros",
+    "price_try": 162.92,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yeast",
+    "chain": "carrefoursa",
+    "price_try": 155.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yeast",
+    "chain": "a101",
+    "price_try": 153.85,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yeast",
+    "chain": "bim",
+    "price_try": 133.97,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yeast",
+    "chain": "sok",
+    "price_try": 134.97,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_honey",
+    "chain": "migros",
+    "price_try": 372.51,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_honey",
+    "chain": "carrefoursa",
+    "price_try": 373.59,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_honey",
+    "chain": "a101",
+    "price_try": 341.4,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_honey",
+    "chain": "bim",
+    "price_try": 311.35,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_honey",
+    "chain": "sok",
+    "price_try": 314.58,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pekmez",
+    "chain": "migros",
+    "price_try": 165.39,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pekmez",
+    "chain": "carrefoursa",
+    "price_try": 155.45,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pekmez",
+    "chain": "a101",
+    "price_try": 143.8,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pekmez",
+    "chain": "bim",
+    "price_try": 131.68,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pekmez",
+    "chain": "sok",
+    "price_try": 138.88,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tahini",
+    "chain": "migros",
+    "price_try": 249.18,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tahini",
+    "chain": "carrefoursa",
+    "price_try": 242.16,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tahini",
+    "chain": "a101",
+    "price_try": 215.68,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tahini",
+    "chain": "bim",
+    "price_try": 193.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tahini",
+    "chain": "sok",
+    "price_try": 203.3,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato_paste",
+    "chain": "migros",
+    "price_try": 101.57,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato_paste",
+    "chain": "carrefoursa",
+    "price_try": 96.2,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato_paste",
+    "chain": "a101",
+    "price_try": 93.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato_paste",
+    "chain": "bim",
+    "price_try": 76.36,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tomato_paste",
+    "chain": "sok",
+    "price_try": 79.63,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_egg",
+    "chain": "migros",
+    "price_try": 4,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_egg",
+    "chain": "carrefoursa",
+    "price_try": 3.81,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_egg",
+    "chain": "a101",
+    "price_try": 3.62,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_egg",
+    "chain": "bim",
+    "price_try": 2.97,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_egg",
+    "chain": "sok",
+    "price_try": 3.33,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_milk",
+    "chain": "migros",
+    "price_try": 33.95,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_milk",
+    "chain": "carrefoursa",
+    "price_try": 33.95,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_milk",
+    "chain": "a101",
+    "price_try": 31.48,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_milk",
+    "chain": "bim",
+    "price_try": 27.04,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_milk",
+    "chain": "sok",
+    "price_try": 29.87,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yogurt",
+    "chain": "migros",
+    "price_try": 63.17,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yogurt",
+    "chain": "carrefoursa",
+    "price_try": 63.78,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yogurt",
+    "chain": "a101",
+    "price_try": 57.35,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yogurt",
+    "chain": "bim",
+    "price_try": 51.49,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_yogurt",
+    "chain": "sok",
+    "price_try": 54.54,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_cheese",
+    "chain": "migros",
+    "price_try": 300.55,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_cheese",
+    "chain": "carrefoursa",
+    "price_try": 291.44,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_cheese",
+    "chain": "a101",
+    "price_try": 276.16,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_cheese",
+    "chain": "bim",
+    "price_try": 234.18,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_white_cheese",
+    "chain": "sok",
+    "price_try": 256.13,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_kasar_cheese",
+    "chain": "migros",
+    "price_try": 429.25,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_kasar_cheese",
+    "chain": "carrefoursa",
+    "price_try": 408.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_kasar_cheese",
+    "chain": "a101",
+    "price_try": 386.94,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_kasar_cheese",
+    "chain": "bim",
+    "price_try": 329.06,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_kasar_cheese",
+    "chain": "sok",
+    "price_try": 357.27,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ground_beef",
+    "chain": "migros",
+    "price_try": 524.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ground_beef",
+    "chain": "carrefoursa",
+    "price_try": 529.91,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ground_beef",
+    "chain": "a101",
+    "price_try": 493.2,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ground_beef",
+    "chain": "bim",
+    "price_try": 430.9,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ground_beef",
+    "chain": "sok",
+    "price_try": 445.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_breast",
+    "chain": "migros",
+    "price_try": 206.49,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_breast",
+    "chain": "carrefoursa",
+    "price_try": 199.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_breast",
+    "chain": "a101",
+    "price_try": 178.93,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_breast",
+    "chain": "bim",
+    "price_try": 153.56,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_breast",
+    "chain": "sok",
+    "price_try": 171.29,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_thigh",
+    "chain": "migros",
+    "price_try": 172.65,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_thigh",
+    "chain": "carrefoursa",
+    "price_try": 165,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_thigh",
+    "chain": "a101",
+    "price_try": 143.52,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_thigh",
+    "chain": "bim",
+    "price_try": 135.5,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_chicken_thigh",
+    "chain": "sok",
+    "price_try": 135.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lamb_cubes",
+    "chain": "migros",
+    "price_try": 743.34,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lamb_cubes",
+    "chain": "carrefoursa",
+    "price_try": 712.49,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lamb_cubes",
+    "chain": "a101",
+    "price_try": 621.72,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lamb_cubes",
+    "chain": "bim",
+    "price_try": 590.6,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_lamb_cubes",
+    "chain": "sok",
+    "price_try": 597.13,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sucuk",
+    "chain": "migros",
+    "price_try": 406.21,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sucuk",
+    "chain": "carrefoursa",
+    "price_try": 413.62,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sucuk",
+    "chain": "a101",
+    "price_try": 380.05,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sucuk",
+    "chain": "bim",
+    "price_try": 338.98,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_sucuk",
+    "chain": "sok",
+    "price_try": 347.21,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tarhana",
+    "chain": "migros",
+    "price_try": 101.89,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tarhana",
+    "chain": "carrefoursa",
+    "price_try": 98.58,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tarhana",
+    "chain": "a101",
+    "price_try": 86.85,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tarhana",
+    "chain": "bim",
+    "price_try": 81.43,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_tarhana",
+    "chain": "sok",
+    "price_try": 77.87,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_broccoli",
+    "chain": "migros",
+    "price_try": 51.8,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_broccoli",
+    "chain": "carrefoursa",
+    "price_try": 45.8,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_broccoli",
+    "chain": "a101",
+    "price_try": 46.49,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_broccoli",
+    "chain": "bim",
+    "price_try": 40.91,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_broccoli",
+    "chain": "sok",
+    "price_try": 38.95,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pumpkin",
+    "chain": "migros",
+    "price_try": 26.87,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pumpkin",
+    "chain": "carrefoursa",
+    "price_try": 26.5,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pumpkin",
+    "chain": "a101",
+    "price_try": 25.51,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pumpkin",
+    "chain": "bim",
+    "price_try": 21.61,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pumpkin",
+    "chain": "sok",
+    "price_try": 23.83,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mushroom",
+    "chain": "migros",
+    "price_try": 95.27,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mushroom",
+    "chain": "carrefoursa",
+    "price_try": 92.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mushroom",
+    "chain": "a101",
+    "price_try": 92.38,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mushroom",
+    "chain": "bim",
+    "price_try": 77.71,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mushroom",
+    "chain": "sok",
+    "price_try": 79.32,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vermicelli",
+    "chain": "migros",
+    "price_try": 36.63,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vermicelli",
+    "chain": "carrefoursa",
+    "price_try": 35.94,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vermicelli",
+    "chain": "a101",
+    "price_try": 33.74,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vermicelli",
+    "chain": "bim",
+    "price_try": 31.44,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_vermicelli",
+    "chain": "sok",
+    "price_try": 30.9,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_purslane",
+    "chain": "migros",
+    "price_try": 47.79,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_purslane",
+    "chain": "carrefoursa",
+    "price_try": 47.79,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_purslane",
+    "chain": "a101",
+    "price_try": 44.73,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_purslane",
+    "chain": "bim",
+    "price_try": 39.93,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_purslane",
+    "chain": "sok",
+    "price_try": 39,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_arugula",
+    "chain": "migros",
+    "price_try": 64.2,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_arugula",
+    "chain": "carrefoursa",
+    "price_try": 66.91,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_arugula",
+    "chain": "a101",
+    "price_try": 61.63,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_arugula",
+    "chain": "bim",
+    "price_try": 50.75,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_arugula",
+    "chain": "sok",
+    "price_try": 54.93,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_fish_fillet",
+    "chain": "migros",
+    "price_try": 502.44,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_fish_fillet",
+    "chain": "carrefoursa",
+    "price_try": 498.79,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_fish_fillet",
+    "chain": "a101",
+    "price_try": 462.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_fish_fillet",
+    "chain": "bim",
+    "price_try": 399.54,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_fish_fillet",
+    "chain": "sok",
+    "price_try": 417.09,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_shrimp",
+    "chain": "migros",
+    "price_try": 776.12,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_shrimp",
+    "chain": "carrefoursa",
+    "price_try": 715.57,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_shrimp",
+    "chain": "a101",
+    "price_try": 684.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_shrimp",
+    "chain": "bim",
+    "price_try": 586.37,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_shrimp",
+    "chain": "sok",
+    "price_try": 662.98,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_okra",
+    "chain": "migros",
+    "price_try": 131.87,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_okra",
+    "chain": "carrefoursa",
+    "price_try": 124.99,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_okra",
+    "chain": "a101",
+    "price_try": 114.06,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_okra",
+    "chain": "bim",
+    "price_try": 108.55,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_okra",
+    "chain": "sok",
+    "price_try": 109.3,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_grape_leaves",
+    "chain": "migros",
+    "price_try": 199.94,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_grape_leaves",
+    "chain": "carrefoursa",
+    "price_try": 188.37,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_grape_leaves",
+    "chain": "a101",
+    "price_try": 171.24,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_grape_leaves",
+    "chain": "bim",
+    "price_try": 155.4,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_grape_leaves",
+    "chain": "sok",
+    "price_try": 169.71,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_beef_cubes",
+    "chain": "migros",
+    "price_try": 583.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_beef_cubes",
+    "chain": "carrefoursa",
+    "price_try": 571.85,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_beef_cubes",
+    "chain": "a101",
+    "price_try": 566.83,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_beef_cubes",
+    "chain": "bim",
+    "price_try": 496.64,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_beef_cubes",
+    "chain": "sok",
+    "price_try": 513.64,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bread",
+    "chain": "migros",
+    "price_try": 27.35,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bread",
+    "chain": "carrefoursa",
+    "price_try": 26.29,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bread",
+    "chain": "a101",
+    "price_try": 25.69,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bread",
+    "chain": "bim",
+    "price_try": 21.69,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_bread",
+    "chain": "sok",
+    "price_try": 22.29,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_burger_bun",
+    "chain": "migros",
+    "price_try": 8.54,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_burger_bun",
+    "chain": "carrefoursa",
+    "price_try": 8.22,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_burger_bun",
+    "chain": "a101",
+    "price_try": 7.62,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_burger_bun",
+    "chain": "bim",
+    "price_try": 7.35,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_burger_bun",
+    "chain": "sok",
+    "price_try": 7.25,
+    "unit": "piece",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cabbage",
+    "chain": "migros",
+    "price_try": 16.05,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cabbage",
+    "chain": "carrefoursa",
+    "price_try": 16.53,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cabbage",
+    "chain": "a101",
+    "price_try": 15.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cabbage",
+    "chain": "bim",
+    "price_try": 13.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cabbage",
+    "chain": "sok",
+    "price_try": 13.65,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mozzarella",
+    "chain": "migros",
+    "price_try": 350.24,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mozzarella",
+    "chain": "carrefoursa",
+    "price_try": 347.21,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mozzarella",
+    "chain": "a101",
+    "price_try": 308.38,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mozzarella",
+    "chain": "bim",
+    "price_try": 269.11,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mozzarella",
+    "chain": "sok",
+    "price_try": 304.63,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ketchup",
+    "chain": "migros",
+    "price_try": 78.78,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ketchup",
+    "chain": "carrefoursa",
+    "price_try": 74.55,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ketchup",
+    "chain": "a101",
+    "price_try": 66.54,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ketchup",
+    "chain": "bim",
+    "price_try": 59.41,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_ketchup",
+    "chain": "sok",
+    "price_try": 61.53,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mayonnaise",
+    "chain": "migros",
+    "price_try": 103.93,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mayonnaise",
+    "chain": "carrefoursa",
+    "price_try": 94,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mayonnaise",
+    "chain": "a101",
+    "price_try": 87.95,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mayonnaise",
+    "chain": "bim",
+    "price_try": 79.03,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_mayonnaise",
+    "chain": "sok",
+    "price_try": 83.56,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pepper_paste",
+    "chain": "migros",
+    "price_try": 93.95,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pepper_paste",
+    "chain": "carrefoursa",
+    "price_try": 89.05,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pepper_paste",
+    "chain": "a101",
+    "price_try": 87.84,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pepper_paste",
+    "chain": "bim",
+    "price_try": 77.47,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_pepper_paste",
+    "chain": "sok",
+    "price_try": 79.83,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_oats",
+    "chain": "migros",
+    "price_try": 50.21,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_oats",
+    "chain": "carrefoursa",
+    "price_try": 47.18,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_oats",
+    "chain": "a101",
+    "price_try": 45.67,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_oats",
+    "chain": "bim",
+    "price_try": 37.69,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_oats",
+    "chain": "sok",
+    "price_try": 41.3,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_coffee",
+    "chain": "migros",
+    "price_try": 988.39,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_coffee",
+    "chain": "carrefoursa",
+    "price_try": 1010.35,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_coffee",
+    "chain": "a101",
+    "price_try": 912.32,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_coffee",
+    "chain": "bim",
+    "price_try": 795.7,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_coffee",
+    "chain": "sok",
+    "price_try": 858.68,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salep",
+    "chain": "migros",
+    "price_try": 2744.31,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salep",
+    "chain": "carrefoursa",
+    "price_try": 2714.1,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salep",
+    "chain": "a101",
+    "price_try": 2367.75,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salep",
+    "chain": "bim",
+    "price_try": 2152.86,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_salep",
+    "chain": "sok",
+    "price_try": 2181.68,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_turnip_juice",
+    "chain": "migros",
+    "price_try": 28.08,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_turnip_juice",
+    "chain": "carrefoursa",
+    "price_try": 27.63,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_turnip_juice",
+    "chain": "a101",
+    "price_try": 24.58,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_turnip_juice",
+    "chain": "bim",
+    "price_try": 23.05,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_turnip_juice",
+    "chain": "sok",
+    "price_try": 22.91,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cocoa_powder",
+    "chain": "migros",
+    "price_try": 269.53,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cocoa_powder",
+    "chain": "carrefoursa",
+    "price_try": 273.17,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cocoa_powder",
+    "chain": "a101",
+    "price_try": 237.29,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cocoa_powder",
+    "chain": "bim",
+    "price_try": 212.07,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cocoa_powder",
+    "chain": "sok",
+    "price_try": 220.47,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dark_chocolate",
+    "chain": "migros",
+    "price_try": 495.07,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dark_chocolate",
+    "chain": "carrefoursa",
+    "price_try": 464.48,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dark_chocolate",
+    "chain": "a101",
+    "price_try": 435.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dark_chocolate",
+    "chain": "bim",
+    "price_try": 376.77,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_dark_chocolate",
+    "chain": "sok",
+    "price_try": 418.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream",
+    "chain": "migros",
+    "price_try": 115.88,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream",
+    "chain": "carrefoursa",
+    "price_try": 113.15,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream",
+    "chain": "a101",
+    "price_try": 108.64,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream",
+    "chain": "bim",
+    "price_try": 99.97,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream",
+    "chain": "sok",
+    "price_try": 96.05,
+    "unit": "l",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream_cheese",
+    "chain": "migros",
+    "price_try": 271.48,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream_cheese",
+    "chain": "carrefoursa",
+    "price_try": 278.42,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream_cheese",
+    "chain": "a101",
+    "price_try": 252.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream_cheese",
+    "chain": "bim",
+    "price_try": 229.33,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_cream_cheese",
+    "chain": "sok",
+    "price_try": 236.88,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_digestive_biscuit",
+    "chain": "migros",
+    "price_try": 118.81,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_digestive_biscuit",
+    "chain": "carrefoursa",
+    "price_try": 116.08,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_digestive_biscuit",
+    "chain": "a101",
+    "price_try": 107.34,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_digestive_biscuit",
+    "chain": "bim",
+    "price_try": 94.99,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_digestive_biscuit",
+    "chain": "sok",
+    "price_try": 102.62,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_orange",
+    "chain": "migros",
+    "price_try": 26.35,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_orange",
+    "chain": "carrefoursa",
+    "price_try": 27.02,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_orange",
+    "chain": "a101",
+    "price_try": 24.23,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_orange",
+    "chain": "bim",
+    "price_try": 22.6,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_orange",
+    "chain": "sok",
+    "price_try": 23.72,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_strawberry",
+    "chain": "migros",
+    "price_try": 94.29,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_strawberry",
+    "chain": "carrefoursa",
+    "price_try": 99.88,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_strawberry",
+    "chain": "a101",
+    "price_try": 89.92,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_strawberry",
+    "chain": "bim",
+    "price_try": 82.52,
+    "unit": "kg",
+    "package_size": 1
+  },
+  {
+    "ingredient_id": "ing_strawberry",
+    "chain": "sok",
+    "price_try": 82.26,
+    "unit": "kg",
+    "package_size": 1
+  }
+]
