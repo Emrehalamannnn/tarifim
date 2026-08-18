@@ -3522,5 +3522,587 @@
       "Tuzu ekleyip köpürene kadar çırpın.",
       "Buzla dolu bardaklara paylaştırıp servis edin."
     ]
+  },
+  {
+    "id": "recipe_071",
+    "name": "Lahmacun",
+    "name_en": "Lahmacun",
+    "description": "İnce hamur üzerine kıymalı harç sürülüp fırınlanan Türk pizzası.",
+    "image_url": "/images/recipes/recipe_071.webp",
+    "emoji": "🫓",
+    "cook_time_minutes": 40,
+    "servings": 4,
+    "tags": [
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_yeast",
+        "quantity": 0.5,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Un, maya ve suyla yumuşak bir hamur yoğurup dinlendirin.",
+      "Kıyma, rendelenmiş domates, biber, soğan ve maydanozu robotta çekip harcı hazırlayın.",
+      "Hamuru ince yuvarlaklar halinde açıp üzerine harcı ince tabaka halinde yayın.",
+      "Önceden ısıtılmış fırında kenarları çıtırlaşana kadar pişirip limonla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_072",
+    "name": "Kıymalı Pide",
+    "name_en": "Minced Meat Pide",
+    "description": "Kayık şeklinde açılan hamurun üzerine kıyma ve kaşarla hazırlanan pide.",
+    "image_url": "/images/recipes/recipe_072.webp",
+    "emoji": "🛶",
+    "cook_time_minutes": 45,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 3,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_yeast",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Un, maya, su ve tuzla hamur yoğurup mayalandırın.",
+      "Hamuru kayık şeklinde açıp kenarlarını kıvırın.",
+      "Kıyma, doğranmış biber ve kaşarı karıştırıp hamurun üzerine yayın.",
+      "İsteğe bağlı ortasına yumurta kırıp önceden ısıtılmış fırında pişirin."
+    ]
+  },
+  {
+    "id": "recipe_073",
+    "name": "Çılbır",
+    "name_en": "Poached Eggs with Garlic Yogurt",
+    "description": "Sarımsaklı yoğurt üzerine kırılan yumurta ve acılı tereyağıyla hazırlanan kahvaltı klasiği.",
+    "image_url": "/images/recipes/recipe_073.webp",
+    "emoji": "🍳",
+    "cook_time_minutes": 15,
+    "servings": 2,
+    "tags": [
+      "breakfast",
+      "vegetarian",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Yoğurdu ezilmiş sarımsakla karıştırıp servis tabaklarına paylaştırın.",
+      "Kaynar suya biraz sirke ekleyip yumurtaları teker teker kırarak poşe yapın.",
+      "Poşe yumurtaları süzüp yoğurdun üzerine yerleştirin.",
+      "Tereyağını pul biberle kızdırıp yumurtaların üzerine gezdirerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_074",
+    "name": "Katmer",
+    "name_en": "Katmer",
+    "description": "İnce hamurun kaymak ve cevizle katlanıp kızartıldığı Gaziantep tatlısı.",
+    "image_url": "/images/recipes/recipe_074.webp",
+    "emoji": "🥮",
+    "cook_time_minutes": 25,
+    "servings": 2,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_cream",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Un ve suyla yumuşak bir hamur yoğurup ince yufka halinde açın.",
+      "Yufkanın üzerine eritilmiş tereyağı sürüp kaymak ve dövülmüş cevizi serpin.",
+      "Yufkayı katlayarak dörde bölün.",
+      "Sacda veya tavada her iki tarafını altın rengi olana kadar pişirip şeker serperek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_075",
+    "name": "Şekerpare",
+    "name_en": "Sekerpare",
+    "description": "Şerbete batırılan minik irmikli kurabiye tatlısı.",
+    "image_url": "/images/recipes/recipe_075.webp",
+    "emoji": "🍪",
+    "cook_time_minutes": 45,
+    "servings": 8,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_semolina",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 2,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Şeker ve suyu kaynatıp şerbeti hazırlayın, soğumaya bırakın.",
+      "Yumuşatılmış tereyağı, yumurta, un ve irmiği yoğurup hamur hazırlayın.",
+      "Hamurdan küçük yuvarlaklar yapıp fırın tepsisine dizin.",
+      "Altın rengi olana kadar pişirip sıcak kurabiyelerin üzerine soğuk şerbeti gezdirin."
+    ]
+  },
+  {
+    "id": "recipe_076",
+    "name": "Un Kurabiyesi",
+    "name_en": "Powdered Sugar Shortbread",
+    "description": "Ağızda dağılan, pudra şekerine bulanan klasik un kurabiyesi.",
+    "image_url": "/images/recipes/recipe_076.webp",
+    "emoji": "🍪",
+    "cook_time_minutes": 35,
+    "servings": 10,
+    "tags": [
+      "dessert",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_vanilla",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Yumuşak tereyağı, şeker ve vanilyayı çırpın.",
+      "Unu ekleyip yumuşak bir hamur elde edene kadar yoğurun.",
+      "Küçük parçalar koparıp hilal veya top şeklinde şekillendirin.",
+      "Önceden ısıtılmış fırında pişirip soğuduktan sonra pudra şekerine bulayın."
+    ]
+  },
+  {
+    "id": "recipe_077",
+    "name": "Cevizli Kadayıf",
+    "name_en": "Walnut Kadayif",
+    "description": "Tel kadayıf arasına ceviz doldurulup şerbetlenen katmanlı tatlı.",
+    "image_url": "/images/recipes/recipe_077.webp",
+    "emoji": "🥜",
+    "cook_time_minutes": 50,
+    "servings": 8,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_phyllo_dough",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Şeker, su ve limon suyunu kaynatıp şerbeti hazırlayın, soğutun.",
+      "Tel kadayıfı eritilmiş tereyağıyla harmanlayın.",
+      "Kadayıfın yarısını tepsiye serip üzerine dövülmüş cevizi yayın, kalanını üstüne kapatın.",
+      "Fırında altın rengi olana kadar pişirip sıcakken soğuk şerbeti gezdirin."
+    ]
+  },
+  {
+    "id": "recipe_078",
+    "name": "Fırında Elma Tatlısı",
+    "name_en": "Baked Apple Dessert",
+    "description": "Ceviz ve balla doldurulup fırınlanan tarçınlı elma tatlısı.",
+    "image_url": "/images/recipes/recipe_078.webp",
+    "emoji": "🍎",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_apple",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 40,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_honey",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_cinnamon",
+        "quantity": 1,
+        "unit": "pinch"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 20,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Elmaların çekirdek kısımlarını oyarak çıkarın.",
+      "Dövülmüş ceviz, bal ve tarçını karıştırıp elmaların içine doldurun.",
+      "Üzerine küçük birer parça tereyağı koyup fırın kabına dizin.",
+      "Fırında elmalar yumuşayana kadar 25-30 dakika pişirip sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_079",
+    "name": "Tavuklu Pilav",
+    "name_en": "Chicken Rice Pilaf",
+    "description": "Tavuk suyunda pişen tereyağlı, doyurucu bir pirinç pilavı.",
+    "image_url": "/images/recipes/recipe_079.webp",
+    "emoji": "🍚",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_chicken_breast",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_black_pepper",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Tavuk göğsünü haşlayıp didikleyin, suyunu ayırın.",
+      "Tereyağında soğanı kavurup pirinci ekleyerek birkaç dakika kavurun.",
+      "Ilık tavuk suyunu ekleyip kısık ateşte pirinç suyunu çekene kadar pişirin.",
+      "Didiklenmiş tavuğu karıştırıp demlendirdikten sonra servis edin."
+    ]
+  },
+  {
+    "id": "recipe_080",
+    "name": "Etli Biber Dolması",
+    "name_en": "Stuffed Peppers with Meat",
+    "description": "Kıymalı pirinç harcıyla doldurulan, domates soslu biber dolması.",
+    "image_url": "/images/recipes/recipe_080.webp",
+    "emoji": "🫑",
+    "cook_time_minutes": 60,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_bell_pepper_red",
+        "quantity": 6,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Biberlerin kapaklarını kesip içlerini temizleyin.",
+      "Kıyma, pirinç, rendelenmiş soğan ve yarım salçayı karıştırıp iç harcı hazırlayın.",
+      "Biberleri harçla doldurup tencereye dizin.",
+      "Kalan salçayı su ile açıp üzerine dökün, kısık ateşte 40-45 dakika pişirin."
+    ]
+  },
+  {
+    "id": "recipe_081",
+    "name": "Patates Salatası",
+    "name_en": "Potato Salad",
+    "description": "Mayonezli, dereotlu ve haşlanmış yumurtayla hazırlanan klasik patates salatası.",
+    "image_url": "/images/recipes/recipe_081.webp",
+    "emoji": "🥔",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "salad",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 5,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_mayonnaise",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_dill",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Patatesleri haşlayıp soğuduktan sonra küp doğrayın.",
+      "Yumurtaları haşlayıp küçük parçalar halinde doğrayın.",
+      "İnce doğranmış soğan ve dereotunu ekleyin.",
+      "Mayonezle harmanlayıp soğuk servis edin."
+    ]
+  },
+  {
+    "id": "recipe_082",
+    "name": "İrmik Helvası",
+    "name_en": "Semolina Halva",
+    "description": "Tereyağında kavrulan irmiğin sütle pişirildiği geleneksel helva.",
+    "image_url": "/images/recipes/recipe_082.webp",
+    "emoji": "🍮",
+    "cook_time_minutes": 30,
+    "servings": 6,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_semolina",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_pine_nuts",
+        "quantity": 30,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Tereyağında çam fıstığını hafifçe kavurup kenara alın.",
+      "Aynı tereyağında irmiği pembeleşene ve mis gibi koku yayılana kadar kavurun.",
+      "Süt ve şekeri ayrı bir tencerede kaynatıp sıcak haliyle irmiğin üzerine dökün, karıştırmadan kısık ateşte demlendirin.",
+      "Karıştırıp servis tabağına alın, üzerine çam fıstığı serperek sıcak veya ılık servis edin."
+    ]
   }
 ]
