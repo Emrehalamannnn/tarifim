@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
 
+const OFFICIAL_AUTHOR_NAME = "Tarifim Mutfağı";
+
 // Replaces useAppStore's local-only `communityPosts` array. Posts, likes,
-// and photos now live in Supabase (posts + post_likes tables, post-photos
-// storage bucket) — see supabase/schema.sql.
+// comments, and photos now live in Supabase (posts/post_likes/post_comments
+// tables, post-photos storage bucket) — see supabase/schema.sql. Posts with
+// author_id = null are "official" ones seeded from the recipe catalog
+// (supabase/seed_recipe_posts.sql), shown as authored by Tarifim Mutfağı.
 export function useCommunityFeed(currentUserId) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,13 +19,16 @@ export function useCommunityFeed(currentUserId) {
       return;
     }
     setLoading(true);
-    // Nested select pulls the author's name and every like's user_id in one
-    // round trip (post_likes is small per post, and RLS allows public
-    // select on it) — fine at this app's scale, avoids a separate
-    // count/exists query per post.
+    // Nested select pulls the author's name, every like's user_id, a
+    // comment count, and (thanks to post_saves' owner-only RLS policy)
+    // only the current user's own save row, all in one round trip.
+    // post_likes is small per post and publicly readable — fine at this
+    // app's scale, avoids a separate count/exists query per post.
     const { data, error } = await supabase
       .from("posts")
-      .select("*, author:profiles!posts_author_id_fkey(name), post_likes(user_id)")
+      .select(
+        "*, author:profiles!posts_author_id_fkey(name), post_likes(user_id), post_comments(count), post_saves(user_id)"
+      )
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -34,8 +41,10 @@ export function useCommunityFeed(currentUserId) {
     setPosts(
       data.map((post) => ({
         id: post.id,
-        author: post.author?.name ?? "Bilinmeyen",
+        author: post.author_id ? post.author?.name ?? "Bilinmeyen" : OFFICIAL_AUTHOR_NAME,
         authorId: post.author_id,
+        isOfficial: post.author_id === null,
+        recipeId: post.recipe_id,
         photoUrl: post.photo_url,
         title: post.title,
         description: post.description,
@@ -43,7 +52,9 @@ export function useCommunityFeed(currentUserId) {
         createdAt: post.created_at,
         likes: post.post_likes.length,
         likedByMe: currentUserId ? post.post_likes.some((l) => l.user_id === currentUserId) : false,
-        ownedByMe: post.author_id === currentUserId,
+        commentCount: post.post_comments[0]?.count ?? 0,
+        savedByMe: currentUserId ? post.post_saves.length > 0 : false,
+        ownedByMe: currentUserId !== null && post.author_id === currentUserId,
       }))
     );
     setLoading(false);
@@ -94,6 +105,20 @@ export function useCommunityFeed(currentUserId) {
     }
   }
 
+  async function toggleSave(postId, currentlySaved) {
+    setPosts((prev) =>
+      prev.map((p) => (p.id === postId ? { ...p, savedByMe: !currentlySaved } : p))
+    );
+    const query = supabase.from("post_saves");
+    const { error } = currentlySaved
+      ? await query.delete().eq("post_id", postId).eq("user_id", currentUserId)
+      : await query.insert({ post_id: postId, user_id: currentUserId });
+    if (error) {
+      console.error("Failed to toggle save", error);
+      await refresh();
+    }
+  }
+
   async function deletePost(postId) {
     setPosts((prev) => prev.filter((p) => p.id !== postId));
     const { error } = await supabase.from("posts").delete().eq("id", postId);
@@ -103,5 +128,5 @@ export function useCommunityFeed(currentUserId) {
     }
   }
 
-  return { posts, loading, addPost, toggleLike, deletePost, refresh };
+  return { posts, loading, addPost, toggleLike, toggleSave, deletePost, refresh };
 }
