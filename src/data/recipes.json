@@ -2920,5 +2920,607 @@
       "Tepsiyi doğrudan ocak üzerinde altı hafifçe karamelize olana kadar pişirin.",
       "Soğuyunca dilimleyip rulo şeklinde sararak servis edin."
     ]
+  },
+  {
+    "id": "recipe_059",
+    "name": "Su Böreği",
+    "name_en": "Water Pastry",
+    "description": "Kat kat yufkanın haşlanıp fırınlandığı, beyaz peynirli klasik börek.",
+    "image_url": "/images/recipes/recipe_059.webp",
+    "emoji": "🥧",
+    "cook_time_minutes": 60,
+    "servings": 6,
+    "tags": [
+      "meze",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_white_cheese",
+        "quantity": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Un, yumurta ve suyla yufka hamuru hazırlayıp ince yapraklar halinde açın.",
+      "Yufkaları kaynar tuzlu suda kısaca haşlayıp soğuk suya alın.",
+      "Tepsiye yufkaları eritilmiş tereyağı sürerek dizin, arasına peynir-maydanoz harcını serpin.",
+      "Üzerine süt gezdirip fırında altın rengi olana kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_060",
+    "name": "Poğaça",
+    "name_en": "Pogaca",
+    "description": "İçi peynirli, dışı çıtır klasik Türk kahvaltı böreği.",
+    "image_url": "/images/recipes/recipe_060.webp",
+    "emoji": "🥐",
+    "cook_time_minutes": 40,
+    "servings": 8,
+    "tags": [
+      "breakfast",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 3,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_yeast",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_white_cheese",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Un, maya, ılık süt ve eritilmiş tereyağıyla yumuşak bir hamur yoğurup mayalandırın.",
+      "Hamurdan parçalar koparıp içine peynir koyarak yuvarlayın.",
+      "Üzerlerine çırpılmış yumurta sürün.",
+      "Önceden ısıtılmış fırında altın rengi olana kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_061",
+    "name": "Açma",
+    "name_en": "Acma (Turkish Soft Buns)",
+    "description": "Yumuşacık, hafif tatlımsı geleneksel kahvaltı çöreği.",
+    "image_url": "/images/recipes/recipe_061.webp",
+    "emoji": "🥯",
+    "cook_time_minutes": 50,
+    "servings": 8,
+    "tags": [
+      "breakfast",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 3,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_yeast",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Ilık süt, maya ve şekeri karıştırıp 10 dakika bekletin.",
+      "Un ve eritilmiş tereyağını ekleyip yumuşak bir hamur yoğurun, mayalandırın.",
+      "Hamuru parçalayıp yuvarlayarak fırın tepsisine dizin, tekrar mayalandırın.",
+      "Üzerine çırpılmış yumurta sürüp fırında altın rengi olana kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_062",
+    "name": "Fasulye Pilaki",
+    "name_en": "White Bean Pilaki",
+    "description": "Zeytinyağında havuç ve patatesle pişen soğuk servis edilen fasulye yemeği.",
+    "image_url": "/images/recipes/recipe_062.webp",
+    "emoji": "🫘",
+    "cook_time_minutes": 45,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_white_beans",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_carrot",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Zeytinyağında soğanı pembeleşene kadar kavurun.",
+      "Doğranmış havuç, patates ve salçayı ekleyip birkaç dakika soteleyin.",
+      "Haşlanmış fasulyeyi ve su ekleyip kısık ateşte sebzeler yumuşayana kadar pişirin.",
+      "Soğuduktan sonra limon dilimleriyle servis edin."
+    ]
+  },
+  {
+    "id": "recipe_063",
+    "name": "Tas Kebabı",
+    "name_en": "Tas Kebabi",
+    "description": "Domates soslu, patatesli klasik kavurma usulü et yemeği.",
+    "image_url": "/images/recipes/recipe_063.webp",
+    "emoji": "🍲",
+    "cook_time_minutes": 70,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_beef_cubes",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 2,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Eti yüksek ateşte suyunu salıp çekene kadar kavurun.",
+      "Soğan ve sarımsağı ekleyip pembeleşene kadar kavurmaya devam edin.",
+      "Salça ve doğranmış domatesi ekleyip su ilave edin, kısık ateşte 40 dakika pişirin.",
+      "Küp doğranmış patatesi ekleyip et ve patatesler yumuşayana kadar pişirmeye devam edin."
+    ]
+  },
+  {
+    "id": "recipe_064",
+    "name": "Karışık Izgara",
+    "name_en": "Mixed Grill",
+    "description": "Kuzu, dana ve tavuğun bir arada közlendiği zengin ızgara tabağı.",
+    "image_url": "/images/recipes/recipe_064.webp",
+    "emoji": "🍢",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_lamb_cubes",
+        "quantity": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_chicken_breast",
+        "quantity": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_bread",
+        "quantity": 200,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Etleri ayrı ayrı marine edip şişlere dizin.",
+      "Izgarayı iyice kızdırın.",
+      "Etleri ve sebzeleri çevirerek her tarafı eşit pişene kadar közleyin.",
+      "Sıcak ekmekle birlikte tek tabakta servis edin."
+    ]
+  },
+  {
+    "id": "recipe_065",
+    "name": "Sebzeli Izgara Levrek",
+    "name_en": "Grilled Sea Bass with Vegetables",
+    "description": "Közlenmiş biber ve kabakla servis edilen hafif bir balık yemeği.",
+    "image_url": "/images/recipes/recipe_065.webp",
+    "emoji": "🐟",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_fish_fillet",
+        "quantity": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_bell_pepper_red",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_zucchini",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Balık filetolarını zeytinyağı ve limon suyuyla marine edin.",
+      "Biber ve kabağı dilimleyip zeytinyağıyla harmanlayın.",
+      "Izgarada balığı ve sebzeleri çevirerek pişirin.",
+      "Limon dilimleriyle sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_066",
+    "name": "Patlıcanlı Musakka",
+    "name_en": "Eggplant Moussaka",
+    "description": "Katman katman patlıcan ve kıymadan hazırlanan fırın yemeği.",
+    "image_url": "/images/recipes/recipe_066.webp",
+    "emoji": "🍆",
+    "cook_time_minutes": 60,
+    "servings": 5,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_eggplant",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Patlıcan ve patatesi dilimleyip hafifçe kızartın.",
+      "Soğanı kıymayla kavurup salça ve baharatları ekleyin.",
+      "Fırın kabına patlıcan, patates ve kıyma harcını sırayla dizin.",
+      "Üzerine dilimlenmiş domatesleri koyup fırında 30-35 dakika pişirin."
+    ]
+  },
+  {
+    "id": "recipe_067",
+    "name": "Kabak Mücveri",
+    "name_en": "Zucchini Fritters",
+    "description": "Rendelenmiş kabak, peynir ve dereotuyla hazırlanan çıtır mücver.",
+    "image_url": "/images/recipes/recipe_067.webp",
+    "emoji": "🥒",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "meze",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_zucchini",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_flour",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_white_cheese",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_dill",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_sunflower_oil",
+        "quantity": 200,
+        "unit": "ml"
+      }
+    ],
+    "steps": [
+      "Kabakları rendeleyip tuzlayın, suyunu sıkıp süzün.",
+      "Yumurta, un, peynir ve dereotunu ekleyip karıştırın.",
+      "Kızgın yağa kaşık yardımıyla harçtan alıp yayarak kızartın.",
+      "Her iki tarafı altın rengi olunca kağıt havluya alıp sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_068",
+    "name": "Ispanaklı Börek",
+    "name_en": "Spinach Pastry",
+    "description": "Yufka katları arasında ıspanak ve peynirle hazırlanan fırın böreği.",
+    "image_url": "/images/recipes/recipe_068.webp",
+    "emoji": "🥬",
+    "cook_time_minutes": 50,
+    "servings": 6,
+    "tags": [
+      "meze",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_phyllo_dough",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_spinach",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_white_cheese",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Ispanağı doğrayıp soğanla birlikte hafifçe soteleyin, suyunu süzün.",
+      "Ispanağı peynir ve bir yumurtayla karıştırıp harcı hazırlayın.",
+      "Tepsiye eritilmiş tereyağı sürerek yufkaları dizin, arasına harcı serpin.",
+      "Üzerine çırpılmış yumurta sürüp fırında altın rengi olana kadar pişirin."
+    ]
+  },
+  {
+    "id": "recipe_069",
+    "name": "Etli Nohut",
+    "name_en": "Chickpea Stew with Beef",
+    "description": "Kuşbaşı etle pişirilen doyurucu klasik nohut yemeği.",
+    "image_url": "/images/recipes/recipe_069.webp",
+    "emoji": "🍛",
+    "cook_time_minutes": 60,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chickpeas",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_beef_cubes",
+        "quantity": 300,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Eti tereyağında rengi dönene kadar kavurun.",
+      "Doğranmış soğanı ekleyip pembeleşene kadar pişirin, salçayı ilave edin.",
+      "Haşlanmış nohut ve su ekleyip kısık ateşte et yumuşayana kadar pişirin.",
+      "Sıcak, pilav eşliğinde servis edin."
+    ]
+  },
+  {
+    "id": "recipe_070",
+    "name": "Ayran",
+    "name_en": "Ayran (Yogurt Drink)",
+    "description": "Yoğurt ve suyla çırpılan serinletici geleneksel içecek.",
+    "image_url": "/images/recipes/recipe_070.webp",
+    "emoji": "🥛",
+    "cook_time_minutes": 5,
+    "servings": 2,
+    "tags": [
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_salt",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Yoğurdu bir kaba alıp soğuk suyla karıştırın.",
+      "Tuzu ekleyip köpürene kadar çırpın.",
+      "Buzla dolu bardaklara paylaştırıp servis edin."
+    ]
   }
 ]
