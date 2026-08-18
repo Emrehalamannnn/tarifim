@@ -1312,5 +1312,981 @@
       "Açılmış tarhanayı ve kalan suyu ekleyip karıştırarak orta ateşte 15-20 dakika, arada karıştırarak pişirin.",
       "Pul biber ve nane ile tatlandırılmış tereyağını üzerinde gezdirerek sıcak servis edin."
     ]
+  },
+  {
+    "id": "recipe_027",
+    "name": "Brokoli Çorbası",
+    "name_en": "Broccoli Soup",
+    "description": "Kremamsı, tereyağlı ve besleyici sade bir brokoli çorbası.",
+    "image_url": "/images/recipes/recipe_027.webp",
+    "emoji": "🥦",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "soup",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_broccoli",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_black_pepper",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Soğanı tereyağında pembeleşene kadar kavurun.",
+      "Doğranmış patates ve brokoliyi ekleyip birkaç dakika soteleyin.",
+      "Üzerini geçecek kadar sıcak su ekleyip sebzeler yumuşayana kadar 15 dakika pişirin.",
+      "Sütü ekleyip blenderdan geçirin, karabiberle tatlandırıp sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_028",
+    "name": "Bal Kabağı Tatlısı",
+    "name_en": "Candied Pumpkin",
+    "description": "Ceviz ve tahinle servis edilen klasik Türk bal kabağı tatlısı.",
+    "image_url": "/images/recipes/recipe_028.webp",
+    "emoji": "🎃",
+    "cook_time_minutes": 45,
+    "servings": 6,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_pumpkin",
+        "quantity": 1,
+        "unit": "kg"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_cinnamon",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Bal kabağını kalın dilimler halinde kesip kabuğunu soyun.",
+      "Dilimleri bir tencereye dizip üzerine şekeri serpin, 1-2 saat dinlendirin.",
+      "Kendi suyunu salan kabakları kısık ateşte kabuğu şeffaflaşana ve şerbeti koyulaşana kadar pişirin.",
+      "Soğuduktan sonra üzerine dövülmüş ceviz ve tarçın serperek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_029",
+    "name": "Mantar Sote",
+    "name_en": "Sautéed Mushrooms",
+    "description": "Tereyağı ve sarımsakla soteleneen, maydanozla süslenen pratik bir meze.",
+    "image_url": "/images/recipes/recipe_029.webp",
+    "emoji": "🍄",
+    "cook_time_minutes": 15,
+    "servings": 4,
+    "tags": [
+      "meze",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_mushroom",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_black_pepper",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Mantarları temizleyip dilimleyin.",
+      "Tereyağını kızgın tavada eritip ezilmiş sarımsağı kısa süre kavurun.",
+      "Mantarları ekleyip suyunu salıp çekene kadar orta-yüksek ateşte pişirin.",
+      "Karabiber ekleyip doğranmış maydanozla süsleyerek sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_030",
+    "name": "Şehriyeli Tavuk Çorbası",
+    "name_en": "Chicken Vermicelli Soup",
+    "description": "Didiklenmiş tavuk ve ince şehriyeyle hazırlanan doyurucu bir çorba.",
+    "image_url": "/images/recipes/recipe_030.webp",
+    "emoji": "🍜",
+    "cook_time_minutes": 35,
+    "servings": 4,
+    "tags": [
+      "soup",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chicken_breast",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_vermicelli",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_carrot",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Tavuk göğsünü doğranmış soğan ve havuçla birlikte haşlayın, tavuğu didikleyin.",
+      "Süzülen suyu tencereye geri alıp kaynatın.",
+      "Şehriyeyi ekleyip yumuşayana kadar 8-10 dakika pişirin.",
+      "Didiklenmiş tavuğu geri ekleyip eritilmiş tereyağıyla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_031",
+    "name": "Yoğurtlu Semizotu",
+    "name_en": "Purslane with Yogurt",
+    "description": "Sarımsaklı yoğurt ve zeytinyağıyla hazırlanan taze semizotu yemeği.",
+    "image_url": "/images/recipes/recipe_031.webp",
+    "emoji": "🥗",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_purslane",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Semizotunu ayıklayıp yıkayın ve iri doğrayın.",
+      "Zeytinyağında pirinci kısaca kavurup semizotunu ekleyin, kendi suyuyla yumuşayana kadar pişirin.",
+      "Yoğurdu ezilmiş sarımsakla karıştırın.",
+      "Soğuyan semizotunun üzerine sarımsaklı yoğurdu gezdirerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_032",
+    "name": "Rokalı Portakal Salatası",
+    "name_en": "Arugula Orange Salad",
+    "description": "Roka, portakal ve cevizin ferahlatıcı birlikteliği.",
+    "image_url": "/images/recipes/recipe_032.webp",
+    "emoji": "🍊",
+    "cook_time_minutes": 10,
+    "servings": 2,
+    "tags": [
+      "salad",
+      "vegan"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_arugula",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_orange",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Rokayı yıkayıp bir servis tabağına yayın.",
+      "Portakalın kabuğunu soyup ince dilimleyin, roka üzerine dizin.",
+      "Kabaca kırılmış cevizleri serpin.",
+      "Zeytinyağı ve limon suyunu karıştırıp salatanın üzerine gezdirin."
+    ]
+  },
+  {
+    "id": "recipe_033",
+    "name": "Fırında Balık Fileto",
+    "name_en": "Oven-Baked Fish Fillet",
+    "description": "Limon ve zeytinyağıyla fırınlanan hafif ve pratik bir balık yemeği.",
+    "image_url": "/images/recipes/recipe_033.webp",
+    "emoji": "🐟",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_fish_fillet",
+        "quantity": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      }
+    ],
+    "steps": [
+      "Fırını 200°C'ye ısıtın, balık filetolarını fırın kağıdı serili tepsiye dizin.",
+      "Ezilmiş sarımsak, zeytinyağı ve limon suyunu karıştırıp filetoların üzerine gezdirin.",
+      "Fırında 15-18 dakika, balık kolayca dağılana kadar pişirin.",
+      "Doğranmış maydanoz ve limon dilimleriyle servis edin."
+    ]
+  },
+  {
+    "id": "recipe_034",
+    "name": "Karides Güveç",
+    "name_en": "Shrimp Casserole",
+    "description": "Domates ve kaşar peyniriyle güveçte pişen nefis bir karides yemeği.",
+    "image_url": "/images/recipes/recipe_034.webp",
+    "emoji": "🍤",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_shrimp",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_pepper_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Tereyağında ezilmiş sarımsağı kısaca kavurun, biber salçasını ekleyip karıştırın.",
+      "Rendelenmiş domatesleri ekleyip sos koyulaşana kadar pişirin.",
+      "Karidesleri ekleyip 3-4 dakika pişirin, güveç kaplarına paylaştırın.",
+      "Üzerine rendelenmiş kaşar serpip fırında peynir eriyene kadar pişirip sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_035",
+    "name": "Zeytinyağlı Bamya",
+    "name_en": "Okra in Olive Oil",
+    "description": "Domates soslu, limonlu klasik zeytinyağlı bamya.",
+    "image_url": "/images/recipes/recipe_035.webp",
+    "emoji": "🫘",
+    "cook_time_minutes": 40,
+    "servings": 4,
+    "tags": [
+      "vegetarian",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_okra",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 0.5,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Bamyaların saplarını temizleyip limon suyuyla ovarak yıkayın.",
+      "Zeytinyağında soğanı pembeleşene kadar kavurun.",
+      "Rendelenmiş domatesi ve bamyaları ekleyip kısık ateşte 25-30 dakika pişirin.",
+      "Soğuk ya da ılık servis edin."
+    ]
+  },
+  {
+    "id": "recipe_036",
+    "name": "Zeytinyağlı Yaprak Sarma",
+    "name_en": "Stuffed Grape Leaves",
+    "description": "Pirinç iç harcıyla sarılan, soğuk servis edilen geleneksel yaprak sarma.",
+    "image_url": "/images/recipes/recipe_036.webp",
+    "emoji": "🍇",
+    "cook_time_minutes": 60,
+    "servings": 6,
+    "tags": [
+      "vegan",
+      "meze"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_grape_leaves",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 4,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_mint",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_pine_nuts",
+        "quantity": 30,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Soğanı zeytinyağında kavurup pirinç, çam fıstığı ve baharatları ekleyip birkaç dakika kavurun.",
+      "Asma yapraklarını harçla doldurup sıkıca sarın.",
+      "Sarmaları tencereye sık dizip üzerine limon suyu ve su ilave edin.",
+      "Kısık ateşte 40-45 dakika pişirip soğuduktan sonra servis edin."
+    ]
+  },
+  {
+    "id": "recipe_037",
+    "name": "Kuşbaşılı Güveç",
+    "name_en": "Beef Cubes Casserole",
+    "description": "Patates ve biberle güveçte yavaş pişen doyurucu bir dana yemeği.",
+    "image_url": "/images/recipes/recipe_037.webp",
+    "emoji": "🍖",
+    "cook_time_minutes": 90,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_beef_cubes",
+        "quantity": 600,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_potato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_green_pepper",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      }
+    ],
+    "steps": [
+      "Dana kuşbaşıyı yüksek ateşte kavurup rengi dönene kadar pişirin.",
+      "Salçayı ekleyip kısa süre kavurun, doğranmış domates ve sarımsağı ilave edin.",
+      "Üzerini geçecek kadar sıcak su ekleyip kapağı kapalı kısık ateşte 1 saat pişirin.",
+      "Doğranmış patates ve biberi ekleyip et ve sebzeler yumuşayana kadar 20 dakika daha pişirin."
+    ]
+  },
+  {
+    "id": "recipe_038",
+    "name": "Sarımsaklı Mozzarella Ekmek",
+    "name_en": "Garlic Mozzarella Bread",
+    "description": "Fırında eritilen mozzarella ve sarımsaklı tereyağıyla hazırlanan pratik bir meze.",
+    "image_url": "/images/recipes/recipe_038.webp",
+    "emoji": "🧄",
+    "cook_time_minutes": 20,
+    "servings": 4,
+    "tags": [
+      "meze",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_bread",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_mozzarella",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 50,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 3,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      }
+    ],
+    "steps": [
+      "Fırını 200°C'ye ısıtın, ekmeği ortadan yarın.",
+      "Eritilmiş tereyağını ezilmiş sarımsakla karıştırıp ekmeğin iç yüzeyine sürün.",
+      "Üzerine rendelenmiş mozzarellayı eşit şekilde serpin.",
+      "Peynir eriyip hafif kızarana kadar fırınlayıp doğranmış maydanozla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_039",
+    "name": "Ev Yapımı Hamburger",
+    "name_en": "Homemade Burger",
+    "description": "Ev yapımı köfte, eriyen kaşar ve taze sebzelerle klasik bir hamburger.",
+    "image_url": "/images/recipes/recipe_039.webp",
+    "emoji": "🍔",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_burger_bun",
+        "quantity": 4,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_kasar_cheese",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_ketchup",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_mayonnaise",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_lettuce",
+        "quantity": 100,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_tomato",
+        "quantity": 1,
+        "unit": "piece"
+      }
+    ],
+    "steps": [
+      "Kıymayı tuz ve karabiberle yoğurup 4 eşit köfte haline getirin, yassıltın.",
+      "Köfteleri yüksek ateşte her iki yüzünü mühürleyerek istenilen pişkinlikte pişirin, üzerine kaşar peynirini koyup eritin.",
+      "Ekmekleri hafifçe kızartın, iç yüzeylerine ketçap ve mayonez sürün.",
+      "Marul, domates ve köfteyi ekmeğin arasına yerleştirip servis edin."
+    ]
+  },
+  {
+    "id": "recipe_040",
+    "name": "Etli Lahana Sarması",
+    "name_en": "Meat-Stuffed Cabbage Rolls",
+    "description": "Kıymalı pirinç harcıyla sarılan geleneksel lahana sarması.",
+    "image_url": "/images/recipes/recipe_040.webp",
+    "emoji": "🥬",
+    "cook_time_minutes": 75,
+    "servings": 5,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_cabbage",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Lahana yapraklarını kaynar suda yumuşayana kadar haşlayıp süzün.",
+      "Kıyma, pirinç, rendelenmiş soğan ve salçayı yoğurup iç harcı hazırlayın.",
+      "Yaprakları harçla doldurup sıkıca sarın, tencereye dizin.",
+      "Üzerine sıcak su ilave edip kısık ateşte 45-50 dakika pişirin."
+    ]
+  },
+  {
+    "id": "recipe_041",
+    "name": "Elmalı Yulaf Lapası",
+    "name_en": "Apple Oat Porridge",
+    "description": "Bal ve tarçınla tatlandırılmış besleyici bir kahvaltı lapası.",
+    "image_url": "/images/recipes/recipe_041.webp",
+    "emoji": "🥣",
+    "cook_time_minutes": 15,
+    "servings": 2,
+    "tags": [
+      "breakfast",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_oats",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_apple",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_honey",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_cinnamon",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Sütü tencerede kaynatmaya başlayın.",
+      "Yulafı ekleyip kısık ateşte karıştırarak 5-6 dakika pişirin.",
+      "Rendelenmiş elmayı ve tarçını ekleyip 2 dakika daha pişirin.",
+      "Sıcakken üzerine bal gezdirerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_042",
+    "name": "Türk Kahvesi",
+    "name_en": "Turkish Coffee",
+    "description": "Cezvede pişirilen köpüklü geleneksel Türk kahvesi.",
+    "image_url": "/images/recipes/recipe_042.webp",
+    "emoji": "☕",
+    "cook_time_minutes": 10,
+    "servings": 1,
+    "tags": [
+      "dessert",
+      "vegan"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_coffee",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Cezveye 1 fincan soğuk su, kahve ve istediğiniz kadar şekeri ekleyip karıştırın.",
+      "Kısık ateşte, karıştırmadan yavaşça ısıtın.",
+      "Köpük kabarmaya başlayınca ocaktan alıp köpüğü fincana paylaştırın.",
+      "Cezveyi ocağa geri koyup son kez kaynatıp fincana boşaltın, sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_043",
+    "name": "Salep",
+    "name_en": "Sahlep",
+    "description": "Kışın vazgeçilmezi, tarçınla süslenen sıcak ve kremamsı salep.",
+    "image_url": "/images/recipes/recipe_043.webp",
+    "emoji": "🥛",
+    "cook_time_minutes": 10,
+    "servings": 2,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_salep",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_cinnamon",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Salep tozunu birkaç kaşık soğuk sütle pürüzsüz olana kadar karıştırın.",
+      "Kalan sütü ve şekeri tencerede ısıtın.",
+      "Salep karışımını ekleyip sürekli karıştırarak koyulaşana kadar kısık ateşte pişirin.",
+      "Bardaklara paylaştırıp üzerine tarçın serperek sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_044",
+    "name": "Şalgamlı Vegan Çiğ Köfte",
+    "name_en": "Vegan Çiğ Köfte with Turnip Juice",
+    "description": "Bulgur ve cevizle hazırlanan etsiz çiğ köfte, yanında ekşi şalgamla servis edilir.",
+    "image_url": "/images/recipes/recipe_044.webp",
+    "emoji": "🌯",
+    "cook_time_minutes": 30,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "meze"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_bulgur",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_pepper_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_walnuts",
+        "quantity": 30,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_lemon",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_turnip_juice",
+        "quantity": 1,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "İnce bulguru sıcak suda 15 dakika bekletip yumuşatın.",
+      "Salçaları, dövülmüş cevizi ve limon suyunu ekleyip uzun süre yoğurun.",
+      "Doğranmış maydanozu karıştırıp küçük parçalar halinde şekil verin.",
+      "Marul yaprağına sarıp soğuk bir bardak şalgamla servis edin."
+    ]
+  },
+  {
+    "id": "recipe_045",
+    "name": "Çikolatalı Mus",
+    "name_en": "Chocolate Mousse",
+    "description": "Yoğun bitter çikolatalı, hafif ve kadifemsi bir mus tatlısı.",
+    "image_url": "/images/recipes/recipe_045.webp",
+    "emoji": "🍫",
+    "cook_time_minutes": 20,
+    "servings": 4,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_dark_chocolate",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_cocoa_powder",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_cream",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 3,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Bitter çikolatayı benmari usulü eritin.",
+      "Krema ve kakaoyu çırpıp eritilmiş çikolatayla karıştırın.",
+      "Yumurta sarılarını şekerle çırpıp çikolatalı karışıma ekleyin.",
+      "Kadeh ya da kaselere paylaştırıp en az 2 saat buzdolabında dinlendirin."
+    ]
+  },
+  {
+    "id": "recipe_046",
+    "name": "Çilekli Cheesecake",
+    "name_en": "Strawberry Cheesecake",
+    "description": "Bisküvi tabanlı, taze çilekle süslenen kremamsı cheesecake.",
+    "image_url": "/images/recipes/recipe_046.webp",
+    "emoji": "🍰",
+    "cook_time_minutes": 30,
+    "servings": 8,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_cream_cheese",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_digestive_biscuit",
+        "quantity": 200,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 80,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_strawberry",
+        "quantity": 250,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_cream",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 0.5,
+        "unit": "cup"
+      }
+    ],
+    "steps": [
+      "Bisküvileri ufalayıp eritilmiş tereyağıyla karıştırın, kalıba bastırıp tabanı oluşturun.",
+      "Krem peyniri, şekeri ve kremayı pürüzsüz olana kadar çırpın.",
+      "Karışımı bisküvi tabanının üzerine dökün, en az 4 saat buzdolabında dinlendirin.",
+      "Servis öncesi üzerini dilimlenmiş taze çilekle süsleyin."
+    ]
   }
 ]
