@@ -22,7 +22,7 @@ Getting *real prices* would require driving an actual browser (Claude in Chrome 
 
 Separately, **every** ingredient (all 57, not just the pilot 10) has a `calories_per_100g` field directly on `ingredients.json` — these are standard nutrition-reference values (not scraped), used by `computeRecipeCalories` to give every recipe a total-calorie estimate regardless of pilot coverage. They're deliberately not forced to match `product_catalog.json`'s pilot numbers where the two represent different real products (e.g. `ing_yogurt` is 61 kcal/100g, generic plain yogurt — the pilot's Migros link is for süzme/strained yogurt at 105 kcal/100g, a genuinely different product some recipes don't use).
 
-**Recipe photos are real**, generated via the Higgsfield MCP tools (`recraft_v4_1` model, `model_type: "standard"`, one prompt per recipe) and stored as compressed WebP at `public/images/recipes/recipe_0NN.webp` (resized + re-encoded with `sharp` after download — originals were ~1.8MB PNGs, now ~40-90KB each). `recipes.json`'s `image_url` points at these; `RecipeArt` renders the `<img>` when `image_url` is set, falling back to the gradient+emoji placeholder otherwise (still the path for any future recipe added without art).
+**Recipe photos are real**, generated via the Higgsfield MCP tools (`recraft_v4_1` model, `aspect_ratio: "4:3"`, one prompt per recipe, ~1.25 credits each) and stored as compressed WebP at `public/images/recipes/recipe_0NN.webp` (downloaded then resized/cropped to 900×663 and re-encoded with `sharp`, a devDependency — originals were ~1.7-2MB PNGs, now ~25-100KB each). `recipes.json`'s `image_url` points at these; `RecipeArt` renders the `<img>` when `image_url` is set, falling back to the gradient+emoji placeholder otherwise (still the path for any future recipe added without art).
 
 ## Commands
 
@@ -46,8 +46,8 @@ There is no test suite in this MVP.
 
 Static JSON files, cross-referenced by id:
 
-- `ingredients.json` — master ingredient list (87 entries; 30 were added ahead of new recipes and aren't yet referenced by any recipe). Each has a `base_unit` (`kg`, `l`, or `piece`) and, for countable produce/eggs, an `avg_piece_weight_g` used for unit conversion.
-- `recipes.json` — 25 recipes. Each `ingredients[]` line references an `ingredient_id` with its own `quantity`/`unit` as used in that recipe (e.g. `"1 cup"`, `"2 clove"`) — these units do **not** have to match the ingredient's `base_unit`.
+- `ingredients.json` — master ingredient list (87 entries). Each has a `base_unit` (`kg`, `l`, or `piece`) and, for countable produce/eggs, an `avg_piece_weight_g` used for unit conversion.
+- `recipes.json` — 101 recipes. Each `ingredients[]` line references an `ingredient_id` with its own `quantity`/`unit` as used in that recipe (e.g. `"1 cup"`, `"2 clove"`) — these units do **not** have to match the ingredient's `base_unit`.
 - `chains.json` — the 5 chains with a display color/text pair, used for badges and price bars (no real logos, per product requirement). This is the single source of truth for which chains exist — `useAppStore`'s default `preferredChainIds`, the onboarding screen, and the Profile chain picker all derive from it, so adding/removing a chain here is enough (no other file hardcodes the chain list).
 - `prices.json` — every ingredient × every chain (435 rows), generated (not hand-written) by `scripts/generate-prices.mjs`.
 - `product_catalog.json` — pilot real-data layer, see "Real vs. mock data" above.
@@ -79,7 +79,7 @@ Also tracks: `hasOnboarded` (flips true once, from `OnboardingPage`); `preferred
 - `ShoppingListModal` (`src/components/`) — two-step popup: step 1 lets you check/uncheck which cart recipes to include and adjust each one's meal count (shared `mealCounts` again); step 2 (reached via the "🛒 Alışveriş Listesini Oluştur" confirm button) shows the combined list from `buildShoppingList` with a "Listeyi Kopyala" button (`navigator.clipboard.writeText`, brief "Kopyalandı ✓" feedback).
 - `ProfilePage` (`src/pages/`) — `LoginPanel` (Apple/Google/Email buttons) when logged out, a profile card (initials avatar, name/email, provider, mocked follower/following counts via `mockSocialStats`, logout) when logged in, then the existing preference sections (chains, dietary filter, city, deck reset).
 - `SocialPage` (`src/pages/`) — a feed of `communityPosts` (seeded with 3 sample posts on first load). Logged-in users get a "+ Tarif Paylaş" button opening `CreatePostModal` (photo upload → resized/re-encoded to a JPEG data URL client-side via canvas, title, description, and a **required** multi-select of every ingredient used, grouped by category) — logged-out users see a "Paylaşmak için giriş yap" link to `/profile` instead. Posts show a heart-toggle like count; only posts the current session created (`ownedByMe: true`) get a delete button.
-- `RecipeArt` renders the recipe's real photo (`recipe.image_url`, all 25 recipes have one) or, if absent, a deterministic gradient + emoji block hashed from `recipe.id`. Also used at small sizes for cart rows and shopping-list checkboxes.
+- `RecipeArt` renders the recipe's real photo (`recipe.image_url`, all 101 recipes have one) or, if absent, a deterministic gradient + emoji block hashed from `recipe.id`. Also used at small sizes for cart rows and shopping-list checkboxes.
 - `PageFade` (`src/components/`) — every page's root is wrapped in this (`initial={opacity:0,y:10} → animate={opacity:1,y:0}`), so navigating between screens has a quick, consistent entrance instead of a hard cut.
 - `ConfirmDialog` (`src/components/`) — generic "are you sure" bottom-sheet/modal (title, description, confirm/cancel). Used by `CartPage`'s "Sepeti Boşalt"; reach for it before adding another one-off confirm UI.
 

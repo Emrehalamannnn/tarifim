@@ -4690,5 +4690,322 @@
       "Küçük köfteler halinde şekillendirin.",
       "Tavada az yağda her iki tarafını kızartıp sıcak servis edin."
     ]
+  },
+  {
+    "id": "recipe_095",
+    "name": "Şiş Köfte",
+    "name_en": "Skewered Meatballs",
+    "description": "Baharatlı kıyma harcının şişte ızgara yapıldığı klasik köfte.",
+    "image_url": "/images/recipes/recipe_095.webp",
+    "emoji": "🍢",
+    "cook_time_minutes": 25,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_ground_beef",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_parsley",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_red_pepper_flakes",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "ingredient_id": "ing_bread",
+        "quantity": 50,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Ekmek içini ıslatıp sıkarak kıymaya ekleyin.",
+      "Rendelenmiş soğan, maydanoz ve pul biberle iyice yoğurup dinlendirin.",
+      "Harçtan parçalar alıp şişlere uzun şekilde sarın.",
+      "Izgarada çevirerek pişirip sıcak servis edin."
+    ]
+  },
+  {
+    "id": "recipe_096",
+    "name": "Fırın Sütlaç",
+    "name_en": "Baked Rice Pudding",
+    "description": "Üzeri hafifçe karamelize olan, fırında pişen kremamsı sütlaç.",
+    "image_url": "/images/recipes/recipe_096.webp",
+    "emoji": "🍮",
+    "cook_time_minutes": 55,
+    "servings": 6,
+    "tags": [
+      "dessert",
+      "vegetarian"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_milk",
+        "quantity": 1,
+        "unit": "l"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_egg",
+        "quantity": 2,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_vanilla",
+        "quantity": 1,
+        "unit": "tsp"
+      }
+    ],
+    "steps": [
+      "Pirinci az suyla yumuşayana kadar haşlayın.",
+      "Süt ve şekeri ekleyip karıştırarak koyulaşana kadar pişirin.",
+      "Çırpılmış yumurta ve vanilyayı ekleyip karıştırın, kaselere paylaştırın.",
+      "Fırında üzeri hafif kızarana kadar pişirip soğuduktan sonra servis edin."
+    ]
+  },
+  {
+    "id": "recipe_097",
+    "name": "Zerde",
+    "name_en": "Saffron Rice Pudding",
+    "description": "Pekmez ve çam fıstığıyla süslenen, düğünlerin geleneksel tatlısı.",
+    "image_url": "/images/recipes/recipe_097.webp",
+    "emoji": "🍚",
+    "cook_time_minutes": 40,
+    "servings": 6,
+    "tags": [
+      "dessert",
+      "vegan"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_rice",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_pekmez",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_pine_nuts",
+        "quantity": 30,
+        "unit": "g"
+      }
+    ],
+    "steps": [
+      "Pirinci bol suda yumuşayana kadar haşlayın.",
+      "Şeker ve pekmezi ekleyip koyulaşana kadar kısık ateşte pişirin.",
+      "Kaselere paylaştırıp soğumaya bırakın.",
+      "Üzerine çam fıstığı serperek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_098",
+    "name": "Yoğurtlu Kabak",
+    "name_en": "Zucchini with Yogurt",
+    "description": "Haşlanmış kabağın sarımsaklı yoğurtla buluştuğu hafif bir meze.",
+    "image_url": "/images/recipes/recipe_098.webp",
+    "emoji": "🥒",
+    "cook_time_minutes": 20,
+    "servings": 4,
+    "tags": [
+      "meze",
+      "vegetarian",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_zucchini",
+        "quantity": 3,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_yogurt",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 1,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_dill",
+        "quantity": 1,
+        "unit": "bunch"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 1,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Kabakları dilimleyip haşlayın veya buharda pişirin.",
+      "Soğuduktan sonra hafifçe ezin.",
+      "Ezilmiş sarımsaklı yoğurt ve doğranmış dereotuyla karıştırın.",
+      "Üzerine zeytinyağı gezdirerek soğuk servis edin."
+    ]
+  },
+  {
+    "id": "recipe_099",
+    "name": "Zeytinyağlı Nohut Yemeği",
+    "name_en": "Vegan Chickpea Stew",
+    "description": "Havuçlu, domates soslu etsiz nohut yemeği.",
+    "image_url": "/images/recipes/recipe_099.webp",
+    "emoji": "🫘",
+    "cook_time_minutes": 40,
+    "servings": 4,
+    "tags": [
+      "vegan",
+      "main",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_chickpeas",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_carrot",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_tomato_paste",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_olive_oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      }
+    ],
+    "steps": [
+      "Zeytinyağında soğan ve havucu yumuşayana kadar kavurun.",
+      "Salçayı ekleyip kısaca kavurun.",
+      "Haşlanmış nohut ve suyunu ekleyip kısık ateşte 20 dakika pişirin.",
+      "Sıcak veya ılık servis edin."
+    ]
+  },
+  {
+    "id": "recipe_100",
+    "name": "Izgara Bonfile",
+    "name_en": "Grilled Beef Steak",
+    "description": "Sarımsaklı tereyağıyla servis edilen sade ve lezzetli dana bonfile.",
+    "image_url": "/images/recipes/recipe_100.webp",
+    "emoji": "🥩",
+    "cook_time_minutes": 20,
+    "servings": 2,
+    "tags": [
+      "main",
+      "high-protein"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_beef_cubes",
+        "quantity": 400,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_garlic",
+        "quantity": 2,
+        "unit": "clove"
+      },
+      {
+        "ingredient_id": "ing_black_pepper",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Eti oda sıcaklığına getirip her iki tarafına tuz ve karabiber gezdirin.",
+      "Kızgın tavada yüksek ateşte her iki tarafını mühürleyin.",
+      "Tereyağı ve ezilmiş sarımsağı ekleyip eti kaşıkla kendi yağıyla ıslatarak pişirin.",
+      "Birkaç dakika dinlendirip dilimleyerek servis edin."
+    ]
+  },
+  {
+    "id": "recipe_101",
+    "name": "Kavurma",
+    "name_en": "Sautéed Diced Beef",
+    "description": "Az malzemeyle hazırlanan, kendi yağında pişen sade et kavurması.",
+    "image_url": "/images/recipes/recipe_101.webp",
+    "emoji": "🍖",
+    "cook_time_minutes": 40,
+    "servings": 4,
+    "tags": [
+      "main",
+      "high-protein",
+      "budget-friendly"
+    ],
+    "ingredients": [
+      {
+        "ingredient_id": "ing_beef_cubes",
+        "quantity": 500,
+        "unit": "g"
+      },
+      {
+        "ingredient_id": "ing_onion",
+        "quantity": 1,
+        "unit": "piece"
+      },
+      {
+        "ingredient_id": "ing_butter",
+        "quantity": 1,
+        "unit": "tbsp"
+      },
+      {
+        "ingredient_id": "ing_black_pepper",
+        "quantity": 1,
+        "unit": "pinch"
+      }
+    ],
+    "steps": [
+      "Eti kuru bir tavada suyunu salıp çekene kadar kavurun.",
+      "Tereyağını ekleyip eti kendi yağında kızarana kadar pişirmeye devam edin.",
+      "Doğranmış soğanı ekleyip yumuşayana kadar kavurun.",
+      "Karabiberle tatlandırıp sıcak servis edin."
+    ]
   }
 ]
