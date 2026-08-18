@@ -52,7 +52,18 @@ export default function ProfilePage() {
             {initialsFrom(profile?.name ?? user.email) || "🧑‍🍳"}
           </div>
           <div>
-            <h2 className="text-base font-bold text-[var(--color-ink)]">{profile?.name ?? user.email}</h2>
+            <h2 className="flex items-center justify-center gap-1.5 text-base font-bold text-[var(--color-ink)]">
+              {profile?.name ?? user.email}
+              {profile?.is_owner && <span title="Kurucu">👑</span>}
+              {!profile?.is_owner && profile?.is_verified && (
+                <span
+                  className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-olive)] text-[9px] text-white"
+                  title="Onaylı hesap"
+                >
+                  ✓
+                </span>
+              )}
+            </h2>
             <p className="text-xs text-[var(--color-ink-soft)]">{user.email}</p>
             <p className="mt-1 text-[10px] text-[var(--color-ink-soft)]">
               {PROVIDER_LABELS[profile?.provider] ?? profile?.provider} ile giriş yapıldı

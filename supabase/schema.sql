@@ -28,6 +28,38 @@ create policy "users can update their own profile"
   on public.profiles for update
   using (auth.uid() = id);
 
+-- Admin/moderation flags. is_owner grants the ability to delete any post
+-- (see the posts delete policy below); both badges render in the UI via
+-- PostCard/ProfilePage. Protected from self-escalation by the trigger
+-- below — without it, the "users can update their own profile" policy
+-- above would let any logged-in user set these to true on themselves via
+-- a normal client update call.
+alter table public.profiles add column if not exists is_verified boolean not null default false;
+alter table public.profiles add column if not exists is_owner boolean not null default false;
+
+create or replace function public.protect_privileged_profile_fields()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  -- auth.role() is 'authenticated' for normal logged-in API/client
+  -- requests (PostgREST) — exactly the case to block. It's null (or
+  -- 'postgres') for direct/SQL-Editor connections, which is how these
+  -- flags are meant to be granted, so those pass through untouched.
+  if auth.role() = 'authenticated' then
+    new.is_verified := old.is_verified;
+    new.is_owner := old.is_owner;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists protect_privileged_profile_fields_trigger on public.profiles;
+create trigger protect_privileged_profile_fields_trigger
+  before update on public.profiles
+  for each row execute function public.protect_privileged_profile_fields();
+
 -- Auto-create a profile row whenever a new auth.users row appears (Google
 -- OAuth, Apple OAuth, or email OTP signup). Pulls name/avatar out of
 -- whatever the provider put in raw_user_meta_data, falling back to the
@@ -109,10 +141,15 @@ create policy "users can insert their own posts"
   on public.posts for insert
   with check (auth.uid() = author_id);
 
+-- Owners (profiles.is_owner) can delete any post, not just their own —
+-- moderation capability for the app's admin/founder account.
 drop policy if exists "users can delete their own posts" on public.posts;
 create policy "users can delete their own posts"
   on public.posts for delete
-  using (auth.uid() = author_id);
+  using (
+    auth.uid() = author_id
+    or exists (select 1 from public.profiles where id = auth.uid() and is_owner = true)
+  );
 
 -- ============================================================
 -- post_likes: replaces the local `likes`/`likedByMe` fields on a post.

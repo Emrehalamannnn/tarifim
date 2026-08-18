@@ -12,7 +12,7 @@ import EmptyState from "../components/EmptyState";
 // than adding a dedicated single-post query, fine at this app's scale.
 export default function PostDetailPage() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const { posts, loading, toggleLike, toggleSave, deletePost } = useCommunityFeed(user?.id);
   const [commentsOpen, setCommentsOpen] = useState(false);
 
@@ -57,6 +57,7 @@ export default function PostDetailPage() {
         <PostCard
           post={post}
           currentUserId={user?.id}
+          currentUserIsOwner={profile?.is_owner ?? false}
           onToggleLike={toggleLike}
           onToggleSave={toggleSave}
           onOpenComments={() => setCommentsOpen(true)}

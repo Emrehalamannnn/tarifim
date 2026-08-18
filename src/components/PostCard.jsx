@@ -33,6 +33,7 @@ function FollowButton({ currentUserId, authorId }) {
 export default function PostCard({
   post,
   currentUserId,
+  currentUserIsOwner,
   onToggleLike,
   onToggleSave,
   onOpenComments,
@@ -82,13 +83,24 @@ export default function PostCard({
                 ✓
               </span>
             )}
+            {!post.isOfficial && post.authorIsOwner && (
+              <span title="Kurucu">👑</span>
+            )}
+            {!post.isOfficial && !post.authorIsOwner && post.authorIsVerified && (
+              <span
+                className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[var(--color-olive)] text-[8px] text-white"
+                title="Onaylı hesap"
+              >
+                ✓
+              </span>
+            )}
           </p>
           <p className="text-[11px] text-[var(--color-ink-soft)]">
             {dateFormatter.format(new Date(post.createdAt))}
           </p>
         </div>
         {!post.isOfficial && <FollowButton currentUserId={currentUserId} authorId={post.authorId} />}
-        {post.ownedByMe && (
+        {(post.ownedByMe || currentUserIsOwner) && (
           <button
             onClick={() => onDelete(post.id)}
             aria-label="Paylaşımı sil"

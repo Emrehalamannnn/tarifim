@@ -14,7 +14,7 @@ const FILTERS = [
 ];
 
 export default function SocialPage() {
-  const { isConfigured, user } = useAuth();
+  const { isConfigured, user, profile } = useAuth();
   const { posts, addPost, toggleLike, toggleSave, deletePost } = useCommunityFeed(user?.id);
   const { followingIds } = useFollowingIds(user?.id);
   const [createOpen, setCreateOpen] = useState(false);
@@ -91,6 +91,7 @@ export default function SocialPage() {
             key={post.id}
             post={post}
             currentUserId={user?.id}
+            currentUserIsOwner={profile?.is_owner ?? false}
             onToggleLike={toggleLike}
             onToggleSave={toggleSave}
             onOpenComments={setCommentsPostId}

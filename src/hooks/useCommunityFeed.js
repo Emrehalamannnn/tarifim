@@ -27,7 +27,7 @@ export function useCommunityFeed(currentUserId) {
     const { data, error } = await supabase
       .from("posts")
       .select(
-        "*, author:profiles!posts_author_id_fkey(name), post_likes(user_id), post_comments(count), post_saves(user_id)"
+        "*, author:profiles!posts_author_id_fkey(name, is_verified, is_owner), post_likes(user_id), post_comments(count), post_saves(user_id)"
       )
       .order("created_at", { ascending: false });
 
@@ -43,6 +43,8 @@ export function useCommunityFeed(currentUserId) {
         id: post.id,
         author: post.author_id ? post.author?.name ?? "Bilinmeyen" : OFFICIAL_AUTHOR_NAME,
         authorId: post.author_id,
+        authorIsVerified: post.author?.is_verified ?? false,
+        authorIsOwner: post.author?.is_owner ?? false,
         isOfficial: post.author_id === null,
         recipeId: post.recipe_id,
         photoUrl: post.photo_url,
