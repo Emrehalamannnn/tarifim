@@ -82,6 +82,14 @@ export function useAuth() {
     return supabase.auth.signOut();
   }
 
+  // Real email change, only meaningful for provider === "email" accounts
+  // (Google/Apple accounts' login email is managed by that provider, not
+  // by us — SettingsPage doesn't offer this form for them). Supabase sends
+  // a confirmation email before the change actually takes effect.
+  async function updateEmail(newEmail) {
+    return supabase.auth.updateUser({ email: newEmail });
+  }
+
   return {
     isConfigured: isSupabaseConfigured,
     loading,
@@ -92,5 +100,6 @@ export function useAuth() {
     signInWithApple,
     signInWithEmail,
     signOut,
+    updateEmail,
   };
 }

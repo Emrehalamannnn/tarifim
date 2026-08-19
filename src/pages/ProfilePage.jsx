@@ -12,6 +12,7 @@ import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
 import PremiumPaywall from "../components/PremiumPaywall";
+import FollowListModal from "../components/FollowListModal";
 import { initialsFrom } from "../lib/mockSocial";
 
 const DIETARY_OPTIONS = [
@@ -36,11 +37,12 @@ const PROVIDER_LABELS = {
 };
 
 export default function ProfilePage() {
-  const { user, profile, signOut, refreshProfile } = useAuth();
+  const { user, profile, refreshProfile } = useAuth();
   const { followers, following } = useFollowStats(user?.id);
   const { posts: savedPosts } = useSavedPosts(user?.id);
   const { posts: userPosts } = useUserPosts(user?.id);
   const [avatarUploading, setAvatarUploading] = useState(false);
+  const [followListType, setFollowListType] = useState(null);
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
   const city = useAppStore((s) => s.city);
@@ -81,9 +83,20 @@ export default function ProfilePage() {
 
   return (
     <PageFade className="flex flex-1 flex-col gap-6 px-5 py-5">
-      <header>
-        <h1 className="text-xl font-bold text-[var(--color-ink)]">Profil</h1>
-        <p className="text-xs text-[var(--color-ink-soft)]">Hesabını ve tercihlerini yönet.</p>
+      <header className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-bold text-[var(--color-ink)]">Profil</h1>
+          <p className="text-xs text-[var(--color-ink-soft)]">Hesabını ve tercihlerini yönet.</p>
+        </div>
+        {user && (
+          <Link
+            to="/settings"
+            aria-label="Ayarlar"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-cream)] text-base active:scale-95"
+          >
+            ⚙️
+          </Link>
+        )}
       </header>
 
       <section>
@@ -150,24 +163,25 @@ export default function ProfilePage() {
           </div>
 
           <div className="flex items-center gap-6">
-            <div>
+            <button onClick={() => setFollowListType("followers")} className="text-center active:scale-95">
               <p className="text-base font-bold text-[var(--color-ink)]">{followers}</p>
               <p className="text-[11px] text-[var(--color-ink-soft)]">Takipçi</p>
-            </div>
-            <div>
+            </button>
+            <button onClick={() => setFollowListType("following")} className="text-center active:scale-95">
               <p className="text-base font-bold text-[var(--color-ink)]">{following}</p>
               <p className="text-[11px] text-[var(--color-ink-soft)]">Takip Edilen</p>
-            </div>
+            </button>
           </div>
-
-          <button
-            onClick={signOut}
-            className="mt-1 rounded-full bg-[var(--color-cream)] px-4 py-2 text-xs font-semibold text-[var(--color-tomato)] active:scale-95"
-          >
-            Çıkış Yap
-          </button>
         </section>
       )}
+
+      <FollowListModal
+        profileId={user?.id}
+        type={followListType}
+        currentUserId={user?.id}
+        open={followListType !== null}
+        onClose={() => setFollowListType(null)}
+      />
 
       {user && (
         <section>

@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ingredients from "../data/ingredients.json";
-import { useIsFollowing } from "../hooks/useFollows";
 import Avatar from "./Avatar";
+import FollowButton from "./FollowButton";
 
 // Double-click-to-like on the media needs to coexist with single-click-to-open.
 // Browsers fire two click events before a dblclick, so a naive onClick would
@@ -16,24 +16,6 @@ const dateFormatter = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: 
 
 function shareUrlFor(postId) {
   return `${window.location.origin}${window.location.pathname}#/post/${postId}`;
-}
-
-function FollowButton({ currentUserId, authorId }) {
-  const { isFollowing, loading, toggleFollow } = useIsFollowing(currentUserId, authorId);
-  if (!currentUserId || currentUserId === authorId || loading) return null;
-
-  return (
-    <button
-      onClick={toggleFollow}
-      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold active:scale-95 ${
-        isFollowing
-          ? "bg-[var(--color-cream)] text-[var(--color-ink-soft)]"
-          : "bg-[var(--color-olive)] text-white"
-      }`}
-    >
-      {isFollowing ? "Takip Ediliyor" : "Takip Et"}
-    </button>
-  );
 }
 
 export default function PostCard({
@@ -139,7 +121,14 @@ export default function PostCard({
             {dateFormatter.format(new Date(post.createdAt))}
           </p>
         </div>
-        {!post.isOfficial && <FollowButton currentUserId={currentUserId} authorId={post.authorId} />}
+        {!post.isOfficial && (
+          <FollowButton
+            currentUserId={currentUserId}
+            targetUserId={post.authorId}
+            targetIsPrivate={post.authorIsPrivate}
+            size="sm"
+          />
+        )}
         {(post.ownedByMe || currentUserIsOwner) && (
           <button
             onClick={() => onDelete(post.id)}

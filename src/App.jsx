@@ -9,6 +9,7 @@ import SocialPage from "./pages/SocialPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import CoachPage from "./pages/CoachPage";
+import SettingsPage from "./pages/SettingsPage";
 import { useAppStore } from "./store/useAppStore";
 import { useThemeSync } from "./hooks/useThemeSync";
 
@@ -89,6 +90,14 @@ export default function App() {
             element={
               <RequireOnboarding>
                 <ProfilePage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <RequireOnboarding>
+                <SettingsPage />
               </RequireOnboarding>
             }
           />

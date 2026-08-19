@@ -37,6 +37,12 @@ create policy "users can update their own profile"
 alter table public.profiles add column if not exists is_verified boolean not null default false;
 alter table public.profiles add column if not exists is_owner boolean not null default false;
 
+-- Private accounts. Gates the posts SELECT policy and the follows
+-- pending/accepted flow below (see the follows section). Defaults false so
+-- every existing profile — the real account and all ~200 seeded fake ones —
+-- stays public until a user opts in from /settings.
+alter table public.profiles add column if not exists is_private boolean not null default false;
+
 create or replace function public.protect_privileged_profile_fields()
 returns trigger
 language plpgsql
@@ -166,10 +172,23 @@ create unique index if not exists posts_recipe_id_key on public.posts (recipe_id
 
 alter table public.posts enable row level security;
 
+-- Private accounts: hide a private author's posts from everyone except the
+-- author, anyone when the post is official (author_id is null), and users
+-- with an accepted follow into that author.
 drop policy if exists "posts are publicly readable" on public.posts;
 create policy "posts are publicly readable"
   on public.posts for select
-  using (true);
+  using (
+    author_id is null
+    or auth.uid() = author_id
+    or not exists (select 1 from public.profiles where id = posts.author_id and is_private = true)
+    or exists (
+      select 1 from public.follows
+      where follows.follower_id = auth.uid()
+        and follows.following_id = posts.author_id
+        and follows.status = 'accepted'
+    )
+  );
 
 drop policy if exists "users can insert their own posts" on public.posts;
 create policy "users can insert their own posts"
@@ -198,6 +217,14 @@ create table if not exists public.post_likes (
 
 alter table public.post_likes enable row level security;
 
+-- NOTE on privacy: post_likes/post_comments/post_saves deliberately do NOT
+-- re-check the parent post's author-privacy here (unlike the posts select
+-- policy above). Once a private author's post is filtered out of `posts`,
+-- its id is never surfaced to a stranger by any query in this app —
+-- PostDetailPage/CommentsModal/usePostComments all key off ids that came
+-- from an already-RLS-filtered posts result. The only residual exposure is
+-- a client hitting this table directly with an already-known post id from
+-- before the account went private — narrow, low-value, MVP-acceptable.
 drop policy if exists "post likes are publicly readable" on public.post_likes;
 create policy "post likes are publicly readable"
   on public.post_likes for select
@@ -225,22 +252,122 @@ create table if not exists public.follows (
   constraint follows_no_self_follow check (follower_id <> following_id)
 );
 
+-- Private-account follow requests: following a public account is instant
+-- ('accepted'); following a private one inserts a 'pending' row the target
+-- must approve. Status is never trusted from the client directly — see
+-- enforce_follow_request_status below.
+alter table public.follows add column if not exists status text not null default 'accepted';
+alter table public.follows drop constraint if exists follows_status_check;
+alter table public.follows add constraint follows_status_check check (status in ('pending', 'accepted'));
+
 alter table public.follows enable row level security;
 
+-- Pending rows are only visible to the two parties involved — otherwise
+-- anyone could query this table directly and see who has an outstanding
+-- request into a private account, which undercuts the point of requiring
+-- approval even though it's just metadata, not content. Accepted follows
+-- stay fully public, same as before.
 drop policy if exists "follows are publicly readable" on public.follows;
 create policy "follows are publicly readable"
   on public.follows for select
-  using (true);
+  using (status = 'accepted' or auth.uid() = follower_id or auth.uid() = following_id);
 
 drop policy if exists "users can follow as themselves" on public.follows;
 create policy "users can follow as themselves"
   on public.follows for insert
   with check (auth.uid() = follower_id);
 
+-- The client must never be able to insert status = 'accepted' directly
+-- against a private target — that would skip the approval step entirely.
+-- Same "recompute server-side, ignore whatever a normal client sent"
+-- pattern as protect_privileged_profile_fields above: status is always
+-- derived from the *current* target profile's is_private, not client input.
+create or replace function public.enforce_follow_request_status()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  target_is_private boolean;
+begin
+  if auth.role() = 'authenticated' then
+    select is_private into target_is_private from public.profiles where id = new.following_id;
+    new.status := case when coalesce(target_is_private, false) then 'pending' else 'accepted' end;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists enforce_follow_request_status_trigger on public.follows;
+create trigger enforce_follow_request_status_trigger
+  before insert on public.follows
+  for each row execute function public.enforce_follow_request_status();
+
 drop policy if exists "users can unfollow as themselves" on public.follows;
 create policy "users can unfollow as themselves"
   on public.follows for delete
   using (auth.uid() = follower_id);
+
+-- Rejecting an incoming request is a delete of someone else's row, safe as
+-- a plain scoped policy (no "new row" content to spoof, unlike accept).
+drop policy if exists "users can reject incoming follow requests" on public.follows;
+create policy "users can reject incoming follow requests"
+  on public.follows for delete
+  using (auth.uid() = following_id and status = 'pending');
+
+-- Accepting a request updates a row that isn't the requester's own. A plain
+-- scoped UPDATE policy isn't safe here the way the delete policy above is:
+-- accept is a pending -> accepted transition, which forces a WITH CHECK
+-- that differs from USING. The moment those diverge, Postgres no longer
+-- falls back to reusing USING as the check on every other column (the
+-- fallback that makes e.g. profiles' own auth.uid() = id policy safe with
+-- no explicit WITH CHECK) — a client could satisfy
+-- using(auth.uid()=following_id and status='pending') /
+-- with check(auth.uid()=following_id and status='accepted') while also
+-- rewriting follower_id in the same PATCH body, fabricating an accepted
+-- follow from a third party who never asked for it. Same underlying shape
+-- as why set_comment_pinned below needs a function instead of a policy.
+create or replace function public.respond_to_follow_request(follower_id uuid, accept boolean)
+returns void
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  requester uuid := auth.uid();
+begin
+  if requester is null then
+    raise exception 'not authenticated';
+  end if;
+
+  if accept then
+    update public.follows
+    set status = 'accepted'
+    where follows.follower_id = respond_to_follow_request.follower_id
+      and follows.following_id = requester
+      and follows.status = 'pending';
+  else
+    delete from public.follows
+    where follows.follower_id = respond_to_follow_request.follower_id
+      and follows.following_id = requester
+      and follows.status = 'pending';
+  end if;
+end;
+$$;
+
+grant execute on function public.respond_to_follow_request(uuid, boolean) to authenticated;
+
+-- Bulk companion: when an account switches from private to public
+-- (SettingsPage's toggle handler), every still-pending incoming request
+-- auto-accepts, since a public account has no concept of "pending".
+create or replace function public.accept_all_pending_follow_requests()
+returns void
+language sql
+security definer set search_path = public
+as $$
+  update public.follows set status = 'accepted' where following_id = auth.uid() and status = 'pending';
+$$;
+
+grant execute on function public.accept_all_pending_follow_requests() to authenticated;
 
 -- ============================================================
 -- post_comments

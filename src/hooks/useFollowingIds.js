@@ -17,7 +17,8 @@ export function useFollowingIds(currentUserId) {
     const { data } = await supabase
       .from("follows")
       .select("following_id")
-      .eq("follower_id", currentUserId);
+      .eq("follower_id", currentUserId)
+      .eq("status", "accepted");
     setFollowingIds(new Set((data ?? []).map((r) => r.following_id)));
     setLoading(false);
   }, [currentUserId]);
