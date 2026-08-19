@@ -25,7 +25,7 @@ function CartRow({ recipe }) {
   );
 
   return (
-    <li className="overflow-hidden rounded-2xl bg-white shadow-sm">
+    <li className="overflow-hidden rounded-2xl bg-[var(--color-surface)] shadow-sm">
       <div className="flex items-center gap-3 p-3">
         <Link to={`/recipe/${recipe.id}`} className="shrink-0">
           <RecipeArt recipe={recipe} className="h-16 w-16 rounded-xl" />
@@ -123,7 +123,7 @@ export default function CartPage() {
         {cartRecipes.length > 0 && (
           <button
             onClick={() => setConfirmClearOpen(true)}
-            className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[var(--color-tomato)] shadow-sm active:scale-95"
+            className="rounded-full bg-[var(--color-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--color-tomato)] shadow-sm active:scale-95"
           >
             Sepeti Boşalt
           </button>

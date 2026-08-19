@@ -22,8 +22,11 @@ const CATEGORY_LABELS_TR = {
 const CATEGORIES = Array.from(new Set(ingredients.map((i) => i.category)));
 
 export default function CreatePostModal({ open, onClose, onSubmit }) {
+  const [mediaMode, setMediaMode] = useState("photo");
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState(null);
+  const [videoFile, setVideoFile] = useState(null);
+  const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedIngredientIds, setSelectedIngredientIds] = useState([]);
@@ -65,9 +68,19 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
     setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
   }
 
+  function handleVideoChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setVideoFile(file);
+    setVideoPreviewUrl(URL.createObjectURL(file));
+  }
+
   function reset() {
+    setMediaMode("photo");
     setPhotoFile(null);
     setPhotoPreviewUrl(null);
+    setVideoFile(null);
+    setVideoPreviewUrl(null);
     setTitle("");
     setDescription("");
     setSelectedIngredientIds([]);
@@ -75,11 +88,13 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
   }
 
   async function handleSubmit() {
-    if (!photoFile || !title.trim() || selectedIngredientIds.length === 0) return;
+    const mediaFile = mediaMode === "video" ? videoFile : photoFile;
+    if (!mediaFile || !title.trim() || selectedIngredientIds.length === 0) return;
     setSubmitting(true);
     try {
       await onSubmit({
-        photoFile,
+        photoFile: mediaMode === "video" ? null : photoFile,
+        videoFile: mediaMode === "video" ? videoFile : null,
         title: title.trim(),
         description: description.trim(),
         ingredientIds: selectedIngredientIds,
@@ -96,7 +111,11 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
     onClose();
   }
 
-  const canSubmit = photoFile && title.trim() && selectedIngredientIds.length > 0 && !submitting;
+  const canSubmit =
+    (mediaMode === "video" ? videoFile : photoFile) &&
+    title.trim() &&
+    selectedIngredientIds.length > 0 &&
+    !submitting;
 
   return (
     <AnimatePresence>
@@ -109,7 +128,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
           onClick={handleClose}
         >
           <motion.div
-            className="flex max-h-[88vh] w-full max-w-sm flex-col overflow-hidden rounded-t-[28px] bg-white shadow-2xl sm:rounded-[28px]"
+            className="flex max-h-[88vh] w-full max-w-sm flex-col overflow-hidden rounded-t-[28px] bg-[var(--color-surface)] shadow-2xl sm:rounded-[28px]"
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
@@ -128,16 +147,46 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
             </div>
 
             <div className="flex-1 overflow-y-auto px-5 py-4">
-              <label className="flex h-36 w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-[var(--color-cream-dark)] bg-[var(--color-cream)]">
-                {photoPreviewUrl ? (
-                  <img src={photoPreviewUrl} alt="" className="h-full w-full object-cover" />
-                ) : (
-                  <span className="text-sm text-[var(--color-ink-soft)]">
-                    {busy ? "Yükleniyor…" : "📷 Fotoğraf Ekle"}
-                  </span>
-                )}
-                <input type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
-              </label>
+              <div className="mb-2 flex gap-1 rounded-full bg-[var(--color-cream)] p-1">
+                <button
+                  onClick={() => setMediaMode("photo")}
+                  className={`flex-1 rounded-full py-1.5 text-xs font-semibold transition-colors ${
+                    mediaMode === "photo" ? "bg-[var(--color-surface)] shadow-sm text-[var(--color-ink)]" : "text-[var(--color-ink-soft)]"
+                  }`}
+                >
+                  📷 Fotoğraf
+                </button>
+                <button
+                  onClick={() => setMediaMode("video")}
+                  className={`flex-1 rounded-full py-1.5 text-xs font-semibold transition-colors ${
+                    mediaMode === "video" ? "bg-[var(--color-surface)] shadow-sm text-[var(--color-ink)]" : "text-[var(--color-ink-soft)]"
+                  }`}
+                >
+                  🎥 Video
+                </button>
+              </div>
+
+              {mediaMode === "photo" ? (
+                <label className="flex aspect-[4/5] w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-[var(--color-cream-dark)] bg-[var(--color-cream)]">
+                  {photoPreviewUrl ? (
+                    <img src={photoPreviewUrl} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    <span className="text-sm text-[var(--color-ink-soft)]">
+                      {busy ? "Yükleniyor…" : "📷 Fotoğraf Ekle"}
+                    </span>
+                  )}
+                  <input type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
+                </label>
+              ) : (
+                <label className="flex aspect-[4/5] w-full cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-[var(--color-cream-dark)] bg-[var(--color-cream)]">
+                  {videoPreviewUrl ? (
+                    <video src={videoPreviewUrl} className="h-full w-full object-cover" muted autoPlay loop playsInline />
+                  ) : (
+                    <span className="text-sm text-[var(--color-ink-soft)]">🎥 Video Ekle</span>
+                  )}
+                  <input type="file" accept="video/*" className="hidden" onChange={handleVideoChange} />
+                </label>
+              )}
 
               <input
                 type="text"

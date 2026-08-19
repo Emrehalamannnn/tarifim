@@ -80,7 +80,7 @@ export default function SwipeDeck() {
         <button
           aria-label="Geç"
           onClick={() => handleSwipe("left")}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-2xl text-[var(--color-tomato)] shadow-md transition-transform active:scale-90"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-surface)] text-2xl text-[var(--color-tomato)] shadow-md transition-transform active:scale-90"
         >
           ✕
         </button>
@@ -88,14 +88,14 @@ export default function SwipeDeck() {
           aria-label="Son işlemi geri al"
           onClick={undoLast}
           disabled={decidedCount === 0}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-lg text-[var(--color-ink-soft)] shadow-md transition-transform active:scale-90 disabled:opacity-30"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-surface)] text-lg text-[var(--color-ink-soft)] shadow-md transition-transform active:scale-90 disabled:opacity-30"
         >
           ↺
         </button>
         <button
           aria-label="Beğen"
           onClick={() => handleSwipe("right")}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-2xl text-[var(--color-olive)] shadow-md transition-transform active:scale-90"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-surface)] text-2xl text-[var(--color-olive)] shadow-md transition-transform active:scale-90"
         >
           ♥
         </button>

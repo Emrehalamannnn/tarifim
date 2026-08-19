@@ -22,6 +22,8 @@ export const useAppStore = create(
       decisions: {},
       dietaryFilter: null, // e.g. "vegetarian" | "vegan" | null
       city: "İstanbul",
+      theme: "system", // "system" | "light" | "dark" — see useThemeSync
+      setTheme: (theme) => set({ theme }),
 
       // set on the first-launch onboarding screen; editable later from Profile
       hasOnboarded: false,

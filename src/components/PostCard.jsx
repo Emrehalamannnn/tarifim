@@ -1,8 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ingredients from "../data/ingredients.json";
 import { useIsFollowing } from "../hooks/useFollows";
-import { initialsFrom } from "../lib/mockSocial";
+import Avatar from "./Avatar";
+
+// Double-click-to-like on the media needs to coexist with single-click-to-open.
+// Browsers fire two click events before a dblclick, so a naive onClick would
+// navigate away before the second click ever lands — this delays a single
+// click just long enough to cancel it if a second one arrives in time.
+const DOUBLE_CLICK_WINDOW_MS = 250;
 
 const ingredientsById = new Map(ingredients.map((i) => [i.id, i]));
 
@@ -37,11 +43,17 @@ export default function PostCard({
   onToggleLike,
   onToggleSave,
   onOpenComments,
+  onShare,
   onDelete,
 }) {
+  const navigate = useNavigate();
   const [shareFeedback, setShareFeedback] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const clickTimer = useRef(null);
 
-  async function handleShare() {
+  async function handleShare(e) {
+    e.stopPropagation();
+    onShare?.(post.id);
     const url = shareUrlFor(post.id);
     if (navigator.share) {
       try {
@@ -61,20 +73,48 @@ export default function PostCard({
     }
   }
 
-  function handlePhotoDoubleClick() {
+  function handleMediaClick() {
+    if (clickTimer.current) {
+      window.clearTimeout(clickTimer.current);
+      clickTimer.current = null;
+      return;
+    }
+    clickTimer.current = window.setTimeout(() => {
+      clickTimer.current = null;
+      navigate(`/post/${post.id}`);
+    }, DOUBLE_CLICK_WINDOW_MS);
+  }
+
+  function handleMediaDoubleClick() {
+    if (clickTimer.current) {
+      window.clearTimeout(clickTimer.current);
+      clickTimer.current = null;
+    }
     if (!currentUserId || post.likedByMe) return;
     onToggleLike(post.id, false);
   }
 
   return (
-    <li className="overflow-hidden rounded-2xl bg-white shadow-sm">
+    <li className="overflow-hidden rounded-2xl bg-[var(--color-surface)] shadow-sm">
       <div className="flex items-center gap-2.5 px-4 pt-3.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-olive)] text-xs font-bold text-white">
-          {post.isOfficial ? "🍳" : initialsFrom(post.author) || "🧑‍🍳"}
-        </div>
+        {post.isOfficial ? (
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-olive)] text-xs font-bold text-white">
+            🍳
+          </div>
+        ) : (
+          <Link to={`/user/${post.authorId}`}>
+            <Avatar name={post.author} avatarUrl={post.authorAvatarUrl} />
+          </Link>
+        )}
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-1 truncate text-sm font-semibold text-[var(--color-ink)]">
-            {post.author}
+            {post.isOfficial ? (
+              post.author
+            ) : (
+              <Link to={`/user/${post.authorId}`} className="truncate">
+                {post.author}
+              </Link>
+            )}
             {post.isOfficial && (
               <span
                 className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[var(--color-paprika)] text-[8px] text-white"
@@ -111,13 +151,42 @@ export default function PostCard({
         )}
       </div>
 
-      <img
-        src={post.photoUrl}
-        alt={post.title}
-        onDoubleClick={handlePhotoDoubleClick}
-        className="mt-3 h-56 w-full select-none object-cover"
-        draggable={false}
-      />
+      <div
+        className="relative mt-3 aspect-[4/5] w-full select-none overflow-hidden bg-[var(--color-ink)]"
+        onClick={handleMediaClick}
+        onDoubleClick={handleMediaDoubleClick}
+      >
+        {post.videoUrl ? (
+          <>
+            <video
+              src={post.videoUrl}
+              className="h-full w-full object-cover"
+              autoPlay
+              loop
+              muted={muted}
+              playsInline
+              draggable={false}
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setMuted((m) => !m);
+              }}
+              aria-label={muted ? "Sesi Aç" : "Sesi Kapat"}
+              className="absolute bottom-2.5 right-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-sm text-white backdrop-blur"
+            >
+              {muted ? "🔇" : "🔊"}
+            </button>
+          </>
+        ) : (
+          <img
+            src={post.photoUrl}
+            alt={post.title}
+            className="h-full w-full object-cover"
+            draggable={false}
+          />
+        )}
+      </div>
 
       <div className="flex flex-col gap-2 px-4 py-3.5">
         <div className="flex items-center gap-4">
@@ -142,6 +211,7 @@ export default function PostCard({
 
           <button onClick={handleShare} className="flex items-center gap-1.5 text-sm active:scale-95">
             <span className="text-[var(--color-ink-soft)]">↗️</span>
+            <span className="text-[var(--color-ink-soft)]">{post.shares}</span>
           </button>
 
           <button
@@ -169,10 +239,12 @@ export default function PostCard({
 
         {shareFeedback && <p className="text-[11px] text-[var(--color-olive)]">Bağlantı kopyalandı ✓</p>}
 
-        <h3 className="text-sm font-bold text-[var(--color-ink)]">{post.title}</h3>
-        {post.description && (
-          <p className="text-sm text-[var(--color-ink-soft)]">{post.description}</p>
-        )}
+        <button onClick={() => navigate(`/post/${post.id}`)} className="text-left">
+          <h3 className="text-sm font-bold text-[var(--color-ink)]">{post.title}</h3>
+          {post.description && (
+            <p className="text-sm text-[var(--color-ink-soft)]">{post.description}</p>
+          )}
+        </button>
 
         <div className="flex flex-wrap gap-1.5">
           {post.ingredientIds.map((id) => (

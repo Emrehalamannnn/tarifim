@@ -12,7 +12,7 @@ export default function ConfirmDialog({ open, title, description, confirmLabel, 
           onClick={onCancel}
         >
           <motion.div
-            className="w-full max-w-sm rounded-[24px] bg-white p-5 shadow-2xl"
+            className="w-full max-w-sm rounded-[24px] bg-[var(--color-surface)] p-5 shadow-2xl"
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}

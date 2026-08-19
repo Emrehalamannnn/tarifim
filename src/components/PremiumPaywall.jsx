@@ -24,7 +24,7 @@ export default function PremiumPaywall({ userId, compact = false }) {
   if (isPremium) {
     return (
       <div
-        className={`flex flex-col items-center gap-2 rounded-2xl bg-white text-center shadow-sm ${
+        className={`flex flex-col items-center gap-2 rounded-2xl bg-[var(--color-surface)] text-center shadow-sm ${
           compact ? "p-4" : "p-6"
         }`}
       >
@@ -42,7 +42,7 @@ export default function PremiumPaywall({ userId, compact = false }) {
 
   return (
     <div
-      className={`flex flex-col items-center gap-3 rounded-2xl bg-white text-center shadow-sm ${
+      className={`flex flex-col items-center gap-3 rounded-2xl bg-[var(--color-surface)] text-center shadow-sm ${
         compact ? "p-4" : "p-6"
       }`}
     >

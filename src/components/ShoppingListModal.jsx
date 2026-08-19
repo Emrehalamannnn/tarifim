@@ -64,7 +64,7 @@ export default function ShoppingListModal({ open, onClose, cartRecipes }) {
           onClick={onClose}
         >
           <motion.div
-            className="flex max-h-[85vh] w-full max-w-sm flex-col overflow-hidden rounded-t-[28px] bg-white shadow-2xl sm:rounded-[28px]"
+            className="flex max-h-[85vh] w-full max-w-sm flex-col overflow-hidden rounded-t-[28px] bg-[var(--color-surface)] shadow-2xl sm:rounded-[28px]"
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}

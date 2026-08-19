@@ -90,7 +90,7 @@ export default function AddedToCartOverlay({ recipe, onClose, onSeePrices }) {
         onClick={onClose}
       >
         <motion.div
-          className="relative w-full max-w-sm overflow-hidden rounded-[28px] bg-white shadow-2xl"
+          className="relative w-full max-w-sm overflow-hidden rounded-[28px] bg-[var(--color-surface)] shadow-2xl"
           initial={{ opacity: 0, scale: 0.8, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.85, y: 20 }}
@@ -125,7 +125,7 @@ export default function AddedToCartOverlay({ recipe, onClose, onSeePrices }) {
                 onClick={() => setMealCount(recipe.id, mealCount - 1)}
                 disabled={mealCount <= 1}
                 aria-label="Azalt"
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg font-bold text-[var(--color-ink)] shadow-sm active:scale-90 disabled:opacity-30"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-surface)] text-lg font-bold text-[var(--color-ink)] shadow-sm active:scale-90 disabled:opacity-30"
               >
                 −
               </button>
@@ -135,7 +135,7 @@ export default function AddedToCartOverlay({ recipe, onClose, onSeePrices }) {
               <button
                 onClick={() => setMealCount(recipe.id, mealCount + 1)}
                 aria-label="Artır"
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-lg font-bold text-[var(--color-ink)] shadow-sm active:scale-90"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-surface)] text-lg font-bold text-[var(--color-ink)] shadow-sm active:scale-90"
               >
                 +
               </button>

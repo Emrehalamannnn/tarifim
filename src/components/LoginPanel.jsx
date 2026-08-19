@@ -24,7 +24,7 @@ export default function LoginPanel() {
 
   if (!isConfigured) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-sm">
+      <div className="flex flex-col items-center gap-3 rounded-2xl bg-[var(--color-surface)] p-6 text-center shadow-sm">
         <span className="text-4xl">⚙️</span>
         <div>
           <h2 className="text-base font-bold text-[var(--color-ink)]">Hesaplar Henüz Ayarlanmadı</h2>
@@ -39,7 +39,7 @@ export default function LoginPanel() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4 rounded-2xl bg-white p-6 text-center shadow-sm">
+    <div className="flex flex-col items-center gap-4 rounded-2xl bg-[var(--color-surface)] p-6 text-center shadow-sm">
       <span className="text-4xl">🧑‍🍳</span>
       <div>
         <h2 className="text-base font-bold text-[var(--color-ink)]">Giriş Yap</h2>
@@ -57,7 +57,7 @@ export default function LoginPanel() {
         </button>
         <button
           onClick={signInWithGoogle}
-          className="flex items-center justify-center gap-2 rounded-full border border-[var(--color-cream-dark)] bg-white px-4 py-3 text-sm font-semibold text-[var(--color-ink)] active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-full border border-[var(--color-cream-dark)] bg-[var(--color-surface)] px-4 py-3 text-sm font-semibold text-[var(--color-ink)] active:scale-95"
         >
           <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#4285F4] text-[10px] font-bold text-white">
             G

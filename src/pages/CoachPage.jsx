@@ -95,7 +95,7 @@ export default function CoachPage() {
               <button
                 key={s}
                 onClick={() => setInput(s)}
-                className="w-fit rounded-full bg-white px-3.5 py-2 text-left text-xs text-[var(--color-ink)] shadow-sm active:scale-95"
+                className="w-fit rounded-full bg-[var(--color-surface)] px-3.5 py-2 text-left text-xs text-[var(--color-ink)] shadow-sm active:scale-95"
               >
                 {s}
               </button>
@@ -110,14 +110,14 @@ export default function CoachPage() {
               className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm ${
                 m.role === "user"
                   ? "ml-auto bg-[var(--color-paprika)] text-white"
-                  : "bg-white text-[var(--color-ink)] shadow-sm"
+                  : "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm"
               }`}
             >
               {m.content}
             </div>
           ))}
           {sending && (
-            <div className="max-w-[80%] rounded-2xl bg-white px-3.5 py-2.5 text-sm text-[var(--color-ink-soft)] shadow-sm">
+            <div className="max-w-[80%] rounded-2xl bg-[var(--color-surface)] px-3.5 py-2.5 text-sm text-[var(--color-ink-soft)] shadow-sm">
               Yazıyor…
             </div>
           )}

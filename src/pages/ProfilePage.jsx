@@ -23,6 +23,12 @@ const DIETARY_OPTIONS = [
 
 const CITIES = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya"];
 
+const THEME_OPTIONS = [
+  { value: "system", label: "Sistem" },
+  { value: "light", label: "Açık" },
+  { value: "dark", label: "Koyu" },
+];
+
 const PROVIDER_LABELS = {
   apple: "Apple",
   google: "Google",
@@ -42,6 +48,8 @@ export default function ProfilePage() {
   const resetDeck = useAppStore((s) => s.resetDeck);
   const preferredChainIds = useAppStore((s) => s.preferredChainIds);
   const togglePreferredChain = useAppStore((s) => s.togglePreferredChain);
+  const theme = useAppStore((s) => s.theme);
+  const setTheme = useAppStore((s) => s.setTheme);
 
   async function handleAvatarChange(e) {
     const file = e.target.files?.[0];
@@ -78,10 +86,31 @@ export default function ProfilePage() {
         <p className="text-xs text-[var(--color-ink-soft)]">Hesabını ve tercihlerini yönet.</p>
       </header>
 
+      <section>
+        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+          Görünüm
+        </h2>
+        <div className="flex gap-1 rounded-full bg-[var(--color-cream)] p-1">
+          {THEME_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setTheme(opt.value)}
+              className={`flex-1 rounded-full py-1.5 text-sm font-medium transition-colors ${
+                theme === opt.value
+                  ? "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm"
+                  : "text-[var(--color-ink-soft)]"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </section>
+
       {!user ? (
         <LoginPanel />
       ) : (
-        <section className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-sm">
+        <section className="flex flex-col items-center gap-3 rounded-2xl bg-[var(--color-surface)] p-6 text-center shadow-sm">
           <label className="relative flex h-16 w-16 cursor-pointer items-center justify-center rounded-full active:scale-95">
             <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-[var(--color-paprika)] text-xl font-bold text-white">
               {profile?.avatar_url ? (
@@ -236,7 +265,7 @@ export default function ProfilePage() {
               className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
                 dietaryFilter === opt.value
                   ? "bg-[var(--color-paprika)] text-white"
-                  : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+                  : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
               }`}
             >
               {opt.label}
@@ -257,7 +286,7 @@ export default function ProfilePage() {
               className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
                 city === c
                   ? "bg-[var(--color-olive)] text-white"
-                  : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+                  : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
               }`}
             >
               {c}
@@ -272,7 +301,7 @@ export default function ProfilePage() {
         </h2>
         <button
           onClick={resetDeck}
-          className="rounded-full bg-white px-4 py-2 text-sm font-medium text-[var(--color-tomato)] shadow-sm active:scale-95"
+          className="rounded-full bg-[var(--color-surface)] px-4 py-2 text-sm font-medium text-[var(--color-tomato)] shadow-sm active:scale-95"
         >
           Tüm swipe geçmişini sıfırla
         </button>

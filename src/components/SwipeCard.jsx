@@ -1,11 +1,21 @@
+import { useMemo } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import RecipeArt from "./RecipeArt";
 import { tagLabel } from "../lib/tags";
+import ingredients from "../data/ingredients.json";
+import { computeRecipeCalories } from "../lib/nutrition";
 
 const SWIPE_THRESHOLD = 110;
 const VIEW_UP_THRESHOLD = 90;
+const ingredientsById = new Map(ingredients.map((i) => [i.id, i]));
 
 export default function SwipeCard({ recipe, active, stackIndex, onSwipe, onViewDetail }) {
+  const previewIngredients = recipe.ingredients.slice(0, 5);
+  const extraCount = recipe.ingredients.length - previewIngredients.length;
+  const caloriesPerServing = useMemo(
+    () => Math.round(computeRecipeCalories(recipe, ingredientsById).caloriesPerServing),
+    [recipe]
+  );
   const x = useMotionValue(0);
   const dragY = useMotionValue(0);
   const rotate = useTransform(x, [-220, 220], [-14, 14]);
@@ -51,16 +61,39 @@ export default function SwipeCard({ recipe, active, stackIndex, onSwipe, onViewD
         dragElastic={0.9}
         onDragEnd={active ? handleDragEnd : undefined}
       >
-        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_20px_40px_-12px_rgba(43,29,18,0.35)]">
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[28px] bg-[var(--color-surface)] shadow-[0_20px_40px_-12px_rgba(43,29,18,0.35)]">
           <RecipeArt recipe={recipe} className="h-[52%] w-full" />
           <div className="flex flex-1 flex-col gap-2 p-5">
             <div>
               <h2 className="text-xl font-bold text-[var(--color-ink)]">{recipe.name}</h2>
             </div>
             <p className="line-clamp-2 text-sm text-[var(--color-ink-soft)]">{recipe.description}</p>
+
+            <div className="mt-1">
+              <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">
+                Malzemeler
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {previewIngredients.map((line) => (
+                  <span
+                    key={line.ingredient_id}
+                    className="rounded-full bg-[var(--color-cream)] px-2.5 py-1 text-xs text-[var(--color-ink-soft)]"
+                  >
+                    {ingredientsById.get(line.ingredient_id)?.name ?? line.ingredient_id}
+                  </span>
+                ))}
+                {extraCount > 0 && (
+                  <span className="rounded-full bg-[var(--color-cream)] px-2.5 py-1 text-xs text-[var(--color-ink-soft)]">
+                    +{extraCount} tane daha
+                  </span>
+                )}
+              </div>
+            </div>
+
             <div className="mt-auto flex flex-wrap items-center gap-2 pt-1 text-xs text-[var(--color-ink-soft)]">
               <span>⏱ {recipe.cook_time_minutes} dk</span>
               <span>🍽 {recipe.servings} kişilik</span>
+              <span>🔥 {caloriesPerServing} kcal</span>
               {recipe.tags.slice(0, 2).map((tag) => (
                 <span
                   key={tag}

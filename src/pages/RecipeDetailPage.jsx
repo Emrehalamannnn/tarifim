@@ -73,7 +73,7 @@ export default function RecipeDetailPage() {
         <button
           onClick={() => navigate(-1)}
           aria-label="Geri"
-          className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-lg shadow-sm"
+          className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-surface)]/90 text-lg shadow-sm"
         >
           ←
         </button>
@@ -153,7 +153,7 @@ export default function RecipeDetailPage() {
         </h2>
 
         {!isInCart ? (
-          <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-[var(--color-cream-dark)] bg-white/60 p-6 text-center">
+          <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-[var(--color-cream-dark)] bg-[var(--color-surface)]/60 p-6 text-center">
             <span className="text-3xl">🔒</span>
             <p className="text-sm text-[var(--color-ink-soft)]">
               Bu tarifi beğenirsen hangi marketten daha ucuza alacağını görebilirsin.
@@ -161,14 +161,14 @@ export default function RecipeDetailPage() {
             <div className="mt-1 flex gap-3">
               <button
                 onClick={() => pass(id)}
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl text-[var(--color-tomato)] shadow-md active:scale-90"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-surface)] text-xl text-[var(--color-tomato)] shadow-md active:scale-90"
                 aria-label="Geç"
               >
                 ✕
               </button>
               <button
                 onClick={() => like(id)}
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl text-[var(--color-olive)] shadow-md active:scale-90"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-surface)] text-xl text-[var(--color-olive)] shadow-md active:scale-90"
                 aria-label="Beğen"
               >
                 ♥
@@ -177,7 +177,7 @@ export default function RecipeDetailPage() {
           </div>
         ) : (
           <>
-            <div className="mb-3 flex items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-sm">
+            <div className="mb-3 flex items-center justify-between rounded-2xl bg-[var(--color-surface)] px-4 py-3 shadow-sm">
               <div>
                 <p className="text-xs font-semibold text-[var(--color-ink-soft)]">
                   Kaç öğün hazırlamak istiyorsun?
@@ -227,7 +227,7 @@ export default function RecipeDetailPage() {
             )}
             <div className="flex flex-col gap-2">
               {totals.slice(1).map((entry) => (
-                <div key={entry.chain.id} className="rounded-xl bg-white p-3 shadow-sm">
+                <div key={entry.chain.id} className="rounded-xl bg-[var(--color-surface)] p-3 shadow-sm">
                   <div className="mb-1.5 flex items-center justify-between">
                     <ChainBadge chain={entry.chain} />
                     <div className="text-right">

@@ -27,7 +27,7 @@ export function useCommunityFeed(currentUserId) {
     const { data, error } = await supabase
       .from("posts")
       .select(
-        "*, author:profiles!posts_author_id_fkey(name, is_verified, is_owner), post_likes(user_id), post_comments(count), post_saves(user_id)"
+        "id, author_id, photo_url, video_url, title, description, ingredient_ids, recipe_id, tags, share_count, created_at, author:profiles!posts_author_id_fkey(name, avatar_url, is_verified, is_owner), post_likes(user_id), post_comments(count), post_saves(user_id)"
       )
       .order("created_at", { ascending: false });
 
@@ -43,12 +43,15 @@ export function useCommunityFeed(currentUserId) {
         id: post.id,
         author: post.author_id ? post.author?.name ?? "Bilinmeyen" : OFFICIAL_AUTHOR_NAME,
         authorId: post.author_id,
+        authorAvatarUrl: post.author?.avatar_url ?? null,
         authorIsVerified: post.author?.is_verified ?? false,
         authorIsOwner: post.author?.is_owner ?? false,
         isOfficial: post.author_id === null,
         recipeId: post.recipe_id,
         tags: post.tags ?? [],
         photoUrl: post.photo_url,
+        videoUrl: post.video_url,
+        shares: post.share_count ?? 0,
         title: post.title,
         description: post.description,
         ingredientIds: post.ingredient_ids,
@@ -67,20 +70,26 @@ export function useCommunityFeed(currentUserId) {
     refresh();
   }, [refresh]);
 
-  async function addPost({ photoFile, title, description, ingredientIds, tags = [] }) {
-    const path = `${currentUserId}/${Date.now()}-${photoFile.name}`;
-    const { error: uploadError } = await supabase.storage
-      .from("post-photos")
-      .upload(path, photoFile);
-    if (uploadError) throw uploadError;
+  async function addPost({ photoFile, videoFile, title, description, ingredientIds, tags = [] }) {
+    let photoUrl = null;
+    let videoUrl = null;
 
-    const {
-      data: { publicUrl },
-    } = supabase.storage.from("post-photos").getPublicUrl(path);
+    if (videoFile) {
+      const path = `${currentUserId}/${Date.now()}-${videoFile.name}`;
+      const { error: uploadError } = await supabase.storage.from("post-videos").upload(path, videoFile);
+      if (uploadError) throw uploadError;
+      videoUrl = supabase.storage.from("post-videos").getPublicUrl(path).data.publicUrl;
+    } else {
+      const path = `${currentUserId}/${Date.now()}-${photoFile.name}`;
+      const { error: uploadError } = await supabase.storage.from("post-photos").upload(path, photoFile);
+      if (uploadError) throw uploadError;
+      photoUrl = supabase.storage.from("post-photos").getPublicUrl(path).data.publicUrl;
+    }
 
     const { error: insertError } = await supabase.from("posts").insert({
       author_id: currentUserId,
-      photo_url: publicUrl,
+      photo_url: photoUrl,
+      video_url: videoUrl,
       title,
       description,
       ingredient_ids: ingredientIds,
@@ -123,6 +132,15 @@ export function useCommunityFeed(currentUserId) {
     }
   }
 
+  async function incrementShare(postId) {
+    setPosts((prev) => prev.map((p) => (p.id === postId ? { ...p, shares: p.shares + 1 } : p)));
+    const { error } = await supabase.rpc("increment_post_share", { post_id: postId });
+    if (error) {
+      console.error("Failed to record share", error);
+      await refresh();
+    }
+  }
+
   async function deletePost(postId) {
     setPosts((prev) => prev.filter((p) => p.id !== postId));
     const { error } = await supabase.from("posts").delete().eq("id", postId);
@@ -132,5 +150,5 @@ export function useCommunityFeed(currentUserId) {
     }
   }
 
-  return { posts, loading, addPost, toggleLike, toggleSave, deletePost, refresh };
+  return { posts, loading, addPost, toggleLike, toggleSave, incrementShare, deletePost, refresh };
 }

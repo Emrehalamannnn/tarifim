@@ -129,6 +129,34 @@ alter table public.posts add column if not exists recipe_id text;
 alter table public.posts add column if not exists tags text[] not null default '{}';
 create index if not exists posts_tags_idx on public.posts using gin (tags);
 
+-- Video posts (TikTok-style UGC recipe clips) — a post carries either a
+-- photo or a video, never neither. photo_url was NOT NULL from the original
+-- photo-only design; relaxed here so a video-only post can omit it.
+alter table public.posts alter column photo_url drop not null;
+alter table public.posts add column if not exists video_url text;
+alter table public.posts drop constraint if exists posts_media_check;
+alter table public.posts add constraint posts_media_check
+  check (photo_url is not null or video_url is not null);
+
+-- Denormalized share counter — shares happen through the Web Share API /
+-- clipboard fallback (PostCard's handleShare), which has no per-user
+-- identity to key a table on the way likes/saves do, so this is a plain
+-- counter incremented client-side rather than a post_shares join table.
+alter table public.posts add column if not exists share_count integer not null default 0;
+
+-- No blanket UPDATE policy exists on posts (a client could otherwise rewrite
+-- someone else's title/photo). This function is the one narrow write a
+-- client can make: bump share_count by 1, nothing else, on any post.
+create or replace function public.increment_post_share(post_id uuid)
+returns void
+language sql
+security definer set search_path = public
+as $$
+  update public.posts set share_count = share_count + 1 where id = post_id;
+$$;
+
+grant execute on function public.increment_post_share(uuid) to authenticated, anon;
+
 create index if not exists posts_created_at_idx on public.posts (created_at desc);
 create index if not exists posts_author_id_idx on public.posts (author_id);
 -- Partial unique index (not a table constraint) so multiple user posts can
@@ -244,6 +272,73 @@ create policy "users can delete their own comments"
   on public.post_comments for delete
   using (auth.uid() = author_id);
 
+-- Instagram-style threading (one level — a reply's parent is always a
+-- top-level comment, CommentsModal flattens reply-to-a-reply onto the same
+-- parent) and pinning (post owner only, see set_comment_pinned below).
+alter table public.post_comments add column if not exists parent_comment_id uuid references public.post_comments (id) on delete cascade;
+alter table public.post_comments add column if not exists pinned_at timestamptz;
+create index if not exists post_comments_parent_id_idx on public.post_comments (parent_comment_id);
+
+-- ============================================================
+-- comment_likes
+-- ============================================================
+create table if not exists public.comment_likes (
+  comment_id uuid not null references public.post_comments (id) on delete cascade,
+  user_id uuid not null references public.profiles (id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (comment_id, user_id)
+);
+
+alter table public.comment_likes enable row level security;
+
+drop policy if exists "comment likes are publicly readable" on public.comment_likes;
+create policy "comment likes are publicly readable"
+  on public.comment_likes for select
+  using (true);
+
+drop policy if exists "users can like comments as themselves" on public.comment_likes;
+create policy "users can like comments as themselves"
+  on public.comment_likes for insert
+  with check (auth.uid() = user_id);
+
+drop policy if exists "users can unlike their own comment like" on public.comment_likes;
+create policy "users can unlike their own comment like"
+  on public.comment_likes for delete
+  using (auth.uid() = user_id);
+
+-- No UPDATE policy exists on post_comments (only insert/select/delete), so
+-- pinning — which touches someone else's row (a commenter's, from the post
+-- owner's side) — has to go through a narrow security-definer function
+-- rather than a blanket policy, same reasoning as increment_post_share.
+create or replace function public.set_comment_pinned(comment_id uuid, pinned boolean)
+returns void
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  post_owner uuid;
+  requester uuid := auth.uid();
+  requester_is_owner boolean;
+begin
+  select p.author_id into post_owner
+  from public.post_comments c
+  join public.posts p on p.id = c.post_id
+  where c.id = comment_id;
+
+  select is_owner into requester_is_owner from public.profiles where id = requester;
+
+  if requester is null or (requester is distinct from post_owner and not coalesce(requester_is_owner, false)) then
+    raise exception 'not authorized to pin this comment';
+  end if;
+
+  update public.post_comments
+  set pinned_at = case when pinned then now() else null end
+  where id = comment_id;
+end;
+$$;
+
+grant execute on function public.set_comment_pinned(uuid, boolean) to authenticated;
+
 -- ============================================================
 -- post_saves ("bookmarks"). Unlike likes/follows, saves are private —
 -- select is restricted to the owner, not public, matching how Instagram
@@ -333,6 +428,28 @@ drop policy if exists "users can delete their own post photos" on storage.object
 create policy "users can delete their own post photos"
   on storage.objects for delete
   using (bucket_id = 'post-photos' and owner = auth.uid());
+
+-- ============================================================
+-- Storage bucket for post videos (TikTok-style UGC recipe clips).
+-- ============================================================
+insert into storage.buckets (id, name, public)
+values ('post-videos', 'post-videos', true)
+on conflict (id) do nothing;
+
+drop policy if exists "post videos are publicly readable" on storage.objects;
+create policy "post videos are publicly readable"
+  on storage.objects for select
+  using (bucket_id = 'post-videos');
+
+drop policy if exists "authenticated users can upload post videos" on storage.objects;
+create policy "authenticated users can upload post videos"
+  on storage.objects for insert
+  with check (bucket_id = 'post-videos' and auth.role() = 'authenticated');
+
+drop policy if exists "users can delete their own post videos" on storage.objects;
+create policy "users can delete their own post videos"
+  on storage.objects for delete
+  using (bucket_id = 'post-videos' and owner = auth.uid());
 
 -- ============================================================
 -- Storage bucket for profile pictures.

@@ -7,8 +7,10 @@ import ProfilePage from "./pages/ProfilePage";
 import OnboardingPage from "./pages/OnboardingPage";
 import SocialPage from "./pages/SocialPage";
 import PostDetailPage from "./pages/PostDetailPage";
+import UserProfilePage from "./pages/UserProfilePage";
 import CoachPage from "./pages/CoachPage";
 import { useAppStore } from "./store/useAppStore";
+import { useThemeSync } from "./hooks/useThemeSync";
 
 function RequireOnboarding({ children }) {
   const hasOnboarded = useAppStore((s) => s.hasOnboarded);
@@ -20,6 +22,7 @@ function RequireOnboarding({ children }) {
 }
 
 export default function App() {
+  useThemeSync();
   return (
     <HashRouter>
       <div className="flex flex-1 flex-col overflow-y-auto">
@@ -62,6 +65,14 @@ export default function App() {
             element={
               <RequireOnboarding>
                 <PostDetailPage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
+            path="/user/:id"
+            element={
+              <RequireOnboarding>
+                <UserProfilePage />
               </RequireOnboarding>
             }
           />

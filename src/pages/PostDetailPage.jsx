@@ -13,7 +13,7 @@ import EmptyState from "../components/EmptyState";
 export default function PostDetailPage() {
   const { id } = useParams();
   const { user, profile } = useAuth();
-  const { posts, loading, toggleLike, toggleSave, deletePost } = useCommunityFeed(user?.id);
+  const { posts, loading, toggleLike, toggleSave, incrementShare, deletePost } = useCommunityFeed(user?.id);
   const [commentsOpen, setCommentsOpen] = useState(false);
 
   const post = posts.find((p) => p.id === id);
@@ -61,12 +61,15 @@ export default function PostDetailPage() {
           onToggleLike={toggleLike}
           onToggleSave={toggleSave}
           onOpenComments={() => setCommentsOpen(true)}
+          onShare={incrementShare}
           onDelete={deletePost}
         />
       </ul>
       <CommentsModal
         postId={post.id}
+        postAuthorId={post.authorId}
         currentUserId={user?.id}
+        currentUserIsOwner={profile?.is_owner ?? false}
         open={commentsOpen}
         onClose={() => setCommentsOpen(false)}
       />

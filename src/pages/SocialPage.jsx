@@ -21,7 +21,7 @@ const SORT_OPTIONS = [
 
 export default function SocialPage() {
   const { isConfigured, user, profile } = useAuth();
-  const { posts, addPost, toggleLike, toggleSave, deletePost } = useCommunityFeed(user?.id);
+  const { posts, addPost, toggleLike, toggleSave, incrementShare, deletePost } = useCommunityFeed(user?.id);
   const { followingIds } = useFollowingIds(user?.id);
   const [createOpen, setCreateOpen] = useState(false);
   const [commentsPostId, setCommentsPostId] = useState(null);
@@ -88,14 +88,14 @@ export default function SocialPage() {
             className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
               audienceFilter === f.value
                 ? "bg-[var(--color-ink)] text-white"
-                : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+                : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
             }`}
           >
             {f.label}
           </button>
         ))}
 
-        <div className="ml-auto flex gap-1 rounded-full bg-white p-0.5 shadow-sm">
+        <div className="ml-auto flex gap-1 rounded-full bg-[var(--color-surface)] p-0.5 shadow-sm">
           {SORT_OPTIONS.map((s) => (
             <button
               key={s.value}
@@ -118,7 +118,7 @@ export default function SocialPage() {
           className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
             tagFilter === null
               ? "bg-[var(--color-paprika)] text-white"
-              : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+              : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
           }`}
         >
           Tüm Kategoriler
@@ -130,7 +130,7 @@ export default function SocialPage() {
             className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
               tagFilter === tag
                 ? "bg-[var(--color-paprika)] text-white"
-                : "bg-white text-[var(--color-ink-soft)] shadow-sm"
+                : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
             }`}
           >
             {tagLabel(tag)}
@@ -160,6 +160,7 @@ export default function SocialPage() {
             onToggleLike={toggleLike}
             onToggleSave={toggleSave}
             onOpenComments={setCommentsPostId}
+            onShare={incrementShare}
             onDelete={deletePost}
           />
         ))}
@@ -175,7 +176,9 @@ export default function SocialPage() {
 
       <CommentsModal
         postId={commentsPostId}
+        postAuthorId={posts.find((p) => p.id === commentsPostId)?.authorId ?? null}
         currentUserId={user?.id}
+        currentUserIsOwner={profile?.is_owner ?? false}
         open={commentsPostId !== null}
         onClose={() => setCommentsPostId(null)}
       />

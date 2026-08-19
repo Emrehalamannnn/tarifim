@@ -13,6 +13,7 @@ dist-ssr
 *.local
 .env
 supabase/.temp/
+graphify-out/
 
 # Editor directories and files
 .vscode/*
