@@ -15,6 +15,10 @@ dist-ssr
 supabase/.temp/
 graphify-out/
 
+# Claude Code / claude-flow local tooling state
+.claude/
+.claude-flow/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
