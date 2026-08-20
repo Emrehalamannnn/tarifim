@@ -5,11 +5,15 @@ import { useFollowRequests } from "../hooks/useFollows";
 import { useAppStore } from "../store/useAppStore";
 import { supabase } from "../lib/supabase";
 import { submitFeedback } from "../hooks/useFeedback";
+import { isPasswordStrongEnough } from "../lib/passwordStrength";
 import chains from "../data/chains.json";
 import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
 import Avatar from "../components/Avatar";
+import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
+
+const USERNAME_PATTERN = /^[a-z0-9_.]{3,20}$/;
 
 const PROVIDER_LABELS = {
   apple: "Apple",
@@ -76,6 +80,11 @@ export default function SettingsPage() {
   const [nameSaving, setNameSaving] = useState(false);
   const [nameSaved, setNameSaved] = useState(false);
 
+  const [username, setUsername] = useState(profile?.username ?? "");
+  const [usernameSaving, setUsernameSaving] = useState(false);
+  const [usernameSaved, setUsernameSaved] = useState(false);
+  const [usernameError, setUsernameError] = useState(null);
+
   const [newEmail, setNewEmail] = useState("");
   const [emailSending, setEmailSending] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -122,6 +131,31 @@ export default function SettingsPage() {
     setNameSaving(false);
   }
 
+  async function handleUsernameSave(e) {
+    e.preventDefault();
+    const trimmed = username.trim().toLowerCase();
+    if (!USERNAME_PATTERN.test(trimmed)) {
+      setUsernameError("3-20 karakter, küçük harf/rakam/nokta/alt çizgi.");
+      return;
+    }
+    setUsernameSaving(true);
+    setUsernameSaved(false);
+    setUsernameError(null);
+    const { error } = await supabase.from("profiles").update({ username: trimmed }).eq("id", user.id);
+    if (error) {
+      // profiles_username_key is the case-insensitive unique index in
+      // schema.sql — a 23505 here means someone else already has it.
+      setUsernameError(
+        error.code === "23505" ? "Bu kullanıcı adı alınmış." : "Kullanıcı adı güncellenemedi."
+      );
+    } else {
+      setUsername(trimmed);
+      await refreshProfile();
+      setUsernameSaved(true);
+    }
+    setUsernameSaving(false);
+  }
+
   async function handleEmailSubmit(e) {
     e.preventDefault();
     if (!newEmail.trim()) return;
@@ -135,7 +169,7 @@ export default function SettingsPage() {
 
   async function handlePasswordSubmit(e) {
     e.preventDefault();
-    if (newPassword.length < 6) return;
+    if (!isPasswordStrongEnough(newPassword)) return;
     setPasswordSaving(true);
     setPasswordError(null);
     setPasswordSaved(false);
@@ -214,6 +248,38 @@ export default function SettingsPage() {
             </button>
           </div>
           {nameSaved && <p className="text-xs text-[var(--color-olive)]">Kaydedildi ✓</p>}
+        </form>
+
+        <form
+          onSubmit={handleUsernameSave}
+          className="mt-2 flex flex-col gap-2 rounded-2xl bg-[var(--color-surface)] p-4 shadow-sm"
+        >
+          <label htmlFor="settings-username" className="text-xs font-semibold text-[var(--color-ink-soft)]">
+            Kullanıcı Adı
+          </label>
+          <div className="flex gap-2">
+            <input
+              id="settings-username"
+              type="text"
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setUsernameSaved(false);
+                setUsernameError(null);
+              }}
+              autoComplete="username"
+              className="flex-1 rounded-full border border-[var(--color-cream-dark)] px-3.5 py-2 text-sm outline-none focus:border-[var(--color-paprika)]"
+            />
+            <button
+              type="submit"
+              disabled={!username.trim() || usernameSaving}
+              className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
+            >
+              Kaydet
+            </button>
+          </div>
+          {usernameError && <p className="text-xs text-[var(--color-tomato)]">{usernameError}</p>}
+          {usernameSaved && <p className="text-xs text-[var(--color-olive)]">Kaydedildi ✓</p>}
         </form>
       </section>
 
@@ -320,26 +386,29 @@ export default function SettingsPage() {
             <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-2 border-t border-[var(--color-cream-dark)] pt-3">
               <label className="text-xs font-semibold text-[var(--color-ink-soft)]">Şifre Değiştir</label>
               {!passwordSaved && (
-                <div className="flex gap-2">
-                  <input
-                    type="password"
-                    placeholder="Yeni şifre"
-                    value={newPassword}
-                    onChange={(e) => {
-                      setNewPassword(e.target.value);
-                      setPasswordSaved(false);
-                    }}
-                    autoComplete="new-password"
-                    minLength={6}
-                    className="flex-1 rounded-full border border-[var(--color-cream-dark)] px-3.5 py-2 text-sm outline-none focus:border-[var(--color-paprika)]"
-                  />
-                  <button
-                    type="submit"
-                    disabled={newPassword.length < 6 || passwordSaving}
-                    className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
-                  >
-                    Kaydet
-                  </button>
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2">
+                    <input
+                      type="password"
+                      placeholder="Yeni şifre"
+                      value={newPassword}
+                      onChange={(e) => {
+                        setNewPassword(e.target.value);
+                        setPasswordSaved(false);
+                      }}
+                      autoComplete="new-password"
+                      minLength={8}
+                      className="flex-1 rounded-full border border-[var(--color-cream-dark)] px-3.5 py-2 text-sm outline-none focus:border-[var(--color-paprika)]"
+                    />
+                    <button
+                      type="submit"
+                      disabled={!isPasswordStrongEnough(newPassword) || passwordSaving}
+                      className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
+                    >
+                      Kaydet
+                    </button>
+                  </div>
+                  <PasswordStrengthMeter password={newPassword} />
                 </div>
               )}
               {passwordError && <p className="text-xs text-[var(--color-tomato)]">{passwordError}</p>}
