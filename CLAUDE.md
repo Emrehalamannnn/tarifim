@@ -2,6 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Workflow
+
+After applying any change to a tracked file — code, `supabase/schema.sql`, docs, this file itself —
+commit it and `git push origin main` before ending the turn, without waiting to be asked. Don't batch
+unrelated changes into one commit; each logical fix/feature gets its own commit+push. Skip this only
+for changes the user explicitly says are exploratory/throwaway, or files that shouldn't be committed
+(secrets, `.env`, build output).
+
 ## What this is
 
 Tarifim — a Turkish-language recipe discovery app. Swipe right on a recipe to add it to your **cart** (deliberately *not* framed as a Tinder "match" anywhere in the UI or the code — see the terminology note below); the cart unlocks a price-comparison screen that prices the recipe's ingredient list across five Turkish grocery chains (Migros, CarrefourSA, A101, BİM, Şok) and highlights the cheapest one. On first launch, and any time after from Profile, the user picks which of those chains they actually shop at — the price comparison only shows their `preferredChainIds`.
