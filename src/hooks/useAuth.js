@@ -4,8 +4,8 @@ import { supabase, isSupabaseConfigured } from "../lib/supabase";
 // Real Supabase auth session, replacing useAppStore's old mocked
 // `user`/`login`/`logout`. Session state deliberately does NOT live in the
 // zustand-persisted store — Supabase already persists its own session token
-// (localStorage, refreshed automatically) and duplicating it would just
-// invite the two copies to drift.
+// (sessionStorage, not localStorage — see lib/supabase.js — refreshed
+// automatically) and duplicating it would just invite the two copies to drift.
 export function useAuth() {
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
