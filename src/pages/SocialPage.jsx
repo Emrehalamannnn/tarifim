@@ -9,7 +9,6 @@ import PostCardSkeleton from "../components/PostCardSkeleton";
 import CreatePostModal from "../components/CreatePostModal";
 import CommentsModal from "../components/CommentsModal";
 import FiltersModal from "../components/FiltersModal";
-import ChatBox from "../components/ChatBox";
 
 export default function SocialPage() {
   const { isConfigured, user, profile } = useAuth();
@@ -20,7 +19,6 @@ export default function SocialPage() {
   const [createOpen, setCreateOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [commentsPostId, setCommentsPostId] = useState(null);
-  const [chatOpen, setChatOpen] = useState(false);
   const [audienceFilter, setAudienceFilter] = useState("all");
   const [tagFilter, setTagFilter] = useState(null);
   const [sort, setSort] = useState("recent");
@@ -53,31 +51,22 @@ export default function SocialPage() {
         <h1 className="flex items-center gap-1.5 text-2xl font-black tracking-tight text-[var(--color-ink)]">
           <span aria-hidden>🍳</span> Tarifim
         </h1>
-        <div className="flex items-center gap-2">
+        {user ? (
           <button
-            onClick={() => setChatOpen(true)}
-            aria-label="Topluluk Sohbeti"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-cream)] text-base active:scale-95"
+            onClick={() => setCreateOpen(true)}
+            aria-label="Tarif Paylaş"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-paprika)] text-lg font-bold text-[var(--color-cream)] shadow-sm active:scale-95"
           >
-            💬
+            +
           </button>
-          {user ? (
-            <button
-              onClick={() => setCreateOpen(true)}
-              aria-label="Tarif Paylaş"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-paprika)] text-lg font-bold text-[var(--color-cream)] shadow-sm active:scale-95"
-            >
-              +
-            </button>
-          ) : (
-            <Link
-              to="/profile"
-              className="rounded-full bg-[var(--color-cream)] px-3.5 py-2 text-xs font-semibold text-[var(--color-ink-soft)]"
-            >
-              Paylaşmak için giriş yap
-            </Link>
-          )}
-        </div>
+        ) : (
+          <Link
+            to="/profile"
+            className="rounded-full bg-[var(--color-cream)] px-3.5 py-2 text-xs font-semibold text-[var(--color-ink-soft)]"
+          >
+            Paylaşmak için giriş yap
+          </Link>
+        )}
       </header>
 
       {!isConfigured && (
@@ -157,8 +146,6 @@ export default function SocialPage() {
         open={commentsPostId !== null}
         onClose={() => setCommentsPostId(null)}
       />
-
-      <ChatBox currentUserId={user?.id} open={chatOpen} onClose={() => setChatOpen(false)} />
     </PageFade>
   );
 }
