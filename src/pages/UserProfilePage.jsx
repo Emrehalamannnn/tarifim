@@ -8,12 +8,6 @@ import Avatar from "../components/Avatar";
 import EmptyState from "../components/EmptyState";
 import FollowButton from "../components/FollowButton";
 
-const PROVIDER_LABELS = {
-  apple: "Apple",
-  google: "Google",
-  email: "E-posta",
-};
-
 export default function UserProfilePage() {
   const { id } = useParams();
   const { user } = useAuth();
@@ -76,9 +70,6 @@ export default function UserProfilePage() {
               </span>
             )}
           </h1>
-          <p className="mt-1 text-[10px] text-[var(--color-ink-soft)]">
-            {PROVIDER_LABELS[profile.provider] ?? profile.provider} ile katıldı
-          </p>
         </div>
 
         {!isLocked && (

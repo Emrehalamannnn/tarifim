@@ -2,7 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useFollowRequests } from "../hooks/useFollows";
+import { useAppStore } from "../store/useAppStore";
 import { supabase } from "../lib/supabase";
+import chains from "../data/chains.json";
+import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
 import Avatar from "../components/Avatar";
@@ -16,6 +19,19 @@ const PROVIDER_LABELS = {
 const PRIVACY_OPTIONS = [
   { value: false, label: "Herkese Açık" },
   { value: true, label: "Gizli" },
+];
+
+const THEME_OPTIONS = [
+  { value: "system", label: "Sistem" },
+  { value: "light", label: "Açık" },
+  { value: "dark", label: "Koyu" },
+];
+
+const DIETARY_OPTIONS = [
+  { value: null, label: "Hepsi" },
+  { value: "vegetarian", label: "Vejetaryen" },
+  { value: "vegan", label: "Vegan" },
+  { value: "budget-friendly", label: "Ekonomik" },
 ];
 
 function FollowRequestRow({ request, onApprove, onReject }) {
@@ -44,6 +60,16 @@ function FollowRequestRow({ request, onApprove, onReject }) {
 export default function SettingsPage() {
   const { user, profile, signOut, refreshProfile, updateEmail } = useAuth();
   const { requests, approve, reject } = useFollowRequests(user?.id);
+  const theme = useAppStore((s) => s.theme);
+  const setTheme = useAppStore((s) => s.setTheme);
+  const preferredChainIds = useAppStore((s) => s.preferredChainIds);
+  const togglePreferredChain = useAppStore((s) => s.togglePreferredChain);
+  const dietaryFilter = useAppStore((s) => s.dietaryFilter);
+  const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
+  const resetDeck = useAppStore((s) => s.resetDeck);
+  const [notifLikes, setNotifLikes] = useState(true);
+  const [notifComments, setNotifComments] = useState(true);
+  const [notifFollows, setNotifFollows] = useState(true);
 
   const [name, setName] = useState(profile?.name ?? "");
   const [nameSaving, setNameSaving] = useState(false);
@@ -149,6 +175,71 @@ export default function SettingsPage() {
       </section>
 
       <section>
+        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">Tercihler</h2>
+        <div className="flex flex-col gap-4 rounded-2xl bg-[var(--color-surface)] p-4 shadow-sm">
+          <div>
+            <p className="mb-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">Görünüm</p>
+            <div className="flex gap-1 rounded-full bg-[var(--color-cream)] p-1">
+              {THEME_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => setTheme(opt.value)}
+                  className={`flex-1 rounded-full py-1.5 text-sm font-medium transition-colors ${
+                    theme === opt.value
+                      ? "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm"
+                      : "text-[var(--color-ink-soft)]"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">
+              Tercih Ettiğin Marketler
+            </p>
+            <div className="flex flex-wrap gap-2.5">
+              {chains.map((chain) => {
+                const isSelected = preferredChainIds.includes(chain.id);
+                return (
+                  <button
+                    key={chain.id}
+                    onClick={() => togglePreferredChain(chain.id)}
+                    className={`rounded-2xl border-2 px-1 py-1 transition-transform active:scale-95 ${
+                      isSelected ? "border-[var(--color-olive)]" : "border-transparent opacity-40"
+                    }`}
+                  >
+                    <ChainBadge chain={chain} className="px-3.5 py-1.5 text-sm" />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">Beslenme Filtresi</p>
+            <div className="flex flex-wrap gap-2">
+              {DIETARY_OPTIONS.map((opt) => (
+                <button
+                  key={opt.label}
+                  onClick={() => setDietaryFilter(opt.value)}
+                  className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
+                    dietaryFilter === opt.value
+                      ? "bg-[var(--color-paprika)] text-[var(--color-cream)]"
+                      : "bg-[var(--color-cream)] text-[var(--color-ink-soft)]"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
         <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">Güvenlik</h2>
         <div className="flex flex-col gap-3 rounded-2xl bg-[var(--color-surface)] p-4 shadow-sm">
           {profile?.provider === "email" ? (
@@ -242,6 +333,67 @@ export default function SettingsPage() {
           )}
         </div>
       </section>
+
+      <section>
+        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">Uygulama</h2>
+        <div className="flex flex-col gap-4 rounded-2xl bg-[var(--color-surface)] p-4 shadow-sm">
+          <div>
+            <p className="mb-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">
+              Bildirimler <span className="normal-case text-[var(--color-ink-soft)]/70">(cihazında, yakında)</span>
+            </p>
+            <div className="flex flex-col gap-2">
+              <NotificationToggle label="Beğeniler" enabled={notifLikes} onToggle={() => setNotifLikes((v) => !v)} />
+              <NotificationToggle
+                label="Yorumlar"
+                enabled={notifComments}
+                onToggle={() => setNotifComments((v) => !v)}
+              />
+              <NotificationToggle
+                label="Yeni takipçiler"
+                enabled={notifFollows}
+                onToggle={() => setNotifFollows((v) => !v)}
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">Deste</p>
+            <button
+              onClick={resetDeck}
+              className="rounded-full bg-[var(--color-cream)] px-4 py-2 text-sm font-medium text-[var(--color-tomato)] active:scale-95"
+            >
+              Tüm swipe geçmişini sıfırla
+            </button>
+          </div>
+
+          <div>
+            <p className="mb-1 text-xs font-semibold text-[var(--color-ink-soft)]">Hakkında</p>
+            <p className="text-[11px] text-[var(--color-ink-soft)]">Tarifim · sürüm 1.0.0 (MVP)</p>
+          </div>
+        </div>
+      </section>
     </PageFade>
+  );
+}
+
+function NotificationToggle({ label, enabled, onToggle }) {
+  return (
+    <button
+      onClick={onToggle}
+      className="flex items-center justify-between rounded-full bg-[var(--color-cream)] px-3.5 py-2"
+    >
+      <span className="text-sm text-[var(--color-ink)]">{label}</span>
+      <span
+        className={`relative h-5 w-9 rounded-full transition-colors ${
+          enabled ? "bg-[var(--color-olive)]" : "bg-[var(--color-cream-dark)]"
+        }`}
+      >
+        <span
+          className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-[var(--color-surface)] shadow transition-transform ${
+            enabled ? "translate-x-4" : "translate-x-0"
+          }`}
+        />
+      </span>
+    </button>
   );
 }

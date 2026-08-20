@@ -4,7 +4,6 @@ import recipes from "../data/recipes.json";
 import chains from "../data/chains.json";
 
 export const recipeIds = recipes.map((r) => r.id);
-const recipesById = new Map(recipes.map((r) => [r.id, r]));
 const allChainIds = chains.map((c) => c.id);
 
 // Auth (`user`) and the community feed (`communityPosts` + likes/follows)
@@ -21,7 +20,6 @@ export const useAppStore = create(
       // recipe_id -> { liked, matched_at }
       decisions: {},
       dietaryFilter: null, // e.g. "vegetarian" | "vegan" | null
-      city: "İstanbul",
       theme: "system", // "system" | "light" | "dark" — see useThemeSync
       setTheme: (theme) => set({ theme }),
 
@@ -62,7 +60,7 @@ export const useAppStore = create(
           },
           mealCounts: {
             ...state.mealCounts,
-            [recipeId]: state.mealCounts[recipeId] ?? recipesById.get(recipeId)?.servings ?? 1,
+            [recipeId]: state.mealCounts[recipeId] ?? 1,
           },
         })),
 
@@ -102,7 +100,6 @@ export const useAppStore = create(
         }),
 
       setDietaryFilter: (filter) => set({ dietaryFilter: filter }),
-      setCity: (city) => set({ city }),
     }),
     { name: "tarifim-store" }
   )

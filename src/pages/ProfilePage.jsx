@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppStore } from "../store/useAppStore";
 import { useAuth } from "../hooks/useAuth";
 import { useFollowStats } from "../hooks/useFollows";
 import { useSavedPosts } from "../hooks/useSavedPosts";
@@ -8,29 +7,12 @@ import { useUserPosts } from "../hooks/useUserPosts";
 import { supabase } from "../lib/supabase";
 import { resizeImageFile } from "../lib/resizeImage";
 import { getCroppedImageFile } from "../lib/cropImage";
-import chains from "../data/chains.json";
-import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
 import PremiumPaywall from "../components/PremiumPaywall";
 import FollowListModal from "../components/FollowListModal";
 import ImageCropModal from "../components/ImageCropModal";
 import { initialsFrom } from "../lib/mockSocial";
-
-const DIETARY_OPTIONS = [
-  { value: null, label: "Hepsi" },
-  { value: "vegetarian", label: "Vejetaryen" },
-  { value: "vegan", label: "Vegan" },
-  { value: "budget-friendly", label: "Ekonomik" },
-];
-
-const CITIES = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya"];
-
-const THEME_OPTIONS = [
-  { value: "system", label: "Sistem" },
-  { value: "light", label: "Açık" },
-  { value: "dark", label: "Koyu" },
-];
 
 const PROVIDER_LABELS = {
   apple: "Apple",
@@ -46,15 +28,6 @@ export default function ProfilePage() {
   const [avatarUploading, setAvatarUploading] = useState(false);
   const [avatarCropSrc, setAvatarCropSrc] = useState(null);
   const [followListType, setFollowListType] = useState(null);
-  const dietaryFilter = useAppStore((s) => s.dietaryFilter);
-  const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
-  const city = useAppStore((s) => s.city);
-  const setCity = useAppStore((s) => s.setCity);
-  const resetDeck = useAppStore((s) => s.resetDeck);
-  const preferredChainIds = useAppStore((s) => s.preferredChainIds);
-  const togglePreferredChain = useAppStore((s) => s.togglePreferredChain);
-  const theme = useAppStore((s) => s.theme);
-  const setTheme = useAppStore((s) => s.setTheme);
 
   function handleAvatarChange(e) {
     const file = e.target.files?.[0];
@@ -103,7 +76,7 @@ export default function ProfilePage() {
       <header className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold text-[var(--color-ink)]">Profil</h1>
-          <p className="text-xs text-[var(--color-ink-soft)]">Hesabını ve tercihlerini yönet.</p>
+          <p className="text-xs text-[var(--color-ink-soft)]">Paylaşımların ve hesabın.</p>
         </div>
         {user && (
           <Link
@@ -115,27 +88,6 @@ export default function ProfilePage() {
           </Link>
         )}
       </header>
-
-      <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
-          Görünüm
-        </h2>
-        <div className="flex gap-1 rounded-full bg-[var(--color-cream)] p-1">
-          {THEME_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => setTheme(opt.value)}
-              className={`flex-1 rounded-full py-1.5 text-sm font-medium transition-colors ${
-                theme === opt.value
-                  ? "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm"
-                  : "text-[var(--color-ink-soft)]"
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </section>
 
       {!user ? (
         <LoginPanel />
@@ -258,85 +210,6 @@ export default function ProfilePage() {
           )}
         </section>
       )}
-
-      <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
-          Tercih Ettiğin Marketler
-        </h2>
-        <p className="mb-2 text-xs text-[var(--color-ink-soft)]">
-          Fiyat karşılaştırmasında sadece seçtiğin marketler gösterilir.
-        </p>
-        <div className="flex flex-wrap gap-2.5">
-          {chains.map((chain) => {
-            const isSelected = preferredChainIds.includes(chain.id);
-            return (
-              <button
-                key={chain.id}
-                onClick={() => togglePreferredChain(chain.id)}
-                className={`rounded-2xl border-2 px-1 py-1 transition-transform active:scale-95 ${
-                  isSelected ? "border-[var(--color-olive)]" : "border-transparent opacity-40"
-                }`}
-              >
-                <ChainBadge chain={chain} className="px-3.5 py-1.5 text-sm" />
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
-          Beslenme Filtresi
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {DIETARY_OPTIONS.map((opt) => (
-            <button
-              key={opt.label}
-              onClick={() => setDietaryFilter(opt.value)}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
-                dietaryFilter === opt.value
-                  ? "bg-[var(--color-paprika)] text-[var(--color-cream)]"
-                  : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
-          Şehir <span className="normal-case text-[var(--color-ink-soft)]/70">(yakında bölgesel fiyatlar)</span>
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {CITIES.map((c) => (
-            <button
-              key={c}
-              onClick={() => setCity(c)}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
-                city === c
-                  ? "bg-[var(--color-olive)] text-[var(--color-cream)]"
-                  : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
-          Deste
-        </h2>
-        <button
-          onClick={resetDeck}
-          className="rounded-full bg-[var(--color-surface)] px-4 py-2 text-sm font-medium text-[var(--color-tomato)] shadow-sm active:scale-95"
-        >
-          Tüm swipe geçmişini sıfırla
-        </button>
-      </section>
 
       <ImageCropModal
         open={avatarCropSrc !== null}
