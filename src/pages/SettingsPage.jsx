@@ -58,7 +58,7 @@ function FollowRequestRow({ request, onApprove, onReject }) {
 }
 
 export default function SettingsPage() {
-  const { user, profile, signOut, refreshProfile, updateEmail } = useAuth();
+  const { user, profile, signOut, refreshProfile, updateEmail, updatePassword } = useAuth();
   const { requests, approve, reject } = useFollowRequests(user?.id);
   const theme = useAppStore((s) => s.theme);
   const setTheme = useAppStore((s) => s.setTheme);
@@ -79,6 +79,11 @@ export default function SettingsPage() {
   const [emailSending, setEmailSending] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [emailError, setEmailError] = useState(null);
+
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordSaving, setPasswordSaving] = useState(false);
+  const [passwordSaved, setPasswordSaved] = useState(false);
+  const [passwordError, setPasswordError] = useState(null);
 
   const [privacySaving, setPrivacySaving] = useState(false);
 
@@ -120,6 +125,22 @@ export default function SettingsPage() {
     if (error) setEmailError(error.message);
     else setEmailSent(true);
     setEmailSending(false);
+  }
+
+  async function handlePasswordSubmit(e) {
+    e.preventDefault();
+    if (newPassword.length < 6) return;
+    setPasswordSaving(true);
+    setPasswordError(null);
+    setPasswordSaved(false);
+    const { error } = await updatePassword(newPassword);
+    if (error) {
+      setPasswordError(error.message);
+    } else {
+      setPasswordSaved(true);
+      setNewPassword("");
+    }
+    setPasswordSaving(false);
   }
 
   async function handlePrivacyChange(nextIsPrivate) {
@@ -270,6 +291,37 @@ export default function SettingsPage() {
                   📩 Onay için hem eski hem yeni adresini kontrol et.
                 </p>
               )}
+            </form>
+          ) : null}
+
+          {profile?.provider === "email" ? (
+            <form onSubmit={handlePasswordSubmit} className="flex flex-col gap-2 border-t border-[var(--color-cream-dark)] pt-3">
+              <label className="text-xs font-semibold text-[var(--color-ink-soft)]">Şifre Değiştir</label>
+              {!passwordSaved && (
+                <div className="flex gap-2">
+                  <input
+                    type="password"
+                    placeholder="Yeni şifre"
+                    value={newPassword}
+                    onChange={(e) => {
+                      setNewPassword(e.target.value);
+                      setPasswordSaved(false);
+                    }}
+                    autoComplete="new-password"
+                    minLength={6}
+                    className="flex-1 rounded-full border border-[var(--color-cream-dark)] px-3.5 py-2 text-sm outline-none focus:border-[var(--color-paprika)]"
+                  />
+                  <button
+                    type="submit"
+                    disabled={newPassword.length < 6 || passwordSaving}
+                    className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
+                  >
+                    Kaydet
+                  </button>
+                </div>
+              )}
+              {passwordError && <p className="text-xs text-[var(--color-tomato)]">{passwordError}</p>}
+              {passwordSaved && <p className="text-xs text-[var(--color-olive)]">Şifren güncellendi ✓</p>}
             </form>
           ) : (
             <div>

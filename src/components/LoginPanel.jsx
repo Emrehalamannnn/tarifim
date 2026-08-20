@@ -4,22 +4,40 @@ import { useAuth } from "../hooks/useAuth";
 // Real Supabase auth: Google/Apple are OAuth redirects (each needs its
 // provider enabled with real credentials in the Supabase dashboard before
 // the button will work — see CLAUDE.md "Real accounts & social backend").
-// Email is a real magic-link sign-in (no password, same UX as the old
-// mocked flow, but the link actually gets emailed and verified now).
+// Email is real email+password (signUp / signInWithPassword) — no magic
+// link, the user types a password and it's checked immediately.
 export default function LoginPanel() {
-  const { isConfigured, signInWithGoogle, signInWithApple, signInWithEmail } = useAuth();
+  const { isConfigured, signInWithGoogle, signInWithApple, signUpWithPassword, signInWithPassword } = useAuth();
   const [showEmailForm, setShowEmailForm] = useState(false);
+  const [mode, setMode] = useState("signin"); // "signin" | "signup"
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [confirmSent, setConfirmSent] = useState(false);
   const [error, setError] = useState(null);
 
   async function handleEmailSubmit(e) {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!email.trim() || !password) return;
     setError(null);
-    const { error: signInError } = await signInWithEmail(email.trim());
-    if (signInError) setError(signInError.message);
-    else setSent(true);
+    setSubmitting(true);
+    try {
+      if (mode === "signup") {
+        const { data, error: signUpError } = await signUpWithPassword(email.trim(), password);
+        if (signUpError) {
+          setError(signUpError.message);
+        } else if (!data.session) {
+          // "Confirm email" is on for this project — signUp succeeded but
+          // needs the one-time confirmation link before a session exists.
+          setConfirmSent(true);
+        }
+      } else {
+        const { error: signInError } = await signInWithPassword(email.trim(), password);
+        if (signInError) setError(signInError.message);
+      }
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (!isConfigured) {
@@ -71,29 +89,66 @@ export default function LoginPanel() {
           ✉️ E-posta ile Giriş Yap
         </button>
 
-        {showEmailForm && !sent && (
+        {showEmailForm && !confirmSent && (
           <form onSubmit={handleEmailSubmit} className="flex flex-col gap-2 pt-1 text-left">
+            <div className="flex gap-1 self-center rounded-full bg-[var(--color-cream)] p-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setMode("signin");
+                  setError(null);
+                }}
+                className={`rounded-full px-3.5 py-1 text-xs font-semibold transition-colors ${
+                  mode === "signin" ? "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm" : "text-[var(--color-ink-soft)]"
+                }`}
+              >
+                Giriş Yap
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMode("signup");
+                  setError(null);
+                }}
+                className={`rounded-full px-3.5 py-1 text-xs font-semibold transition-colors ${
+                  mode === "signup" ? "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm" : "text-[var(--color-ink-soft)]"
+                }`}
+              >
+                Hesap Oluştur
+              </button>
+            </div>
             <input
               type="email"
               placeholder="E-posta"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              className="rounded-xl border border-[var(--color-cream-dark)] px-3.5 py-2.5 text-sm outline-none focus:border-[var(--color-paprika)]"
+            />
+            <input
+              type="password"
+              placeholder="Şifre"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete={mode === "signup" ? "new-password" : "current-password"}
+              minLength={6}
               className="rounded-xl border border-[var(--color-cream-dark)] px-3.5 py-2.5 text-sm outline-none focus:border-[var(--color-paprika)]"
             />
             {error && <p className="text-xs text-[var(--color-tomato)]">{error}</p>}
             <button
               type="submit"
-              disabled={!email.trim()}
+              disabled={!email.trim() || password.length < 6 || submitting}
               className="rounded-full bg-[var(--color-paprika)] px-4 py-2.5 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
             >
-              Giriş Bağlantısı Gönder
+              {submitting ? "…" : mode === "signup" ? "Hesap Oluştur" : "Giriş Yap"}
             </button>
           </form>
         )}
 
-        {sent && (
+        {confirmSent && (
           <p className="pt-1 text-xs text-[var(--color-olive)]">
-            📩 {email} adresine bir giriş bağlantısı gönderdik — gelen kutunu kontrol et.
+            📩 {email} adresine bir onay bağlantısı gönderdik — hesabını onaylamak için gelen kutunu kontrol et,
+            sonra şifrenle giriş yapabilirsin.
           </p>
         )}
       </div>

@@ -69,13 +69,14 @@ export function useAuth() {
     });
   }
 
-  // No password, same as the old mocked email flow — Supabase emails a
-  // magic link, clicking it signs the user in.
-  async function signInWithEmail(email) {
-    return supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: window.location.origin },
-    });
+  // Real email+password account creation/sign-in — replaces the old
+  // magic-link flow (no more "check your email" step to get in).
+  async function signUpWithPassword(email, password) {
+    return supabase.auth.signUp({ email, password });
+  }
+
+  async function signInWithPassword(email, password) {
+    return supabase.auth.signInWithPassword({ email, password });
   }
 
   async function signOut() {
@@ -90,6 +91,10 @@ export function useAuth() {
     return supabase.auth.updateUser({ email: newEmail });
   }
 
+  async function updatePassword(newPassword) {
+    return supabase.auth.updateUser({ password: newPassword });
+  }
+
   return {
     isConfigured: isSupabaseConfigured,
     loading,
@@ -98,8 +103,10 @@ export function useAuth() {
     refreshProfile,
     signInWithGoogle,
     signInWithApple,
-    signInWithEmail,
+    signUpWithPassword,
+    signInWithPassword,
     signOut,
     updateEmail,
+    updatePassword,
   };
 }
