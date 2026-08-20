@@ -11,7 +11,9 @@ import UserProfilePage from "./pages/UserProfilePage";
 import CoachPage from "./pages/CoachPage";
 import SettingsPage from "./pages/SettingsPage";
 import MessagesPage from "./pages/MessagesPage";
+import NewMessagePage from "./pages/NewMessagePage";
 import ConversationPage from "./pages/ConversationPage";
+import ResetPasswordModal from "./components/ResetPasswordModal";
 import { useAppStore } from "./store/useAppStore";
 import { useThemeSync } from "./hooks/useThemeSync";
 
@@ -112,6 +114,14 @@ export default function App() {
             }
           />
           <Route
+            path="/messages/new"
+            element={
+              <RequireOnboarding>
+                <NewMessagePage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
             path="/messages/:id"
             element={
               <RequireOnboarding>
@@ -122,6 +132,7 @@ export default function App() {
         </Routes>
       </div>
       <BottomNavGate />
+      <ResetPasswordModal />
     </HashRouter>
   );
 }

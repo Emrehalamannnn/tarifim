@@ -10,6 +10,12 @@ export function useAuth() {
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(isSupabaseConfigured);
+  // Flips true when Supabase redirects back here after the user clicks a
+  // password-reset email link — App.jsx shows a "set a new password" modal
+  // while this is true, independent of HashRouter's own path (the recovery
+  // tokens Supabase reads out of the URL fragment on load would otherwise
+  // collide with HashRouter treating # as its own route separator).
+  const [passwordRecovery, setPasswordRecovery] = useState(false);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -19,8 +25,9 @@ export function useAuth() {
       setLoading(false);
     });
 
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: subscription } = supabase.auth.onAuthStateChange((event, newSession) => {
       setSession(newSession);
+      if (event === "PASSWORD_RECOVERY") setPasswordRecovery(true);
     });
 
     return () => subscription.subscription.unsubscribe();
@@ -69,14 +76,58 @@ export function useAuth() {
     });
   }
 
-  // Real email+password account creation/sign-in — replaces the old
-  // magic-link flow (no more "check your email" step to get in).
-  async function signUpWithPassword(email, password) {
-    return supabase.auth.signUp({ email, password });
+  // Real email+password account creation — replaces the old magic-link flow
+  // (no more "check your email" step to get in). username is mandatory
+  // (schema.sql's handle_new_user trigger raises if it's missing on an
+  // email-provider signup) — LoginPanel validates it client-side first for
+  // a fast error, but the trigger is the actual enforcement.
+  async function signUpWithPassword(email, password, username) {
+    return supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { username: username?.trim().toLowerCase() } },
+    });
   }
 
+  // Routed through the auth-login Edge Function rather than calling
+  // supabase.auth.signInWithPassword directly, so failed attempts are
+  // throttled server-side per email (see supabase/functions/auth-login) —
+  // a client-side-only limiter could just be reset by reloading the page.
   async function signInWithPassword(email, password) {
-    return supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.functions.invoke("auth-login", {
+      body: { email, password },
+    });
+
+    if (error) {
+      let message = "Giriş başarısız.";
+      try {
+        const body = await error.context.json();
+        if (body?.error) message = body.error;
+      } catch {
+        // no JSON body to read (network failure etc.) — keep the fallback.
+      }
+      return { error: { message } };
+    }
+
+    if (data?.session) {
+      await supabase.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
+    }
+    return { error: null };
+  }
+
+  // Also routed through an Edge Function (auth-password-reset) for the same
+  // per-email throttling reason as signInWithPassword — and so a
+  // rate-limited or nonexistent-account request resolves identically,
+  // rather than the SDK's resetPasswordForEmail leaking account existence
+  // through timing/response differences.
+  async function requestPasswordReset(email) {
+    const { error } = await supabase.functions.invoke("auth-password-reset", {
+      body: { email, redirectTo: window.location.origin },
+    });
+    return { error: error ? { message: "Bir şeyler ters gitti, tekrar dene." } : null };
   }
 
   async function signOut() {
@@ -105,6 +156,9 @@ export function useAuth() {
     signInWithApple,
     signUpWithPassword,
     signInWithPassword,
+    requestPasswordReset,
+    passwordRecovery,
+    clearPasswordRecovery: () => setPasswordRecovery(false),
     signOut,
     updateEmail,
     updatePassword,
