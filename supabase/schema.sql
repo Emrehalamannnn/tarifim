@@ -43,6 +43,31 @@ alter table public.profiles add column if not exists is_owner boolean not null d
 -- stays public until a user opts in from /settings.
 alter table public.profiles add column if not exists is_private boolean not null default false;
 
+-- ============================================================
+-- username: mandatory, unique @handle — powers the DM "search a username
+-- and message them" flow (useUserSearch). Enforced NOT NULL below; existing
+-- rows (the real account + ~200 seeded fake users, all created before this
+-- column existed) get a throwaway placeholder here so that constraint can
+-- land on a re-run without failing — replace the fake users' placeholders
+-- with human-looking ones via seed_usernames.sql, and update the real
+-- account's from Settings.
+-- ============================================================
+alter table public.profiles add column if not exists username text;
+
+update public.profiles
+set username = 'user_' || substr(id::text, 1, 8)
+where username is null;
+
+alter table public.profiles alter column username set not null;
+
+alter table public.profiles drop constraint if exists profiles_username_format_check;
+alter table public.profiles add constraint profiles_username_format_check
+  check (username ~ '^[a-z0-9_.]{3,20}$');
+
+-- Case-insensitive uniqueness ("Ayse" and "ayse" collide) via an index
+-- rather than a plain unique column constraint.
+create unique index if not exists profiles_username_key on public.profiles (lower(username));
+
 create or replace function public.protect_privileged_profile_fields()
 returns trigger
 language plpgsql
@@ -67,16 +92,40 @@ create trigger protect_privileged_profile_fields_trigger
   for each row execute function public.protect_privileged_profile_fields();
 
 -- Auto-create a profile row whenever a new auth.users row appears (Google
--- OAuth, Apple OAuth, or email OTP signup). Pulls name/avatar out of
+-- OAuth, Apple OAuth, or email+password signup). Pulls name/avatar out of
 -- whatever the provider put in raw_user_meta_data, falling back to the
 -- email's local part so a profile always has a usable display name.
+--
+-- username is mandatory, but only email signups can realistically collect
+-- one before this trigger fires (LoginPanel passes it via signUp's
+-- `options.data.username`) — a missing/blank one on that path raises an
+-- exception, which aborts the whole signup transaction (including the
+-- auth.users insert), so a client can't create an account by skipping the
+-- username field or calling the auth API directly without one. OAuth
+-- redirects give the app no chance to ask first, so those get a generated
+-- placeholder instead of a hard failure; the user can change it later from
+-- Settings.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
 security definer set search_path = public
 as $$
+declare
+  provider_val text := coalesce(new.raw_app_meta_data ->> 'provider', 'email');
+  username_val text := lower(nullif(trim(new.raw_user_meta_data ->> 'username'), ''));
 begin
-  insert into public.profiles (id, name, email, avatar_url, provider)
+  if username_val is null then
+    if provider_val = 'email' then
+      raise exception 'username is required';
+    end if;
+    username_val := regexp_replace(lower(split_part(new.email, '@', 1)), '[^a-z0-9_.]', '', 'g');
+    if username_val is null or username_val = '' then
+      username_val := 'user';
+    end if;
+    username_val := left(username_val, 14) || '_' || substr(new.id::text, 1, 4);
+  end if;
+
+  insert into public.profiles (id, name, email, avatar_url, provider, username)
   values (
     new.id,
     coalesce(
@@ -86,7 +135,8 @@ begin
     ),
     new.email,
     new.raw_user_meta_data ->> 'avatar_url',
-    coalesce(new.raw_app_meta_data ->> 'provider', 'email')
+    provider_val,
+    username_val
   )
   on conflict (id) do nothing;
   return new;
@@ -625,6 +675,27 @@ drop policy if exists "users can submit feedback as themselves" on public.feedba
 create policy "users can submit feedback as themselves"
   on public.feedback for insert
   with check (auth.uid() = user_id);
+
+-- ============================================================
+-- auth_rate_limits: backs the auth-login/auth-password-reset Edge
+-- Functions' per-identifier throttling (see supabase/functions/). Not a
+-- client-facing table at all — RLS is on with zero policies added, so the
+-- anon/authenticated PostgREST roles get no access whatsoever; only the
+-- Edge Functions' service-role client (which bypasses RLS entirely) can
+-- read or write it. This is what makes the rate limit real: a client can't
+-- see or reset its own attempt count by calling the table directly.
+-- ============================================================
+create table if not exists public.auth_rate_limits (
+  id uuid primary key default gen_random_uuid(),
+  identifier text not null,
+  action text not null check (action in ('login', 'password_reset')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists auth_rate_limits_lookup_idx
+  on public.auth_rate_limits (identifier, action, created_at);
+
+alter table public.auth_rate_limits enable row level security;
 
 -- ============================================================
 -- Storage bucket for post photos (replaces base64 data-URL-in-localStorage).
