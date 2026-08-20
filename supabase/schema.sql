@@ -99,6 +99,140 @@ create trigger on_auth_user_created
   for each row execute function public.handle_new_user();
 
 -- ============================================================
+-- follows: brand new — the mocked follower/following counts
+-- (src/lib/mockSocial.js) had no real graph behind them at all.
+--
+-- Created ahead of `posts` (below) because the posts SELECT policy's
+-- private-account gating references follows.status — CREATE POLICY
+-- validates that column exists at creation time, unlike a plpgsql function
+-- body, so follows must be fully set up first on a from-scratch run.
+-- ============================================================
+create table if not exists public.follows (
+  follower_id uuid not null references public.profiles (id) on delete cascade,
+  following_id uuid not null references public.profiles (id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (follower_id, following_id),
+  constraint follows_no_self_follow check (follower_id <> following_id)
+);
+
+-- Private-account follow requests: following a public account is instant
+-- ('accepted'); following a private one inserts a 'pending' row the target
+-- must approve. Status is never trusted from the client directly — see
+-- enforce_follow_request_status below.
+alter table public.follows add column if not exists status text not null default 'accepted';
+alter table public.follows drop constraint if exists follows_status_check;
+alter table public.follows add constraint follows_status_check check (status in ('pending', 'accepted'));
+
+alter table public.follows enable row level security;
+
+-- Pending rows are only visible to the two parties involved — otherwise
+-- anyone could query this table directly and see who has an outstanding
+-- request into a private account, which undercuts the point of requiring
+-- approval even though it's just metadata, not content. Accepted follows
+-- stay fully public, same as before.
+drop policy if exists "follows are publicly readable" on public.follows;
+create policy "follows are publicly readable"
+  on public.follows for select
+  using (status = 'accepted' or auth.uid() = follower_id or auth.uid() = following_id);
+
+drop policy if exists "users can follow as themselves" on public.follows;
+create policy "users can follow as themselves"
+  on public.follows for insert
+  with check (auth.uid() = follower_id);
+
+-- The client must never be able to insert status = 'accepted' directly
+-- against a private target — that would skip the approval step entirely.
+-- Same "recompute server-side, ignore whatever a normal client sent"
+-- pattern as protect_privileged_profile_fields above: status is always
+-- derived from the *current* target profile's is_private, not client input.
+create or replace function public.enforce_follow_request_status()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  target_is_private boolean;
+begin
+  if auth.role() = 'authenticated' then
+    select is_private into target_is_private from public.profiles where id = new.following_id;
+    new.status := case when coalesce(target_is_private, false) then 'pending' else 'accepted' end;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists enforce_follow_request_status_trigger on public.follows;
+create trigger enforce_follow_request_status_trigger
+  before insert on public.follows
+  for each row execute function public.enforce_follow_request_status();
+
+drop policy if exists "users can unfollow as themselves" on public.follows;
+create policy "users can unfollow as themselves"
+  on public.follows for delete
+  using (auth.uid() = follower_id);
+
+-- Rejecting an incoming request is a delete of someone else's row, safe as
+-- a plain scoped policy (no "new row" content to spoof, unlike accept).
+drop policy if exists "users can reject incoming follow requests" on public.follows;
+create policy "users can reject incoming follow requests"
+  on public.follows for delete
+  using (auth.uid() = following_id and status = 'pending');
+
+-- Accepting a request updates a row that isn't the requester's own. A plain
+-- scoped UPDATE policy isn't safe here the way the delete policy above is:
+-- accept is a pending -> accepted transition, which forces a WITH CHECK
+-- that differs from USING. The moment those diverge, Postgres no longer
+-- falls back to reusing USING as the check on every other column (the
+-- fallback that makes e.g. profiles' own auth.uid() = id policy safe with
+-- no explicit WITH CHECK) — a client could satisfy
+-- using(auth.uid()=following_id and status='pending') /
+-- with check(auth.uid()=following_id and status='accepted') while also
+-- rewriting follower_id in the same PATCH body, fabricating an accepted
+-- follow from a third party who never asked for it. Same underlying shape
+-- as why set_comment_pinned below needs a function instead of a policy.
+create or replace function public.respond_to_follow_request(follower_id uuid, accept boolean)
+returns void
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  requester uuid := auth.uid();
+begin
+  if requester is null then
+    raise exception 'not authenticated';
+  end if;
+
+  if accept then
+    update public.follows
+    set status = 'accepted'
+    where follows.follower_id = respond_to_follow_request.follower_id
+      and follows.following_id = requester
+      and follows.status = 'pending';
+  else
+    delete from public.follows
+    where follows.follower_id = respond_to_follow_request.follower_id
+      and follows.following_id = requester
+      and follows.status = 'pending';
+  end if;
+end;
+$$;
+
+grant execute on function public.respond_to_follow_request(uuid, boolean) to authenticated;
+
+-- Bulk companion: when an account switches from private to public
+-- (SettingsPage's toggle handler), every still-pending incoming request
+-- auto-accepts, since a public account has no concept of "pending".
+create or replace function public.accept_all_pending_follow_requests()
+returns void
+language sql
+security definer set search_path = public
+as $$
+  update public.follows set status = 'accepted' where following_id = auth.uid() and status = 'pending';
+$$;
+
+grant execute on function public.accept_all_pending_follow_requests() to authenticated;
+
+-- ============================================================
 -- posts: replaces the local-only `communityPosts` array.
 --
 -- author_id is nullable and recipe_id exists to support "official" posts
@@ -239,135 +373,6 @@ drop policy if exists "users can unlike their own like" on public.post_likes;
 create policy "users can unlike their own like"
   on public.post_likes for delete
   using (auth.uid() = user_id);
-
--- ============================================================
--- follows: brand new — the mocked follower/following counts
--- (src/lib/mockSocial.js) had no real graph behind them at all.
--- ============================================================
-create table if not exists public.follows (
-  follower_id uuid not null references public.profiles (id) on delete cascade,
-  following_id uuid not null references public.profiles (id) on delete cascade,
-  created_at timestamptz not null default now(),
-  primary key (follower_id, following_id),
-  constraint follows_no_self_follow check (follower_id <> following_id)
-);
-
--- Private-account follow requests: following a public account is instant
--- ('accepted'); following a private one inserts a 'pending' row the target
--- must approve. Status is never trusted from the client directly — see
--- enforce_follow_request_status below.
-alter table public.follows add column if not exists status text not null default 'accepted';
-alter table public.follows drop constraint if exists follows_status_check;
-alter table public.follows add constraint follows_status_check check (status in ('pending', 'accepted'));
-
-alter table public.follows enable row level security;
-
--- Pending rows are only visible to the two parties involved — otherwise
--- anyone could query this table directly and see who has an outstanding
--- request into a private account, which undercuts the point of requiring
--- approval even though it's just metadata, not content. Accepted follows
--- stay fully public, same as before.
-drop policy if exists "follows are publicly readable" on public.follows;
-create policy "follows are publicly readable"
-  on public.follows for select
-  using (status = 'accepted' or auth.uid() = follower_id or auth.uid() = following_id);
-
-drop policy if exists "users can follow as themselves" on public.follows;
-create policy "users can follow as themselves"
-  on public.follows for insert
-  with check (auth.uid() = follower_id);
-
--- The client must never be able to insert status = 'accepted' directly
--- against a private target — that would skip the approval step entirely.
--- Same "recompute server-side, ignore whatever a normal client sent"
--- pattern as protect_privileged_profile_fields above: status is always
--- derived from the *current* target profile's is_private, not client input.
-create or replace function public.enforce_follow_request_status()
-returns trigger
-language plpgsql
-security definer set search_path = public
-as $$
-declare
-  target_is_private boolean;
-begin
-  if auth.role() = 'authenticated' then
-    select is_private into target_is_private from public.profiles where id = new.following_id;
-    new.status := case when coalesce(target_is_private, false) then 'pending' else 'accepted' end;
-  end if;
-  return new;
-end;
-$$;
-
-drop trigger if exists enforce_follow_request_status_trigger on public.follows;
-create trigger enforce_follow_request_status_trigger
-  before insert on public.follows
-  for each row execute function public.enforce_follow_request_status();
-
-drop policy if exists "users can unfollow as themselves" on public.follows;
-create policy "users can unfollow as themselves"
-  on public.follows for delete
-  using (auth.uid() = follower_id);
-
--- Rejecting an incoming request is a delete of someone else's row, safe as
--- a plain scoped policy (no "new row" content to spoof, unlike accept).
-drop policy if exists "users can reject incoming follow requests" on public.follows;
-create policy "users can reject incoming follow requests"
-  on public.follows for delete
-  using (auth.uid() = following_id and status = 'pending');
-
--- Accepting a request updates a row that isn't the requester's own. A plain
--- scoped UPDATE policy isn't safe here the way the delete policy above is:
--- accept is a pending -> accepted transition, which forces a WITH CHECK
--- that differs from USING. The moment those diverge, Postgres no longer
--- falls back to reusing USING as the check on every other column (the
--- fallback that makes e.g. profiles' own auth.uid() = id policy safe with
--- no explicit WITH CHECK) — a client could satisfy
--- using(auth.uid()=following_id and status='pending') /
--- with check(auth.uid()=following_id and status='accepted') while also
--- rewriting follower_id in the same PATCH body, fabricating an accepted
--- follow from a third party who never asked for it. Same underlying shape
--- as why set_comment_pinned below needs a function instead of a policy.
-create or replace function public.respond_to_follow_request(follower_id uuid, accept boolean)
-returns void
-language plpgsql
-security definer set search_path = public
-as $$
-declare
-  requester uuid := auth.uid();
-begin
-  if requester is null then
-    raise exception 'not authenticated';
-  end if;
-
-  if accept then
-    update public.follows
-    set status = 'accepted'
-    where follows.follower_id = respond_to_follow_request.follower_id
-      and follows.following_id = requester
-      and follows.status = 'pending';
-  else
-    delete from public.follows
-    where follows.follower_id = respond_to_follow_request.follower_id
-      and follows.following_id = requester
-      and follows.status = 'pending';
-  end if;
-end;
-$$;
-
-grant execute on function public.respond_to_follow_request(uuid, boolean) to authenticated;
-
--- Bulk companion: when an account switches from private to public
--- (SettingsPage's toggle handler), every still-pending incoming request
--- auto-accepts, since a public account has no concept of "pending".
-create or replace function public.accept_all_pending_follow_requests()
-returns void
-language sql
-security definer set search_path = public
-as $$
-  update public.follows set status = 'accepted' where following_id = auth.uid() and status = 'pending';
-$$;
-
-grant execute on function public.accept_all_pending_follow_requests() to authenticated;
 
 -- ============================================================
 -- post_comments
