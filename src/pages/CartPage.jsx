@@ -137,7 +137,7 @@ export default function CartPage() {
           description="Keşfet sekmesinde tarifleri sağa kaydırarak sepetine ekle."
           action={
             <Link
-              to="/"
+              to="/kesfet"
               className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               Tarifleri Keşfet

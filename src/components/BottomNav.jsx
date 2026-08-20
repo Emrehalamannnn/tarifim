@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 
 const TABS = [
-  { to: "/", label: "Keşfet", emoji: "🔥", end: true },
+  { to: "/", label: "Topluluk", emoji: "📸", end: true },
+  { to: "/kesfet", label: "Keşfet", emoji: "🔥" },
   { to: "/cart", label: "Sepetim", emoji: "🛒" },
-  { to: "/social", label: "Topluluk", emoji: "📸" },
   { to: "/coach", label: "Koç", emoji: "🩺" },
   { to: "/profile", label: "Profil", emoji: "🧑‍🍳" },
 ];

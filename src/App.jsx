@@ -33,6 +33,14 @@ export default function App() {
             path="/"
             element={
               <RequireOnboarding>
+                <SocialPage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
+            path="/kesfet"
+            element={
+              <RequireOnboarding>
                 <SwipeDeckPage />
               </RequireOnboarding>
             }
@@ -50,14 +58,6 @@ export default function App() {
             element={
               <RequireOnboarding>
                 <RecipeDetailPage />
-              </RequireOnboarding>
-            }
-          />
-          <Route
-            path="/social"
-            element={
-              <RequireOnboarding>
-                <SocialPage />
               </RequireOnboarding>
             }
           />

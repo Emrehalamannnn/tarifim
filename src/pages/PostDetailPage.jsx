@@ -35,7 +35,7 @@ export default function PostDetailPage() {
           description="Bu paylaşım silinmiş olabilir."
           action={
             <Link
-              to="/social"
+              to="/"
               className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               Topluluğa Dön
@@ -49,7 +49,7 @@ export default function PostDetailPage() {
   return (
     <PageFade>
       <header className="px-5 pb-2 pt-5">
-        <Link to="/social" className="text-xs font-semibold text-[var(--color-ink-soft)]">
+        <Link to="/" className="text-xs font-semibold text-[var(--color-ink-soft)]">
           ← Topluluk
         </Link>
       </header>

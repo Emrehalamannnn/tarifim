@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import ingredients from "../data/ingredients.json";
 import Avatar from "./Avatar";
 import FollowButton from "./FollowButton";
@@ -31,6 +32,7 @@ export default function PostCard({
   const navigate = useNavigate();
   const [shareFeedback, setShareFeedback] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [heartBurst, setHeartBurst] = useState(0);
   const clickTimer = useRef(null);
 
   async function handleShare(e) {
@@ -74,6 +76,7 @@ export default function PostCard({
     }
     if (!currentUserId || post.likedByMe) return;
     onToggleLike(post.id, false);
+    setHeartBurst((n) => n + 1);
   }
 
   return (
@@ -175,6 +178,19 @@ export default function PostCard({
             draggable={false}
           />
         )}
+        <AnimatePresence>
+          {heartBurst > 0 && (
+            <motion.span
+              key={heartBurst}
+              className="pointer-events-none absolute inset-0 flex items-center justify-center text-7xl drop-shadow-lg"
+              initial={{ scale: 0.4, opacity: 0 }}
+              animate={{ scale: [0.4, 1.15, 1], opacity: [0, 1, 1, 0] }}
+              transition={{ duration: 0.7, times: [0, 0.4, 0.7, 1] }}
+            >
+              ❤️
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="flex flex-col gap-2 px-4 py-3.5">

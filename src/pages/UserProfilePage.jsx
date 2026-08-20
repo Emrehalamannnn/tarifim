@@ -36,7 +36,7 @@ export default function UserProfilePage() {
           description="Bu hesap silinmiş olabilir."
           action={
             <Link
-              to="/social"
+              to="/"
               className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               Topluluğa Dön
@@ -50,7 +50,7 @@ export default function UserProfilePage() {
   return (
     <PageFade className="flex flex-1 flex-col gap-6 px-5 py-5">
       <header className="flex items-center gap-1">
-        <Link to="/social" className="text-xs font-semibold text-[var(--color-ink-soft)]">
+        <Link to="/" className="text-xs font-semibold text-[var(--color-ink-soft)]">
           ← Topluluk
         </Link>
       </header>

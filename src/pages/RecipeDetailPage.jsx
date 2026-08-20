@@ -56,8 +56,8 @@ export default function RecipeDetailPage() {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
         <p className="text-[var(--color-ink-soft)]">Tarif bulunamadı.</p>
-        <button onClick={() => navigate("/")} className="text-[var(--color-paprika)] underline">
-          Ana sayfaya dön
+        <button onClick={() => navigate("/kesfet")} className="text-[var(--color-paprika)] underline">
+          Tarifleri Keşfet
         </button>
       </div>
     );
