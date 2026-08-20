@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useFollowRequests } from "../hooks/useFollows";
 import { useAppStore } from "../store/useAppStore";
 import { supabase } from "../lib/supabase";
+import { submitFeedback } from "../hooks/useFeedback";
 import chains from "../data/chains.json";
 import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
@@ -87,6 +88,11 @@ export default function SettingsPage() {
 
   const [privacySaving, setPrivacySaving] = useState(false);
 
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackSending, setFeedbackSending] = useState(false);
+  const [feedbackSent, setFeedbackSent] = useState(false);
+  const [feedbackError, setFeedbackError] = useState(null);
+
   if (!user) {
     return (
       <PageFade className="flex flex-1 flex-col gap-6 px-5 py-5">
@@ -141,6 +147,22 @@ export default function SettingsPage() {
       setNewPassword("");
     }
     setPasswordSaving(false);
+  }
+
+  async function handleFeedbackSubmit(e) {
+    e.preventDefault();
+    if (!feedbackMessage.trim()) return;
+    setFeedbackSending(true);
+    setFeedbackError(null);
+    try {
+      await submitFeedback(user.id, feedbackMessage.trim());
+      setFeedbackMessage("");
+      setFeedbackSent(true);
+    } catch (err) {
+      setFeedbackError(err.message);
+    } finally {
+      setFeedbackSending(false);
+    }
   }
 
   async function handlePrivacyChange(nextIsPrivate) {
@@ -384,6 +406,37 @@ export default function SettingsPage() {
             </div>
           )}
         </div>
+      </section>
+
+      <section>
+        <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+          Öneri Gönder
+        </h2>
+        <form onSubmit={handleFeedbackSubmit} className="flex flex-col gap-2 rounded-2xl bg-[var(--color-surface)] p-4 shadow-sm">
+          <label className="text-xs font-semibold text-[var(--color-ink-soft)]">
+            Uygulamada görmek istediğin bir şey mi var? Bize yaz.
+          </label>
+          <textarea
+            value={feedbackMessage}
+            onChange={(e) => {
+              setFeedbackMessage(e.target.value);
+              setFeedbackSent(false);
+            }}
+            maxLength={2000}
+            rows={3}
+            placeholder="Önerini yaz…"
+            className="rounded-2xl border border-[var(--color-cream-dark)] px-3.5 py-2.5 text-sm outline-none focus:border-[var(--color-paprika)]"
+          />
+          <button
+            type="submit"
+            disabled={!feedbackMessage.trim() || feedbackSending}
+            className="self-start rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
+          >
+            Gönder
+          </button>
+          {feedbackError && <p className="text-xs text-[var(--color-tomato)]">{feedbackError}</p>}
+          {feedbackSent && <p className="text-xs text-[var(--color-olive)]">Gönderildi, teşekkürler! ✓</p>}
+        </form>
       </section>
 
       <section>

@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useFollowStats } from "../hooks/useFollows";
 import { useSavedPosts } from "../hooks/useSavedPosts";
 import { useUserPosts } from "../hooks/useUserPosts";
+import { useFeedback } from "../hooks/useFeedback";
 import { supabase } from "../lib/supabase";
 import { resizeImageFile } from "../lib/resizeImage";
 import { getCroppedImageFile } from "../lib/cropImage";
@@ -25,6 +26,7 @@ export default function ProfilePage() {
   const { followers, following } = useFollowStats(user?.id);
   const { posts: savedPosts } = useSavedPosts(user?.id);
   const { posts: userPosts } = useUserPosts(user?.id);
+  const { feedback } = useFeedback(profile?.is_owner ?? false);
   const [avatarUploading, setAvatarUploading] = useState(false);
   const [avatarCropSrc, setAvatarCropSrc] = useState(null);
   const [followListType, setFollowListType] = useState(null);
@@ -160,6 +162,39 @@ export default function ProfilePage() {
         open={followListType !== null}
         onClose={() => setFollowListType(null)}
       />
+
+      {profile?.is_owner && (
+        <section>
+          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+            Kullanıcı Önerileri
+          </h2>
+          {feedback.length === 0 ? (
+            <p className="text-xs text-[var(--color-ink-soft)]">Henüz gelen bir öneri yok.</p>
+          ) : (
+            <ul className="flex flex-col gap-3 rounded-2xl bg-[var(--color-surface)] p-4 shadow-sm">
+              {feedback.map((f) => (
+                <li key={f.id} className="flex items-start gap-2.5">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--color-olive)] text-[10px] font-bold text-[var(--color-cream)]">
+                    {f.authorAvatarUrl ? (
+                      <img src={f.authorAvatarUrl} alt="" className="h-full w-full object-cover" />
+                    ) : (
+                      initialsFrom(f.author)
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm text-[var(--color-ink)]">
+                      <span className="font-semibold">{f.author}</span> {f.message}
+                    </p>
+                    <span className="text-[11px] text-[var(--color-ink-soft)]">
+                      {new Date(f.createdAt).toLocaleDateString("tr-TR")}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
 
       {user && (
         <section>
