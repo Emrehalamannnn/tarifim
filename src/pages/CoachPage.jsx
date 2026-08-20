@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import recipes from "../data/recipes.json";
 import { useAuth } from "../hooks/useAuth";
 import { useSubscription } from "../hooks/useSubscription";
@@ -14,6 +15,23 @@ const SUGGESTIONS = [
   "Bu hafta hangi tariflerim bana uygun?",
   "Sepetimdeki tariflerin kalorisi nasıl?",
 ];
+
+// Three dots pulsing in sequence — replaces the old plain "Yazıyor…" text
+// while a reply streams in from the AI coach.
+function TypingDots() {
+  return (
+    <div className="flex items-center gap-1 px-1 py-1">
+      {[0, 1, 2].map((i) => (
+        <motion.span
+          key={i}
+          className="h-1.5 w-1.5 rounded-full bg-[var(--color-ink-soft)]"
+          animate={{ y: [0, -4, 0], opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function CoachPage() {
   const { user } = useAuth();
@@ -80,11 +98,16 @@ export default function CoachPage() {
 
   return (
     <PageFade className="flex flex-1 flex-col">
-      <header className="px-5 pb-2 pt-5">
-        <h1 className="text-xl font-bold text-[var(--color-ink)]">Sağlık Koçun</h1>
-        <p className="text-xs text-[var(--color-ink-soft)]">
-          Sepetindeki tariflere ve tercihlerine göre tavsiye al.
-        </p>
+      <header className="flex items-center gap-3 px-5 pb-3 pt-5">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-olive)] text-lg">
+          🩺
+        </span>
+        <div>
+          <h1 className="text-xl font-bold text-[var(--color-ink)]">Sağlık Koçun</h1>
+          <p className="text-xs text-[var(--color-ink-soft)]">
+            Sepetindeki tariflere ve tercihlerine göre tavsiye al.
+          </p>
+        </div>
       </header>
 
       <div className="flex-1 overflow-y-auto px-4 py-2">
@@ -97,7 +120,7 @@ export default function CoachPage() {
                 onClick={() => setInput(s)}
                 className="w-fit rounded-full bg-[var(--color-surface)] px-3.5 py-2 text-left text-xs text-[var(--color-ink)] shadow-sm active:scale-95"
               >
-                {s}
+                💡 {s}
               </button>
             ))}
           </div>
@@ -105,20 +128,23 @@ export default function CoachPage() {
 
         <div className="flex flex-col gap-2.5 py-2">
           {messages.map((m, i) => (
-            <div
+            <motion.div
               key={i}
-              className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm ${
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              className={`max-w-[80%] px-3.5 py-2.5 text-sm ${
                 m.role === "user"
-                  ? "ml-auto bg-[var(--color-paprika)] text-[var(--color-cream)]"
-                  : "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm"
+                  ? "ml-auto rounded-2xl rounded-br-md bg-[var(--color-paprika)] text-[var(--color-cream)]"
+                  : "rounded-2xl rounded-bl-md bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm"
               }`}
             >
               {m.content}
-            </div>
+            </motion.div>
           ))}
           {sending && (
-            <div className="max-w-[80%] rounded-2xl bg-[var(--color-surface)] px-3.5 py-2.5 text-sm text-[var(--color-ink-soft)] shadow-sm">
-              Yazıyor…
+            <div className="w-fit rounded-2xl rounded-bl-md bg-[var(--color-surface)] px-3.5 shadow-sm">
+              <TypingDots />
             </div>
           )}
           {error && error !== "premium_required" && (
