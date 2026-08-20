@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useConversations } from "../hooks/useDirectMessages";
 import PageFade from "../components/PageFade";
@@ -11,14 +11,18 @@ const dateFormatter = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: 
 export default function MessagesPage() {
   const { user } = useAuth();
   const { conversations, loading } = useConversations(user?.id);
+  const navigate = useNavigate();
 
   return (
     <PageFade className="flex flex-1 flex-col gap-4 px-5 py-5">
       <header className="flex items-start justify-between">
         <div>
-          <Link to="/profile" className="text-xs font-semibold text-[var(--color-ink-soft)]">
-            ← Profil
-          </Link>
+          <button
+            onClick={() => navigate(-1)}
+            className="text-xs font-semibold text-[var(--color-ink-soft)]"
+          >
+            ← Geri
+          </button>
           <h1 className="mt-1 text-xl font-bold text-[var(--color-ink)]">Mesajlar</h1>
         </div>
         {user && (
