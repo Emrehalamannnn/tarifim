@@ -14,11 +14,22 @@ export default function MessagesPage() {
 
   return (
     <PageFade className="flex flex-1 flex-col gap-4 px-5 py-5">
-      <header>
-        <Link to="/profile" className="text-xs font-semibold text-[var(--color-ink-soft)]">
-          ← Profil
-        </Link>
-        <h1 className="mt-1 text-xl font-bold text-[var(--color-ink)]">Mesajlar</h1>
+      <header className="flex items-start justify-between">
+        <div>
+          <Link to="/profile" className="text-xs font-semibold text-[var(--color-ink-soft)]">
+            ← Profil
+          </Link>
+          <h1 className="mt-1 text-xl font-bold text-[var(--color-ink)]">Mesajlar</h1>
+        </div>
+        {user && (
+          <Link
+            to="/messages/new"
+            aria-label="Yeni Mesaj"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-paprika)] text-lg font-bold text-[var(--color-cream)] shadow-sm active:scale-95"
+          >
+            +
+          </Link>
+        )}
       </header>
 
       {!user ? (

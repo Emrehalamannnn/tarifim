@@ -52,13 +52,22 @@ export default function SocialPage() {
           <span aria-hidden>🍳</span> Tarifim
         </h1>
         {user ? (
-          <button
-            onClick={() => setCreateOpen(true)}
-            aria-label="Tarif Paylaş"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-paprika)] text-lg font-bold text-[var(--color-cream)] shadow-sm active:scale-95"
-          >
-            +
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/messages"
+              aria-label="Mesajlar"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-cream)] text-lg active:scale-95"
+            >
+              ✈️
+            </Link>
+            <button
+              onClick={() => setCreateOpen(true)}
+              aria-label="Tarif Paylaş"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-paprika)] text-lg font-bold text-[var(--color-cream)] shadow-sm active:scale-95"
+            >
+              +
+            </button>
+          </div>
         ) : (
           <Link
             to="/profile"
