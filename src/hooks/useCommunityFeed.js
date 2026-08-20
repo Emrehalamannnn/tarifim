@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
+import ingredients from "../data/ingredients.json";
 
 const OFFICIAL_AUTHOR_NAME = "Tarifim Mutfağı";
+const ingredientsById = new Map(ingredients.map((i) => [i.id, i]));
 
 // Replaces useAppStore's local-only `communityPosts` array. Posts, likes,
 // comments, and photos now live in Supabase (posts/post_likes/post_comments
@@ -27,7 +29,7 @@ export function useCommunityFeed(currentUserId) {
     const { data, error } = await supabase
       .from("posts")
       .select(
-        "id, author_id, photo_url, video_url, title, description, ingredient_ids, recipe_id, tags, share_count, created_at, author:profiles!posts_author_id_fkey(name, avatar_url, is_verified, is_owner, is_private), post_likes(user_id), post_comments(count), post_saves(user_id)"
+        "id, author_id, photo_url, video_url, title, description, recipe_text, recipe_is_ai_generated, ingredient_ids, recipe_id, tags, share_count, created_at, author:profiles!posts_author_id_fkey(name, avatar_url, is_verified, is_owner, is_private), post_likes(user_id), post_comments(count), post_saves(user_id)"
       )
       .order("created_at", { ascending: false });
 
@@ -55,6 +57,8 @@ export function useCommunityFeed(currentUserId) {
         shares: post.share_count ?? 0,
         title: post.title,
         description: post.description,
+        recipeText: post.recipe_text,
+        recipeIsAiGenerated: post.recipe_is_ai_generated ?? false,
         ingredientIds: post.ingredient_ids,
         createdAt: post.created_at,
         likes: post.post_likes.length,
@@ -71,7 +75,7 @@ export function useCommunityFeed(currentUserId) {
     refresh();
   }, [refresh]);
 
-  async function addPost({ photoFile, videoFile, title, description, ingredientIds, tags = [] }) {
+  async function addPost({ photoFile, videoFile, title, description, recipeText, ingredientIds, tags = [] }) {
     let photoUrl = null;
     let videoUrl = null;
 
@@ -87,12 +91,33 @@ export function useCommunityFeed(currentUserId) {
       photoUrl = supabase.storage.from("post-photos").getPublicUrl(path).data.publicUrl;
     }
 
+    let finalRecipeText = recipeText;
+    let recipeIsAiGenerated = false;
+    if (!finalRecipeText) {
+      const ingredientNames = ingredientIds.map((id) => ingredientsById.get(id)?.name).filter(Boolean);
+      try {
+        const { data: generated, error: generateError } = await supabase.functions.invoke(
+          "generate-recipe",
+          { body: { title, description, ingredientNames, tags } }
+        );
+        if (generateError) throw generateError;
+        if (generated?.recipeText) {
+          finalRecipeText = generated.recipeText;
+          recipeIsAiGenerated = true;
+        }
+      } catch (err) {
+        console.error("Failed to generate recipe text, posting without one", err);
+      }
+    }
+
     const { error: insertError } = await supabase.from("posts").insert({
       author_id: currentUserId,
       photo_url: photoUrl,
       video_url: videoUrl,
       title,
       description,
+      recipe_text: finalRecipeText || null,
+      recipe_is_ai_generated: recipeIsAiGenerated,
       ingredient_ids: ingredientIds,
       tags,
     });

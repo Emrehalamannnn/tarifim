@@ -7,12 +7,14 @@ import { useSavedPosts } from "../hooks/useSavedPosts";
 import { useUserPosts } from "../hooks/useUserPosts";
 import { supabase } from "../lib/supabase";
 import { resizeImageFile } from "../lib/resizeImage";
+import { getCroppedImageFile } from "../lib/cropImage";
 import chains from "../data/chains.json";
 import ChainBadge from "../components/ChainBadge";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
 import PremiumPaywall from "../components/PremiumPaywall";
 import FollowListModal from "../components/FollowListModal";
+import ImageCropModal from "../components/ImageCropModal";
 import { initialsFrom } from "../lib/mockSocial";
 
 const DIETARY_OPTIONS = [
@@ -42,6 +44,7 @@ export default function ProfilePage() {
   const { posts: savedPosts } = useSavedPosts(user?.id);
   const { posts: userPosts } = useUserPosts(user?.id);
   const [avatarUploading, setAvatarUploading] = useState(false);
+  const [avatarCropSrc, setAvatarCropSrc] = useState(null);
   const [followListType, setFollowListType] = useState(null);
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
@@ -53,12 +56,24 @@ export default function ProfilePage() {
   const theme = useAppStore((s) => s.theme);
   const setTheme = useAppStore((s) => s.setTheme);
 
-  async function handleAvatarChange(e) {
+  function handleAvatarChange(e) {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file || !user) return;
+    setAvatarCropSrc(URL.createObjectURL(file));
+  }
+
+  function handleAvatarCropCancel() {
+    if (avatarCropSrc) URL.revokeObjectURL(avatarCropSrc);
+    setAvatarCropSrc(null);
+  }
+
+  async function handleAvatarCropConfirm(croppedAreaPixels) {
+    if (!user) return;
     setAvatarUploading(true);
     try {
-      const { file: resized } = await resizeImageFile(file, 400, 0.82);
+      const croppedFile = await getCroppedImageFile(avatarCropSrc, croppedAreaPixels);
+      const { file: resized } = await resizeImageFile(croppedFile, 400, 0.82);
       const path = `${user.id}/${Date.now()}.jpg`;
       const { error: uploadError } = await supabase.storage.from("avatars").upload(path, resized);
       if (uploadError) throw uploadError;
@@ -78,6 +93,8 @@ export default function ProfilePage() {
       console.error("Failed to update profile picture", err);
     } finally {
       setAvatarUploading(false);
+      URL.revokeObjectURL(avatarCropSrc);
+      setAvatarCropSrc(null);
     }
   }
 
@@ -320,6 +337,14 @@ export default function ProfilePage() {
           Tüm swipe geçmişini sıfırla
         </button>
       </section>
+
+      <ImageCropModal
+        open={avatarCropSrc !== null}
+        imageSrc={avatarCropSrc}
+        aspect={1}
+        onCancel={handleAvatarCropCancel}
+        onConfirm={handleAvatarCropConfirm}
+      />
     </PageFade>
   );
 }

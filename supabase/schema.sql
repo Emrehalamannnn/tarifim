@@ -284,6 +284,16 @@ alter table public.posts add constraint posts_media_check
 -- counter incremented client-side rather than a post_shares join table.
 alter table public.posts add column if not exists share_count integer not null default 0;
 
+-- Freeform recipe write-up, separate from the short `description`. Optional
+-- on CreatePostModal — if the author leaves it blank, the client calls the
+-- generate-recipe Edge Function (same ANTHROPIC_API_KEY secret as ai-coach)
+-- before inserting and sets recipe_is_ai_generated so PostCard can show a
+-- small, non-alarmist "AI generated" note. Official recipe-catalog posts
+-- (author_id is null) get their recipe_text from recipes.json's own steps —
+-- real app content, never AI-generated, so that flag stays false for them.
+alter table public.posts add column if not exists recipe_text text;
+alter table public.posts add column if not exists recipe_is_ai_generated boolean not null default false;
+
 -- No blanket UPDATE policy exists on posts (a client could otherwise rewrite
 -- someone else's title/photo). This function is the one narrow write a
 -- client can make: bump share_count by 1, nothing else, on any post.

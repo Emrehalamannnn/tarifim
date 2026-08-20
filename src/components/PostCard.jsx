@@ -246,6 +246,17 @@ export default function PostCard({
           ))}
         </div>
 
+        {post.recipeText && (
+          <div>
+            <p className="whitespace-pre-line text-sm text-[var(--color-ink)]">{post.recipeText}</p>
+            {post.recipeIsAiGenerated && (
+              <p className="mt-1 text-[11px] text-[var(--color-ink-soft)]">
+                Bu tarif yapay zeka tarafından oluşturuldu
+              </p>
+            )}
+          </div>
+        )}
+
         {post.recipeId && (
           <Link
             to={`/recipe/${post.recipeId}`}

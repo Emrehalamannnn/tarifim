@@ -2,7 +2,9 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ingredients from "../data/ingredients.json";
 import { resizeImageFile } from "../lib/resizeImage";
+import { getCroppedImageFile } from "../lib/cropImage";
 import { ALL_TAGS, tagLabel } from "../lib/tags";
+import ImageCropModal from "./ImageCropModal";
 
 const CATEGORY_LABELS_TR = {
   legumes: "Bakliyat",
@@ -29,10 +31,12 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [recipeText, setRecipeText] = useState("");
   const [selectedIngredientIds, setSelectedIngredientIds] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [busy, setBusy] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [cropSrc, setCropSrc] = useState(null);
 
   const ingredientsByCategory = useMemo(() => {
     const map = new Map();
@@ -45,16 +49,29 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
     return map;
   }, []);
 
-  async function handlePhotoChange(e) {
+  function handlePhotoChange(e) {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
+    setCropSrc(URL.createObjectURL(file));
+  }
+
+  function handleCropCancel() {
+    if (cropSrc) URL.revokeObjectURL(cropSrc);
+    setCropSrc(null);
+  }
+
+  async function handleCropConfirm(croppedAreaPixels) {
     setBusy(true);
     try {
-      const { file: resized, previewUrl } = await resizeImageFile(file);
+      const croppedFile = await getCroppedImageFile(cropSrc, croppedAreaPixels);
+      const { file: resized, previewUrl } = await resizeImageFile(croppedFile);
       setPhotoFile(resized);
       setPhotoPreviewUrl(previewUrl);
     } finally {
       setBusy(false);
+      URL.revokeObjectURL(cropSrc);
+      setCropSrc(null);
     }
   }
 
@@ -83,6 +100,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
     setVideoPreviewUrl(null);
     setTitle("");
     setDescription("");
+    setRecipeText("");
     setSelectedIngredientIds([]);
     setSelectedTags([]);
   }
@@ -97,6 +115,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
         videoFile: mediaMode === "video" ? videoFile : null,
         title: title.trim(),
         description: description.trim(),
+        recipeText: recipeText.trim(),
         ingredientIds: selectedIngredientIds,
         tags: selectedTags,
       });
@@ -204,6 +223,17 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
               />
 
               <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">
+                Tarif (opsiyonel)
+              </p>
+              <textarea
+                placeholder="Yapılışını adım adım yaz — boş bırakırsan senin için yapay zekayla oluşturulur"
+                value={recipeText}
+                onChange={(e) => setRecipeText(e.target.value)}
+                rows={4}
+                className="w-full resize-none rounded-xl border border-[var(--color-cream-dark)] px-3.5 py-2.5 text-sm outline-none focus:border-[var(--color-paprika)]"
+              />
+
+              <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">
                 Etiketler (opsiyonel)
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -269,6 +299,13 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
           </motion.div>
         </motion.div>
       )}
+      <ImageCropModal
+        open={cropSrc !== null}
+        imageSrc={cropSrc}
+        aspect={4 / 5}
+        onCancel={handleCropCancel}
+        onConfirm={handleCropConfirm}
+      />
     </AnimatePresence>
   );
 }
