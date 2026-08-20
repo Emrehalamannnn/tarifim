@@ -17,7 +17,7 @@ function FollowListRow({ profile, currentUserId }) {
           {profile.is_owner && <span title="Kurucu">👑</span>}
           {!profile.is_owner && profile.is_verified && (
             <span
-              className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[var(--color-olive)] text-[8px] text-white"
+              className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[var(--color-olive)] text-[8px] text-[var(--color-cream)]"
               title="Onaylı hesap"
             >
               ✓

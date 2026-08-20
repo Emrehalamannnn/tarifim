@@ -84,7 +84,7 @@ export default function LoginPanel() {
             <button
               type="submit"
               disabled={!email.trim()}
-              className="rounded-full bg-[var(--color-paprika)] px-4 py-2.5 text-sm font-bold text-white active:scale-95 disabled:opacity-40"
+              className="rounded-full bg-[var(--color-paprika)] px-4 py-2.5 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
             >
               Giriş Bağlantısı Gönder
             </button>

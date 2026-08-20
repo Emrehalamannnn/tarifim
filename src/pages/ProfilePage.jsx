@@ -142,14 +142,14 @@ export default function ProfilePage() {
       ) : (
         <section className="flex flex-col items-center gap-3 rounded-2xl bg-[var(--color-surface)] p-6 text-center shadow-sm">
           <label className="relative flex h-16 w-16 cursor-pointer items-center justify-center rounded-full active:scale-95">
-            <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-[var(--color-paprika)] text-xl font-bold text-white">
+            <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-[var(--color-paprika)] text-xl font-bold text-[var(--color-cream)]">
               {profile?.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="h-full w-full object-cover" />
               ) : (
                 initialsFrom(profile?.name ?? user.email) || "🧑‍🍳"
               )}
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-olive)] text-[10px] text-white ring-2 ring-white">
+            <span className="absolute -bottom-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-olive)] text-[10px] text-[var(--color-cream)] ring-2 ring-white">
               {avatarUploading ? "…" : "📷"}
             </span>
             <input
@@ -166,7 +166,7 @@ export default function ProfilePage() {
               {profile?.is_owner && <span title="Kurucu">👑</span>}
               {!profile?.is_owner && profile?.is_verified && (
                 <span
-                  className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-olive)] text-[9px] text-white"
+                  className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-olive)] text-[9px] text-[var(--color-cream)]"
                   title="Onaylı hesap"
                 >
                   ✓
@@ -295,7 +295,7 @@ export default function ProfilePage() {
               onClick={() => setDietaryFilter(opt.value)}
               className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
                 dietaryFilter === opt.value
-                  ? "bg-[var(--color-paprika)] text-white"
+                  ? "bg-[var(--color-paprika)] text-[var(--color-cream)]"
                   : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
               }`}
             >
@@ -316,7 +316,7 @@ export default function ProfilePage() {
               onClick={() => setCity(c)}
               className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors ${
                 city === c
-                  ? "bg-[var(--color-olive)] text-white"
+                  ? "bg-[var(--color-olive)] text-[var(--color-cream)]"
                   : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
               }`}
             >

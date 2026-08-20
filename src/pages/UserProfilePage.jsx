@@ -43,7 +43,7 @@ export default function UserProfilePage() {
           action={
             <Link
               to="/social"
-              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-white shadow-sm active:scale-95"
+              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               Topluluğa Dön
             </Link>
@@ -69,7 +69,7 @@ export default function UserProfilePage() {
             {profile.is_owner && <span title="Kurucu">👑</span>}
             {!profile.is_owner && profile.is_verified && (
               <span
-                className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-olive)] text-[9px] text-white"
+                className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-olive)] text-[9px] text-[var(--color-cream)]"
                 title="Onaylı hesap"
               >
                 ✓

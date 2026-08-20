@@ -107,7 +107,7 @@ export default function ShoppingListModal({ open, onClose, cartRecipes }) {
                             className="flex flex-1 items-center gap-3 text-left"
                           >
                             <div
-                              className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 text-xs text-white ${
+                              className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 text-xs text-[var(--color-cream)] ${
                                 isSelected
                                   ? "border-[var(--color-olive)] bg-[var(--color-olive)]"
                                   : "border-[var(--color-cream-dark)]"
@@ -172,7 +172,7 @@ export default function ShoppingListModal({ open, onClose, cartRecipes }) {
                 <button
                   onClick={() => setStep("list")}
                   disabled={selectedIds.length === 0}
-                  className="w-full rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-95 disabled:opacity-40"
+                  className="w-full rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-[var(--color-cream)] shadow-sm active:scale-95 disabled:opacity-40"
                 >
                   🛒 Alışveriş Listesini Oluştur
                 </button>
@@ -186,7 +186,7 @@ export default function ShoppingListModal({ open, onClose, cartRecipes }) {
                   </button>
                   <button
                     onClick={handleCopy}
-                    className="flex-1 rounded-full bg-[var(--color-olive)] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-95"
+                    className="flex-1 rounded-full bg-[var(--color-olive)] px-5 py-3 text-sm font-bold text-[var(--color-cream)] shadow-sm active:scale-95"
                   >
                     {copied ? "Kopyalandı ✓" : "Listeyi Kopyala"}
                   </button>

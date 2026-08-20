@@ -28,7 +28,7 @@ export default function PremiumPaywall({ userId, compact = false }) {
           compact ? "p-4" : "p-6"
         }`}
       >
-        <span className="rounded-full bg-[var(--color-olive)] px-3 py-1 text-xs font-bold text-white">
+        <span className="rounded-full bg-[var(--color-olive)] px-3 py-1 text-xs font-bold text-[var(--color-cream)]">
           ✨ Premium Aktif
         </span>
         {subscription?.current_period_end && (

@@ -143,7 +143,7 @@ export default function AddedToCartOverlay({ recipe, onClose, onSeePrices }) {
           </div>
 
           {cheapest && (
-            <div className="mx-6 mt-3 flex items-center justify-between rounded-2xl bg-[var(--color-olive)] px-4 py-2.5 text-white">
+            <div className="mx-6 mt-3 flex items-center justify-between rounded-2xl bg-[var(--color-olive)] px-4 py-2.5 text-[var(--color-cream)]">
               <div className="flex items-center gap-2">
                 <span className="text-xs opacity-80">En uygun</span>
                 <ChainBadge chain={cheapest.chain} />
@@ -155,7 +155,7 @@ export default function AddedToCartOverlay({ recipe, onClose, onSeePrices }) {
           <div className="flex flex-col gap-2 px-6 pb-6 pt-4">
             <button
               onClick={onClose}
-              className="rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-95"
+              className="rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               ✓ Sepete Eklendi, Devam Et
             </button>

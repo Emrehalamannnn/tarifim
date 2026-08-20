@@ -36,7 +36,7 @@ export default function PostDetailPage() {
           action={
             <Link
               to="/social"
-              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-white shadow-sm active:scale-95"
+              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               Topluluğa Dön
             </Link>

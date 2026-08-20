@@ -60,7 +60,7 @@ export default function SocialPage() {
         {user ? (
           <button
             onClick={() => setCreateOpen(true)}
-            className="rounded-full bg-[var(--color-paprika)] px-3.5 py-2 text-xs font-semibold text-white shadow-sm active:scale-95"
+            className="rounded-full bg-[var(--color-paprika)] px-3.5 py-2 text-xs font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
           >
             + Tarif Paylaş
           </button>
@@ -87,7 +87,7 @@ export default function SocialPage() {
             onClick={() => setAudienceFilter(f.value)}
             className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
               audienceFilter === f.value
-                ? "bg-[var(--color-ink)] text-white"
+                ? "bg-[var(--color-ink)] text-[var(--color-cream)]"
                 : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
             }`}
           >
@@ -102,7 +102,7 @@ export default function SocialPage() {
               onClick={() => setSort(s.value)}
               className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors ${
                 sort === s.value
-                  ? "bg-[var(--color-olive)] text-white"
+                  ? "bg-[var(--color-olive)] text-[var(--color-cream)]"
                   : "text-[var(--color-ink-soft)]"
               }`}
             >
@@ -117,7 +117,7 @@ export default function SocialPage() {
           onClick={() => setTagFilter(null)}
           className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
             tagFilter === null
-              ? "bg-[var(--color-paprika)] text-white"
+              ? "bg-[var(--color-paprika)] text-[var(--color-cream)]"
               : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
           }`}
         >
@@ -129,7 +129,7 @@ export default function SocialPage() {
             onClick={() => setTagFilter((prev) => (prev === tag ? null : tag))}
             className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
               tagFilter === tag
-                ? "bg-[var(--color-paprika)] text-white"
+                ? "bg-[var(--color-paprika)] text-[var(--color-cream)]"
                 : "bg-[var(--color-surface)] text-[var(--color-ink-soft)] shadow-sm"
             }`}
           >

@@ -138,7 +138,7 @@ export default function CartPage() {
           action={
             <Link
               to="/"
-              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-white shadow-sm active:scale-95"
+              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               Tarifleri Keşfet
             </Link>
@@ -156,7 +156,7 @@ export default function CartPage() {
         <div className="sticky bottom-3 z-40 flex justify-center px-4 pt-2">
           <button
             onClick={() => setShoppingListOpen(true)}
-            className="flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-6 py-3.5 text-sm font-bold text-white shadow-xl active:scale-95"
+            className="flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-6 py-3.5 text-sm font-bold text-[var(--color-cream)] shadow-xl active:scale-95"
           >
             🛒 Alışveriş Listesi Oluştur
           </button>

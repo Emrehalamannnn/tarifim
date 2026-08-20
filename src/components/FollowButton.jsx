@@ -19,7 +19,7 @@ export default function FollowButton({ currentUserId, targetUserId, targetIsPriv
     <button
       onClick={toggleFollow}
       className={`${SIZE_CLASSES[size]} active:scale-95 ${
-        isActive ? "bg-[var(--color-cream)] text-[var(--color-ink-soft)]" : "bg-[var(--color-olive)] text-white"
+        isActive ? "bg-[var(--color-cream)] text-[var(--color-ink-soft)]" : "bg-[var(--color-olive)] text-[var(--color-cream)]"
       }`}
     >
       {LABELS[status]}

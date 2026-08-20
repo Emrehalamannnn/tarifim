@@ -245,7 +245,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
                       onClick={() => toggleTag(tag)}
                       className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
                         isSelected
-                          ? "bg-[var(--color-paprika)] text-white"
+                          ? "bg-[var(--color-paprika)] text-[var(--color-cream)]"
                           : "bg-[var(--color-cream)] text-[var(--color-ink-soft)]"
                       }`}
                     >
@@ -273,7 +273,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
                             onClick={() => toggleIngredient(ingredient.id)}
                             className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
                               isSelected
-                                ? "bg-[var(--color-olive)] text-white"
+                                ? "bg-[var(--color-olive)] text-[var(--color-cream)]"
                                 : "bg-[var(--color-cream)] text-[var(--color-ink-soft)]"
                             }`}
                           >
@@ -291,7 +291,7 @@ export default function CreatePostModal({ open, onClose, onSubmit }) {
               <button
                 onClick={handleSubmit}
                 disabled={!canSubmit}
-                className="w-full rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-95 disabled:opacity-40"
+                className="w-full rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-[var(--color-cream)] shadow-sm active:scale-95 disabled:opacity-40"
               >
                 {submitting ? "Paylaşılıyor…" : "Paylaş"}
               </button>

@@ -27,7 +27,7 @@ function FollowRequestRow({ request, onApprove, onReject }) {
       </Link>
       <button
         onClick={() => onApprove(request.id)}
-        className="rounded-full bg-[var(--color-olive)] px-3 py-1.5 text-xs font-semibold text-white active:scale-95"
+        className="rounded-full bg-[var(--color-olive)] px-3 py-1.5 text-xs font-semibold text-[var(--color-cream)] active:scale-95"
       >
         Onayla
       </button>
@@ -139,7 +139,7 @@ export default function SettingsPage() {
             <button
               type="submit"
               disabled={!name.trim() || nameSaving}
-              className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-white active:scale-95 disabled:opacity-40"
+              className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
             >
               Kaydet
             </button>
@@ -167,7 +167,7 @@ export default function SettingsPage() {
                   <button
                     type="submit"
                     disabled={!newEmail.trim() || emailSending}
-                    className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-white active:scale-95 disabled:opacity-40"
+                    className="rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
                   >
                     Gönder
                   </button>

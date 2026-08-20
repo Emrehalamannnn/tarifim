@@ -80,7 +80,7 @@ export default function PostCard({
     <li className="overflow-hidden rounded-2xl bg-[var(--color-surface)] shadow-sm">
       <div className="flex items-center gap-2.5 px-4 pt-3.5">
         {post.isOfficial ? (
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-olive)] text-xs font-bold text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-olive)] text-xs font-bold text-[var(--color-cream)]">
             🍳
           </div>
         ) : (
@@ -99,7 +99,7 @@ export default function PostCard({
             )}
             {post.isOfficial && (
               <span
-                className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[var(--color-paprika)] text-[8px] text-white"
+                className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[var(--color-paprika)] text-[8px] text-[var(--color-cream)]"
                 title="Resmi Tarifim hesabı"
               >
                 ✓
@@ -110,7 +110,7 @@ export default function PostCard({
             )}
             {!post.isOfficial && !post.authorIsOwner && post.authorIsVerified && (
               <span
-                className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[var(--color-olive)] text-[8px] text-white"
+                className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[var(--color-olive)] text-[8px] text-[var(--color-cream)]"
                 title="Onaylı hesap"
               >
                 ✓

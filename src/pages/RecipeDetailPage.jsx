@@ -209,7 +209,7 @@ export default function RecipeDetailPage() {
             </div>
 
             {cheapest && (
-              <div className="mb-3 flex items-center justify-between rounded-2xl bg-[var(--color-olive)] px-4 py-3 text-white shadow-sm">
+              <div className="mb-3 flex items-center justify-between rounded-2xl bg-[var(--color-olive)] px-4 py-3 text-[var(--color-cream)] shadow-sm">
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-wide opacity-80">
                     En Uygun Market

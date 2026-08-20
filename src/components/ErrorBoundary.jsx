@@ -27,7 +27,7 @@ export default class ErrorBoundary extends Component {
               localStorage.removeItem("tarifim-store");
               window.location.reload();
             }}
-            className="mt-2 self-start rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-semibold text-white"
+            className="mt-2 self-start rounded-full bg-[var(--color-paprika)] px-4 py-2 text-sm font-semibold text-[var(--color-cream)]"
           >
             Kayıtlı veriyi sıfırla ve yeniden başlat
           </button>

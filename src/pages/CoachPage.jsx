@@ -109,7 +109,7 @@ export default function CoachPage() {
               key={i}
               className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm ${
                 m.role === "user"
-                  ? "ml-auto bg-[var(--color-paprika)] text-white"
+                  ? "ml-auto bg-[var(--color-paprika)] text-[var(--color-cream)]"
                   : "bg-[var(--color-surface)] text-[var(--color-ink)] shadow-sm"
               }`}
             >
@@ -143,7 +143,7 @@ export default function CoachPage() {
         <button
           type="submit"
           disabled={!input.trim() || sending}
-          className="rounded-full bg-[var(--color-paprika)] px-4 py-2.5 text-sm font-bold text-white active:scale-95 disabled:opacity-40"
+          className="rounded-full bg-[var(--color-paprika)] px-4 py-2.5 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-40"
         >
           Gönder
         </button>

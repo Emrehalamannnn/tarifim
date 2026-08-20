@@ -12,7 +12,7 @@ const SIZE_CLASSES = {
 export default function Avatar({ name, avatarUrl, size = "md", className = "" }) {
   return (
     <div
-      className={`flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--color-olive)] font-bold text-white ${SIZE_CLASSES[size]} ${className}`}
+      className={`flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--color-olive)] font-bold text-[var(--color-cream)] ${SIZE_CLASSES[size]} ${className}`}
     >
       {avatarUrl ? (
         <img src={avatarUrl} alt="" className="h-full w-full object-cover" />

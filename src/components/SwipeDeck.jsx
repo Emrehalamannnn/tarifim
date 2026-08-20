@@ -51,7 +51,7 @@ export default function SwipeDeck() {
           decidedCount > 0 ? (
             <button
               onClick={resetDeck}
-              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-white shadow-sm active:scale-95"
+              className="mt-2 rounded-full bg-[var(--color-paprika)] px-5 py-2 text-sm font-semibold text-[var(--color-cream)] shadow-sm active:scale-95"
             >
               Destesi Yenile
             </button>

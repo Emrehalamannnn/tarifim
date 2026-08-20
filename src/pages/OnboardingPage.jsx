@@ -58,7 +58,7 @@ export default function OnboardingPage() {
         <button
           onClick={handleStart}
           disabled={selected.length === 0}
-          className="rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-white shadow-sm active:scale-95 disabled:opacity-40"
+          className="rounded-full bg-[var(--color-paprika)] px-5 py-3 text-sm font-bold text-[var(--color-cream)] shadow-sm active:scale-95 disabled:opacity-40"
         >
           Tarifleri Keşfetmeye Başla
         </button>
