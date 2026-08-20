@@ -93,11 +93,21 @@ export default function UserProfilePage() {
           </div>
         )}
 
-        <FollowButton
-          currentUserId={user?.id}
-          targetUserId={id}
-          targetIsPrivate={profile.is_private}
-        />
+        <div className="flex items-center gap-2">
+          <FollowButton
+            currentUserId={user?.id}
+            targetUserId={id}
+            targetIsPrivate={profile.is_private}
+          />
+          {user && !isSelf && (
+            <Link
+              to={`/messages/${id}`}
+              className="rounded-full bg-[var(--color-cream)] px-5 py-2 text-sm font-semibold text-[var(--color-ink-soft)] active:scale-95"
+            >
+              Mesaj Gönder
+            </Link>
+          )}
+        </div>
       </section>
 
       {isLocked ? (

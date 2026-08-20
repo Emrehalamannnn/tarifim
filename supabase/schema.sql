@@ -550,6 +550,83 @@ create policy "users can read their own subscription"
 --   updated_at = now();
 
 -- ============================================================
+-- direct_messages: private 1:1 messaging between two users (not per-post
+-- comments, not a public/group room). Realtime is enabled via the
+-- publication line below so useConversation can subscribe to inserts
+-- instead of polling. A "conversation" isn't its own table — it's just the
+-- distinct (sender_id, recipient_id) pairs in this table, queried via
+-- useConversations.
+-- ============================================================
+create table if not exists public.direct_messages (
+  id uuid primary key default gen_random_uuid(),
+  sender_id uuid not null references public.profiles (id) on delete cascade,
+  recipient_id uuid not null references public.profiles (id) on delete cascade,
+  body text not null check (char_length(trim(body)) > 0 and char_length(body) <= 2000),
+  created_at timestamptz not null default now(),
+  constraint direct_messages_no_self_message check (sender_id <> recipient_id)
+);
+
+create index if not exists direct_messages_sender_recipient_idx
+  on public.direct_messages (sender_id, recipient_id, created_at);
+create index if not exists direct_messages_recipient_sender_idx
+  on public.direct_messages (recipient_id, sender_id, created_at);
+
+alter table public.direct_messages enable row level security;
+
+-- Only the two participants can read a message — unlike posts/comments/chat,
+-- DMs are never publicly readable.
+drop policy if exists "participants can read their direct messages" on public.direct_messages;
+create policy "participants can read their direct messages"
+  on public.direct_messages for select
+  using (auth.uid() = sender_id or auth.uid() = recipient_id);
+
+drop policy if exists "users can send direct messages as themselves" on public.direct_messages;
+create policy "users can send direct messages as themselves"
+  on public.direct_messages for insert
+  with check (auth.uid() = sender_id);
+
+-- Adds direct_messages to the publication Supabase's client-side Realtime
+-- subscribes through. Safe to re-run — errors only if already a member,
+-- guarded by the catalog check.
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'direct_messages'
+  ) then
+    alter publication supabase_realtime add table public.direct_messages;
+  end if;
+end $$;
+
+-- ============================================================
+-- feedback: one-way feature-request/feedback box from Settings. Every
+-- logged-in user can submit; only the admin (is_owner) account can read
+-- them, surfaced on their own Profile page — regular users get no read-back
+-- UI for what they (or anyone else) submitted, per the "people shouldn't
+-- see it, only I can" requirement.
+-- ============================================================
+create table if not exists public.feedback (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.profiles (id) on delete cascade,
+  message text not null check (char_length(trim(message)) > 0 and char_length(message) <= 2000),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists feedback_created_at_idx on public.feedback (created_at);
+
+alter table public.feedback enable row level security;
+
+drop policy if exists "only the admin can read feedback" on public.feedback;
+create policy "only the admin can read feedback"
+  on public.feedback for select
+  using (exists (select 1 from public.profiles where id = auth.uid() and is_owner = true));
+
+drop policy if exists "users can submit feedback as themselves" on public.feedback;
+create policy "users can submit feedback as themselves"
+  on public.feedback for insert
+  with check (auth.uid() = user_id);
+
+-- ============================================================
 -- Storage bucket for post photos (replaces base64 data-URL-in-localStorage).
 -- ============================================================
 insert into storage.buckets (id, name, public)

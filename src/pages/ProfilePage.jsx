@@ -79,13 +79,22 @@ export default function ProfilePage() {
           <p className="text-xs text-[var(--color-ink-soft)]">Paylaşımların ve hesabın.</p>
         </div>
         {user && (
-          <Link
-            to="/settings"
-            aria-label="Ayarlar"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-cream)] text-base active:scale-95"
-          >
-            ⚙️
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/messages"
+              aria-label="Mesajlar"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-cream)] text-base active:scale-95"
+            >
+              ✉️
+            </Link>
+            <Link
+              to="/settings"
+              aria-label="Ayarlar"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-cream)] text-base active:scale-95"
+            >
+              ⚙️
+            </Link>
+          </div>
         )}
       </header>
 

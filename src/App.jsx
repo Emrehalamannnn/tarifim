@@ -10,6 +10,8 @@ import PostDetailPage from "./pages/PostDetailPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import CoachPage from "./pages/CoachPage";
 import SettingsPage from "./pages/SettingsPage";
+import MessagesPage from "./pages/MessagesPage";
+import ConversationPage from "./pages/ConversationPage";
 import { useAppStore } from "./store/useAppStore";
 import { useThemeSync } from "./hooks/useThemeSync";
 
@@ -98,6 +100,22 @@ export default function App() {
             element={
               <RequireOnboarding>
                 <SettingsPage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
+            path="/messages"
+            element={
+              <RequireOnboarding>
+                <MessagesPage />
+              </RequireOnboarding>
+            }
+          />
+          <Route
+            path="/messages/:id"
+            element={
+              <RequireOnboarding>
+                <ConversationPage />
               </RequireOnboarding>
             }
           />
