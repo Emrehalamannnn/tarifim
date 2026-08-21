@@ -1,8 +1,8 @@
-// AI health coach — premium-gated chat backed by Claude. Runs server-side
-// (Supabase Edge Function, Deno) so ANTHROPIC_API_KEY never reaches the
-// browser, and so premium status is re-verified here against the
-// `subscriptions` table rather than trusted from the client (a client could
-// otherwise call this function directly and bypass a UI-only paywall).
+// AI health coach — available to every authenticated Tarifim user. Runs
+// server-side (Supabase Edge Function, Deno) so ANTHROPIC_API_KEY never
+// reaches the browser, and so the caller's session is re-verified here
+// rather than trusted from the client (a client could otherwise call this
+// function directly without a valid Supabase session).
 //
 // Deploy: supabase functions deploy ai-coach
 // Secret: supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
@@ -95,21 +95,6 @@ Deno.serve(async (req) => {
     } = await supabase.auth.getUser();
     if (userError || !user) {
       return json({ error: "Invalid session" }, 401);
-    }
-
-    const { data: subscription } = await supabase
-      .from("subscriptions")
-      .select("plan, status, current_period_end")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-    const isPremium =
-      subscription?.plan === "premium" &&
-      subscription?.status === "active" &&
-      (!subscription.current_period_end || new Date(subscription.current_period_end) > new Date());
-
-    if (!isPremium) {
-      return json({ error: "Premium subscription required" }, 403);
     }
 
     // Service-role client, distinct from the user-scoped `supabase` above:

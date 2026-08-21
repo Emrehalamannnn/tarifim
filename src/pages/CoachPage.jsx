@@ -1,9 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import recipes from "../data/recipes.json";
 import { useAuth } from "../hooks/useAuth";
-import { useSubscription } from "../hooks/useSubscription";
 import { useAiCoach } from "../hooks/useAiCoach";
 import { useAppStore, cartRecipeIdsFrom } from "../store/useAppStore";
 import PageFade from "../components/PageFade";
@@ -35,7 +33,6 @@ function TypingDots() {
 
 export default function CoachPage() {
   const { user } = useAuth();
-  const { isPremium, loading: subLoading } = useSubscription(user?.id);
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const decisions = useAppStore((s) => s.decisions);
   const cartRecipeNames = useMemo(() => {
@@ -68,21 +65,6 @@ export default function CoachPage() {
         <LoginPanel />
       </PageFade>
     );
-  }
-
-  if (subLoading) {
-    return (
-      <PageFade className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-[var(--color-ink-soft)]">Yükleniyor…</p>
-      </PageFade>
-    );
-  }
-
-  // Premium (and with it this coach) isn't purchasable yet — StoreKit isn't
-  // wired up — so non-premium users never see this surface: the Koç tab is
-  // hidden in BottomNav and a direct navigation lands back on the feed.
-  if (!isPremium || error === "premium_required") {
-    return <Navigate to="/" replace />;
   }
 
   function handleSubmit(e) {
@@ -144,9 +126,7 @@ export default function CoachPage() {
               <TypingDots />
             </div>
           )}
-          {error && error !== "premium_required" && (
-            <p className="text-xs text-[var(--color-tomato)]">{error}</p>
-          )}
+          {error && <p className="text-xs text-[var(--color-tomato)]">{error}</p>}
         </div>
         <div ref={scrollRef} />
       </div>
