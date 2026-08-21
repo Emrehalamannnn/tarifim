@@ -19,6 +19,12 @@ graphify-out/
 .claude/
 .claude-flow/
 
+# iOS (Capacitor, Swift Package Manager)
+ios/App/build/
+ios/DerivedData/
+*.xcuserstate
+xcuserdata/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

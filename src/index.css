@@ -80,6 +80,7 @@ body {
   position: relative;
   background: var(--color-cream);
   transition: background-color 0.2s ease;
+  padding-top: env(safe-area-inset-top);
 }
 
 @media (min-width: 481px) {

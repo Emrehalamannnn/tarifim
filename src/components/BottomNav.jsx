@@ -10,7 +10,10 @@ const TABS = [
 
 export default function BottomNav() {
   return (
-    <nav className="sticky bottom-0 z-10 flex border-t border-[var(--color-cream-dark)] bg-[var(--color-cream)]/95 backdrop-blur">
+    <nav
+      className="sticky bottom-0 z-10 flex border-t border-[var(--color-cream-dark)] bg-[var(--color-cream)]/95 backdrop-blur"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       {TABS.map((tab) => (
         <NavLink
           key={tab.to}

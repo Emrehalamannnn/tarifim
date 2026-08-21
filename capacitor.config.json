@@ -1,0 +1,8 @@
+{
+  "appId": "com.tarifim.app",
+  "appName": "Tarifim",
+  "webDir": "dist",
+  "ios": {
+    "contentInset": "always"
+  }
+}
