@@ -88,18 +88,38 @@ export default function PostCard({
             🍳
           </div>
         ) : (
-          <Link to={`/user/${post.authorId}`}>
+          // A <Link> here (rather than the onClick+navigate() pattern the
+          // media tap and title tap below both use) left this the only tap
+          // target in the card whose navigation depended on native anchor
+          // click handling instead of an explicit handler — switched to
+          // match, so the avatar tap is exactly as reliable as every other
+          // tap target in this card.
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/user/${post.authorId}`);
+            }}
+            aria-label={post.author}
+          >
             <Avatar name={post.author} avatarUrl={post.authorAvatarUrl} />
-          </Link>
+          </button>
         )}
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-1 truncate text-sm font-semibold text-[var(--color-ink)]">
             {post.isOfficial ? (
               post.author
             ) : (
-              <Link to={`/user/${post.authorId}`} className="truncate">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/user/${post.authorId}`);
+                }}
+                className="truncate text-left"
+              >
                 {post.author}
-              </Link>
+              </button>
             )}
             {post.isOfficial && (
               <span

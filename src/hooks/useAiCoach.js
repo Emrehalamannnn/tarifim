@@ -28,7 +28,10 @@ export function useAiCoach(context) {
       return;
     }
 
-    setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+    setMessages((prev) => [
+      ...prev,
+      { role: "assistant", content: data.reply, truncated: Boolean(data.truncated) },
+    ]);
     setSending(false);
   }
 

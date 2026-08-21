@@ -140,6 +140,11 @@ export default function CoachPage() {
               }`}
             >
               {m.content}
+              {m.truncated && (
+                <p className="mt-1 text-[11px] italic text-[var(--color-ink-soft)]">
+                  Yanıt yarıda kesildi, daha kısa bir soru olarak tekrar sorabilirsin.
+                </p>
+              )}
             </motion.div>
           ))}
           {sending && (

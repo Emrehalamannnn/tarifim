@@ -185,8 +185,12 @@ Deno.serve(async (req) => {
     // turns, which only need enough content to keep the conversation
     // coherent, not to be replayed in full.
     const windowedMessages = messages.slice(-HISTORY_WINDOW);
+    // Pick only {role, content} for the outgoing Anthropic call — client
+    // message objects may carry UI-only fields (e.g. the `truncated` flag
+    // added for a cut-off assistant reply), which the Anthropic API isn't
+    // guaranteed to accept on a message object.
     const trimmedMessages = windowedMessages.map((message, index) => ({
-      ...message,
+      role: message.role,
       content: truncate(
         message.content,
         index === windowedMessages.length - 1 ? CURRENT_MESSAGE_MAX_CHARS : HISTORY_MESSAGE_MAX_CHARS
@@ -196,7 +200,11 @@ Deno.serve(async (req) => {
     const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
     const response = await anthropic.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 350,
+      // 350 was clipping ordinary nutrition/fitness answers mid-sentence.
+      // 500 buys enough headroom for a complete concise reply without
+      // meaningfully changing per-call cost (still a small, fixed cap — see
+      // SYSTEM_PROMPT's STİL section for the actual conciseness control).
+      max_tokens: 500,
       system: contextLines.length
         ? `${SYSTEM_PROMPT}\n\nKullanıcı bağlamı:\n${contextLines.join("\n")}`
         : SYSTEM_PROMPT,
@@ -204,7 +212,12 @@ Deno.serve(async (req) => {
     });
 
     const textBlock = response.content.find((b) => b.type === "text");
-    return json({ reply: textBlock?.text ?? "" });
+    // Anthropic sets stop_reason: "max_tokens" when the cap cut the reply off
+    // mid-answer. Surface that instead of a second "continue" call (which
+    // would double the cost of every long reply) so the client can mark the
+    // message as incomplete rather than silently presenting a half-answer
+    // as finished.
+    return json({ reply: textBlock?.text ?? "", truncated: response.stop_reason === "max_tokens" });
   } catch (err) {
     console.error("ai-coach error", err);
     return json({ error: "Internal error" }, 500);
