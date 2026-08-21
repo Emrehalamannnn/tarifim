@@ -1,20 +1,25 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useCoachAccess } from "../hooks/useCoachAccess";
 
 const TABS = [
   { to: "/", label: "Topluluk", emoji: "📸", end: true },
   { to: "/kesfet", label: "Keşfet", emoji: "🔥" },
   { to: "/cart", label: "Sepetim", emoji: "🛒" },
-  { to: "/coach", label: "Koç", emoji: "🩺" },
+  { to: "/coach", label: "Koç", emoji: "🩺", coachOnly: true },
   { to: "/profile", label: "Profil", emoji: "🧑‍🍳" },
 ];
 
 export default function BottomNav() {
+  const { user } = useAuth();
+  const hasCoachAccess = useCoachAccess(user);
+  const tabs = TABS.filter((tab) => !tab.coachOnly || hasCoachAccess);
   return (
     <nav
       className="sticky bottom-0 z-10 flex border-t border-[var(--color-cream-dark)] bg-[var(--color-cream)]/95 backdrop-blur"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      {TABS.map((tab) => (
+      {tabs.map((tab) => (
         <NavLink
           key={tab.to}
           to={tab.to}

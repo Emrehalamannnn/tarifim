@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import recipes from "../data/recipes.json";
 import { useAuth } from "../hooks/useAuth";
+import { useCoachAccess } from "../hooks/useCoachAccess";
 import { useAiCoach } from "../hooks/useAiCoach";
 import { useAppStore, cartRecipeIdsFrom } from "../store/useAppStore";
 import PageFade from "../components/PageFade";
@@ -33,6 +34,7 @@ function TypingDots() {
 
 export default function CoachPage() {
   const { user } = useAuth();
+  const hasCoachAccess = useCoachAccess(user);
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const decisions = useAppStore((s) => s.decisions);
   const cartRecipeNames = useMemo(() => {
@@ -63,6 +65,25 @@ export default function CoachPage() {
           </p>
         </header>
         <LoginPanel />
+      </PageFade>
+    );
+  }
+
+  if (!hasCoachAccess) {
+    return (
+      <PageFade className="flex flex-1 flex-col gap-6 px-5 py-5">
+        <header>
+          <h1 className="text-xl font-bold text-[var(--color-ink)]">Koç</h1>
+        </header>
+        <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
+          <span className="text-3xl">🩺</span>
+          <p className="text-sm font-semibold text-[var(--color-ink)]">
+            Sağlık koçu şu anda kullanıma açık değil
+          </p>
+          <p className="max-w-xs text-xs text-[var(--color-ink-soft)]">
+            Bu özellik yakında tüm kullanıcılar için sunulacak.
+          </p>
+        </div>
       </PageFade>
     );
   }

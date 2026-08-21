@@ -1,8 +1,17 @@
-// AI health coach — available to every authenticated Tarifim user. Runs
-// server-side (Supabase Edge Function, Deno) so ANTHROPIC_API_KEY never
-// reaches the browser, and so the caller's session is re-verified here
-// rather than trusted from the client (a client could otherwise call this
-// function directly without a valid Supabase session).
+// AI health coach. Runs server-side (Supabase Edge Function, Deno) so
+// ANTHROPIC_API_KEY never reaches the browser, and so the caller's session
+// is re-verified here rather than trusted from the client (a client could
+// otherwise call this function directly without a valid Supabase session).
+//
+// Pre-StoreKit release: there's no purchasable entitlement yet, so access is
+// hardcoded to a single allowed account instead of a subscription check.
+// COACH_ALLOWED_EMAILS is checked against user.email as returned by
+// supabase.auth.getUser() — that call re-verifies the bearer token against
+// Supabase Auth itself, so this is the server's own view of who signed in,
+// never a value the client could supply. Swap isCoachAllowed's body for a
+// `subscriptions` table lookup (same shape as the rest of the app's premium
+// gating) once purchases ship; every caller below only ever sees the single
+// boolean, so that swap is a one-function change.
 //
 // Deploy: supabase functions deploy ai-coach
 // Secret: supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
@@ -39,6 +48,13 @@ function truncate(value: string, maxChars: number): string {
 
 const RATE_LIMIT_MAX_REQUESTS = 20;
 const RATE_LIMIT_WINDOW_MINUTES = 10;
+
+const COACH_ALLOWED_EMAILS = ["dunyasiemh@gmail.com"];
+
+function isCoachAllowed(user: { email?: string | null; email_confirmed_at?: string | null }): boolean {
+  const email = user.email?.toLowerCase().trim();
+  return !!email && !!user.email_confirmed_at && COACH_ALLOWED_EMAILS.includes(email);
+}
 
 const SYSTEM_PROMPT = `Sen Tarifim uygulamasının yapay zeka sağlık koçusun. Kullanıcıların sepetindeki tariflere, kalori bilgilerine ve beslenme tercihlerine göre kişiselleştirilmiş, samimi ve pratik beslenme/sağlık tavsiyeleri veriyorsun.
 
@@ -95,6 +111,10 @@ Deno.serve(async (req) => {
     } = await supabase.auth.getUser();
     if (userError || !user) {
       return json({ error: "Invalid session" }, 401);
+    }
+
+    if (!isCoachAllowed(user)) {
+      return json({ error: "Coach access not available for this account" }, 403);
     }
 
     // Service-role client, distinct from the user-scoped `supabase` above:
