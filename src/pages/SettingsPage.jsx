@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useFollowRequests } from "../hooks/useFollows";
+import { useBlockedUsers } from "../hooks/useModeration";
 import { useAppStore } from "../store/useAppStore";
 import { supabase } from "../lib/supabase";
 import { submitFeedback } from "../hooks/useFeedback";
@@ -40,6 +41,49 @@ const DIETARY_OPTIONS = [
   { value: "budget-friendly", label: "Ekonomik" },
 ];
 
+function BlockedUserRow({ user, onUnblock }) {
+  const [unblocking, setUnblocking] = useState(false);
+  const [error, setError] = useState(null);
+
+  async function handleUnblock() {
+    setUnblocking(true);
+    setError(null);
+    try {
+      await onUnblock(user.id);
+      // On success the parent removes this row, so this component unmounts
+      // here — don't touch state after this point.
+    } catch (err) {
+      console.error("Failed to unblock user", err);
+      setError("Engel kaldırılamadı, tekrar dene.");
+      setUnblocking(false);
+    }
+  }
+
+  return (
+    <li className="flex items-center gap-2.5">
+      <Link to={`/user/${user.id}`} className="flex min-w-0 flex-1 items-center gap-2.5">
+        <Avatar name={user.name} avatarUrl={user.avatar_url} />
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-[var(--color-ink)]">{user.name}</p>
+          {user.username && (
+            <p className="truncate text-xs text-[var(--color-ink-soft)]">@{user.username}</p>
+          )}
+        </div>
+      </Link>
+      <div className="flex flex-col items-end gap-1">
+        <button
+          onClick={handleUnblock}
+          disabled={unblocking}
+          className="shrink-0 rounded-full bg-[var(--color-cream)] px-3 py-1.5 text-xs font-semibold text-[var(--color-tomato)] active:scale-95 disabled:opacity-60"
+        >
+          {unblocking ? "Kaldırılıyor…" : "Engeli Kaldır"}
+        </button>
+        {error && <p className="text-[10px] text-[var(--color-tomato)]">{error}</p>}
+      </div>
+    </li>
+  );
+}
+
 function FollowRequestRow({ request, onApprove, onReject }) {
   return (
     <li className="flex items-center gap-2.5">
@@ -66,6 +110,7 @@ function FollowRequestRow({ request, onApprove, onReject }) {
 export default function SettingsPage() {
   const { user, profile, signOut, deleteAccount, refreshProfile, updateEmail, updatePassword } = useAuth();
   const { requests, approve, reject } = useFollowRequests(user?.id);
+  const { users: blockedUsers, loading: blockedUsersLoading, unblock: unblockUser } = useBlockedUsers(user?.id);
   const theme = useAppStore((s) => s.theme);
   const setTheme = useAppStore((s) => s.setTheme);
   const preferredChainIds = useAppStore((s) => s.preferredChainIds);
@@ -504,6 +549,23 @@ export default function SettingsPage() {
               )}
             </div>
           )}
+
+          <div className="mt-4 border-t border-[var(--color-cream-dark)] pt-4">
+            <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+              Engellenen Kullanıcılar
+            </h3>
+            {blockedUsersLoading ? (
+              <p className="text-xs text-[var(--color-ink-soft)]">Yükleniyor…</p>
+            ) : blockedUsers.length === 0 ? (
+              <p className="text-xs text-[var(--color-ink-soft)]">Engellenen kullanıcı yok.</p>
+            ) : (
+              <ul className="flex flex-col gap-3">
+                {blockedUsers.map((u) => (
+                  <BlockedUserRow key={u.id} user={u} onUnblock={unblockUser} />
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </section>
 
