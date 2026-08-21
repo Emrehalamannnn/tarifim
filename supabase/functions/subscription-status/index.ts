@@ -8,7 +8,7 @@
 // Deploy: supabase functions deploy subscription-status
 // Secrets: same Apple IAP secrets as apple-subscription (see _shared/apple-subscription.ts)
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { verifyAppleSubscription } from "../_shared/apple-subscription.ts";
+import { isPremiumTestUser, verifyAppleSubscription } from "../_shared/apple-subscription.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -38,6 +38,13 @@ Deno.serve(async (req) => {
     } = await supabase.auth.getUser();
     if (userError || !user) {
       return json({ error: "Invalid session" }, 401);
+    }
+
+    // Internal test-account override (see _shared/apple-subscription.ts) --
+    // short-circuits before any real subscription row is read, but only for
+    // the authenticated user.id, never a client-supplied value.
+    if (isPremiumTestUser(user.id)) {
+      return json({ isPremium: true, status: "active", currentPeriodEnd: null });
     }
 
     const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);

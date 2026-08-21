@@ -234,6 +234,30 @@ export async function verifyAppleSubscription(transactionId: string): Promise<Ap
   return notEntitled;
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function parsePremiumTestUserIds(raw: string | undefined | null): Set<string> {
+  if (!raw) return new Set();
+  const ids = new Set<string>();
+  for (const part of raw.split(",")) {
+    const candidate = part.trim().toLowerCase();
+    // Silently drop anything that isn't a well-formed UUID rather than
+    // throwing -- a malformed secret must degrade to "no test users" and
+    // fall back to real Apple verification, never crash the request path.
+    if (UUID_RE.test(candidate)) ids.add(candidate);
+  }
+  return ids;
+}
+
+// Internal test-only override, gated entirely by a server-side secret that
+// is never sent to the client. `userId` must always come from
+// supabase.auth.getUser() (the authenticated session), never from a request
+// body -- otherwise a caller could self-grant Premium by claiming any UUID.
+export function isPremiumTestUser(userId: string): boolean {
+  const testUserIds = parsePremiumTestUserIds(Deno.env.get("PREMIUM_TEST_USER_IDS"));
+  return testUserIds.has(userId.toLowerCase());
+}
+
 // Fast path for callers (coach-access, ai-coach) that just need a yes/no and
 // don't need to re-verify with Apple on every call -- reads the cached
 // result of the last verifyAppleSubscription() that apple-subscription or
@@ -241,6 +265,8 @@ export async function verifyAppleSubscription(transactionId: string): Promise<Ap
 // client-facing insert/update policy (see schema.sql), so this can only ever
 // reflect a write this module itself made.
 export async function hasActivePremium(admin: SupabaseClient, userId: string): Promise<boolean> {
+  if (isPremiumTestUser(userId)) return true;
+
   const { data } = await admin
     .from("subscriptions")
     .select("plan, status, current_period_end")
