@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSubscription } from "../hooks/useSubscription";
 import { supabase } from "../lib/supabase";
-import { PREMIUM_PRODUCT_ID, isNativeIOS, loadProducts, purchase, restorePurchases } from "../lib/storekit";
+import {
+  PREMIUM_MONTHLY_PRODUCT_ID,
+  PREMIUM_YEARLY_PRODUCT_ID,
+  PREMIUM_PRODUCT_IDS,
+  isNativeIOS,
+  loadProducts,
+  purchase,
+  restorePurchases,
+} from "../lib/storekit";
 
 const dateFormatter = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long", year: "numeric" });
 
@@ -32,7 +40,8 @@ async function registerTransaction(transactionId) {
 
 export default function PremiumPaywall({ userId, compact = false }) {
   const { subscription, isPremium, loading, refresh } = useSubscription(userId);
-  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState(PREMIUM_YEARLY_PRODUCT_ID);
   const [productLoading, setProductLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState(null);
@@ -43,9 +52,13 @@ export default function PremiumPaywall({ userId, compact = false }) {
       return;
     }
     let cancelled = false;
-    loadProducts([PREMIUM_PRODUCT_ID])
-      .then((products) => {
-        if (!cancelled) setProduct(products[0] ?? null);
+    loadProducts(PREMIUM_PRODUCT_IDS)
+      .then((loaded) => {
+        if (cancelled) return;
+        setProducts(loaded);
+        const yearly = loaded.find((p) => p.id === PREMIUM_YEARLY_PRODUCT_ID);
+        const monthly = loaded.find((p) => p.id === PREMIUM_MONTHLY_PRODUCT_ID);
+        setSelectedProductId((yearly ?? monthly ?? loaded[0])?.id ?? null);
       })
       .finally(() => {
         if (!cancelled) setProductLoading(false);
@@ -55,11 +68,15 @@ export default function PremiumPaywall({ userId, compact = false }) {
     };
   }, [isPremium]);
 
+  const orderedProducts = [...products].sort((a) => (a.id === PREMIUM_YEARLY_PRODUCT_ID ? -1 : 1));
+  const selectedProduct = products.find((p) => p.id === selectedProductId) ?? null;
+
   async function handlePurchase() {
+    if (!selectedProductId) return;
     setBusy(true);
     setMessage(null);
     try {
-      const result = await purchase(PREMIUM_PRODUCT_ID, userId);
+      const result = await purchase(selectedProductId, userId);
       if (result?.pending) {
         setMessage("Satın alma onay bekliyor.");
         return;
@@ -80,7 +97,7 @@ export default function PremiumPaywall({ userId, compact = false }) {
     setMessage(null);
     try {
       const entitlements = await restorePurchases();
-      const active = entitlements.find((e) => e.productId === PREMIUM_PRODUCT_ID);
+      const active = entitlements.find((e) => PREMIUM_PRODUCT_IDS.includes(e.productId));
       if (!active) {
         setMessage("Geri yüklenecek aktif bir abonelik bulunamadı.");
         return;
@@ -148,22 +165,51 @@ export default function PremiumPaywall({ userId, compact = false }) {
           </p>
         ) : productLoading ? (
           <p className="text-xs text-[var(--color-ink-soft)]">Yükleniyor…</p>
-        ) : product ? (
+        ) : orderedProducts.length > 0 ? (
           <>
-            <p className="text-lg font-bold text-[var(--color-ink)]">
-              {product.displayPrice}
-              {product.subscriptionPeriod && (
-                <span className="ml-1 text-xs font-normal text-[var(--color-ink-soft)]">
-                  / {periodLabel(product.subscriptionPeriod)}
-                </span>
-              )}
-            </p>
-            {product.introductoryOffer?.paymentMode === "freeTrial" && (
+            <div className="flex w-full flex-col gap-2">
+              {orderedProducts.map((p) => {
+                const isYearly = p.id === PREMIUM_YEARLY_PRODUCT_ID;
+                const active = p.id === selectedProductId;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => setSelectedProductId(p.id)}
+                    className={`flex items-center justify-between rounded-xl border px-4 py-3 text-left transition ${
+                      active
+                        ? "border-[var(--color-paprika)] bg-[var(--color-paprika)]/5"
+                        : "border-[var(--color-ink-soft)]/20"
+                    }`}
+                  >
+                    <span className="flex flex-col">
+                      <span className="text-sm font-semibold text-[var(--color-ink)]">
+                        {isYearly ? "Yıllık" : "Aylık"}
+                      </span>
+                      {isYearly && (
+                        <span className="text-[10px] font-medium uppercase tracking-wide text-[var(--color-olive)]">
+                          Önerilen
+                        </span>
+                      )}
+                    </span>
+                    <span className="text-right">
+                      <span className="block text-sm font-bold text-[var(--color-ink)]">{p.displayPrice}</span>
+                      {p.subscriptionPeriod && (
+                        <span className="block text-[10px] text-[var(--color-ink-soft)]">
+                          / {periodLabel(p.subscriptionPeriod)}
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {selectedProduct?.introductoryOffer?.paymentMode === "freeTrial" && (
               <p className="text-xs font-medium text-[var(--color-olive)]">Ücretsiz deneme mevcut</p>
             )}
             <button
               onClick={handlePurchase}
-              disabled={busy}
+              disabled={busy || !selectedProductId}
               className="mt-1 w-full rounded-full bg-[var(--color-paprika)] px-4 py-2.5 text-sm font-bold text-[var(--color-cream)] active:scale-95 disabled:opacity-50"
             >
               Abone Ol

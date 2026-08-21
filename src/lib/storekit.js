@@ -1,6 +1,10 @@
 import { registerPlugin, Capacitor } from "@capacitor/core";
 
-export const PREMIUM_PRODUCT_ID = "com.tarifim.app.premium.monthly";
+export const PREMIUM_MONTHLY_PRODUCT_ID = "com.tarifim.app.premium.monthly";
+export const PREMIUM_YEARLY_PRODUCT_ID = "com.tarifim.app.premium.yearly";
+// Both belong to the same Apple subscription group ("Tarifim Premium") and
+// unlock the same entitlement -- neither is more privileged than the other.
+export const PREMIUM_PRODUCT_IDS = [PREMIUM_MONTHLY_PRODUCT_ID, PREMIUM_YEARLY_PRODUCT_ID];
 
 // Registering the plugin proxy is safe on every platform (web included) --
 // it only throws if one of its methods is actually invoked without a native
@@ -11,7 +15,7 @@ export function isNativeIOS() {
   return Capacitor.isNativePlatform() && Capacitor.getPlatform() === "ios";
 }
 
-export async function loadProducts(productIds = [PREMIUM_PRODUCT_ID]) {
+export async function loadProducts(productIds = PREMIUM_PRODUCT_IDS) {
   if (!isNativeIOS()) return [];
   const { products } = await StoreKitNative.getProducts({ productIds });
   return products ?? [];

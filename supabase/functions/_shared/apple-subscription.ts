@@ -17,7 +17,12 @@
 // APPLE_IAP_PRIVATE_KEY, APPLE_BUNDLE_ID. Never sent to the client.
 import type { SupabaseClient } from "npm:@supabase/supabase-js@2";
 
-export const APPLE_PRODUCT_ID = "com.tarifim.app.premium.monthly";
+export const APPLE_MONTHLY_PRODUCT_ID = "com.tarifim.app.premium.monthly";
+export const APPLE_YEARLY_PRODUCT_ID = "com.tarifim.app.premium.yearly";
+// Exact allow-set for the Tarifim Premium subscription group -- both grant
+// the identical entitlement, and matching is exact (no prefix matching) so
+// an unrelated product id can never be mistaken for Premium.
+export const APPLE_PREMIUM_PRODUCT_IDS: readonly string[] = [APPLE_MONTHLY_PRODUCT_ID, APPLE_YEARLY_PRODUCT_ID];
 
 const PRODUCTION_BASE = "https://api.storekit.apple.com";
 const SANDBOX_BASE = "https://api.storekit-sandbox.apple.com";
@@ -158,7 +163,7 @@ export async function verifyAppleSubscription(transactionId: string): Promise<Ap
   const notEntitled: AppleEntitlement = {
     entitled: false,
     status: "unknown",
-    productId: APPLE_PRODUCT_ID,
+    productId: APPLE_MONTHLY_PRODUCT_ID,
     transactionId,
     originalTransactionId: "",
     expirationDate: null,
@@ -216,7 +221,7 @@ export async function verifyAppleSubscription(transactionId: string): Promise<Ap
       } catch {
         continue;
       }
-      if (info.productId !== APPLE_PRODUCT_ID || info.bundleId !== bundleId) continue;
+      if (!APPLE_PREMIUM_PRODUCT_IDS.includes(info.productId) || info.bundleId !== bundleId) continue;
 
       return {
         entitled: ENTITLED_STATUS_CODES.has(last.status),

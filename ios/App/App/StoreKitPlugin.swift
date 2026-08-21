@@ -3,7 +3,8 @@ import Capacitor
 import StoreKit
 
 // Native StoreKit 2 bridge for the Tarifim Premium auto-renewable
-// subscription (com.tarifim.app.premium.monthly). Only exposes verified
+// subscriptions (com.tarifim.app.premium.monthly and
+// com.tarifim.app.premium.yearly, same subscription group). Only exposes verified
 // transaction data to JS -- signedTransactionJWS is Apple's signed receipt
 // for that transaction, which the backend (supabase/functions/_shared/
 // apple-subscription.ts) independently re-verifies against the App Store
