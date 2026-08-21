@@ -1,0 +1,60 @@
+workflows:
+  ios-testflight:
+    name: Tarifim iOS TestFlight
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: Codemagic Tarifim
+    environment:
+      groups:
+        - tarifim_env
+      vars:
+        APP_STORE_APPLE_ID: 6804031862
+        XCODE_PROJECT: "ios/App/App.xcodeproj"
+        XCODE_SCHEME: "App"
+        BUNDLE_ID: "com.tarifim.app"
+      node: latest
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm ci
+      - name: Build web app (Vite)
+        script: |
+          npm run build
+      - name: Capacitor sync iOS
+        script: |
+          npx cap sync ios
+      - name: CocoaPods install (if Podfile present)
+        script: |
+          if [ -f "ios/App/Podfile" ]; then
+            cd ios/App && pod install
+          else
+            echo "No Podfile found (project uses Swift Package Manager) — skipping pod install."
+          fi
+      - name: Set up automatic code signing
+        script: |
+          xcode-project use-profiles \
+            --project "ios/App/App.xcodeproj" \
+            --target "$XCODE_SCHEME"
+      - name: Increment build number
+        script: |
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID" || echo "0")
+          NEW_BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
+          cd "$CM_BUILD_DIR/ios/App"
+          agvtool new-version -all "$NEW_BUILD_NUMBER"
+      - name: Build signed IPA
+        script: |
+          xcode-project build-ipa \
+            --project "$CM_BUILD_DIR/ios/App/App.xcodeproj" \
+            --scheme "App"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
