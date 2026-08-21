@@ -146,6 +146,21 @@ export function useAuth() {
     return supabase.auth.signOut();
   }
 
+  // Permanent account deletion (App Store 5.1.1(v)). The delete-account
+  // Edge Function verifies the caller's JWT and deletes their auth user +
+  // storage objects server-side; everything else cascades in the database.
+  // Only report success after the backend confirms, then clear the local
+  // session (the tokens are already dead server-side at that point).
+  async function deleteAccount() {
+    const { error } = await supabase.functions.invoke("delete-account", { method: "POST" });
+    if (error) {
+      return { error: { message: "Hesap silinemedi, lütfen tekrar dene." } };
+    }
+    await supabase.auth.signOut().catch(() => {});
+    setSession(null);
+    return { error: null };
+  }
+
   // Real email change, only meaningful for provider === "email" accounts
   // (Google/Apple accounts' login email is managed by that provider, not
   // by us — SettingsPage doesn't offer this form for them). Supabase sends
@@ -172,6 +187,7 @@ export function useAuth() {
     passwordRecovery,
     clearPasswordRecovery: () => setPasswordRecovery(false),
     signOut,
+    deleteAccount,
     updateEmail,
     updatePassword,
   };

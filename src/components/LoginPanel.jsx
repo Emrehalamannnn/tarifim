@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import PasswordStrengthMeter from "./PasswordStrengthMeter";
 import { isPasswordStrongEnough } from "../lib/passwordStrength";
@@ -297,7 +298,10 @@ export default function LoginPanel() {
       </div>
 
       <p className="text-[10px] text-[var(--color-ink-soft)]">
-        Giriş yaparak hesabını oluşturmuş olursun — bilgilerin Supabase üzerinde güvenle saklanır.
+        Giriş yaparak hesabını oluşturmuş olursun — bilgilerin güvenle saklanır.{" "}
+        <Link to="/privacy" className="font-semibold text-[var(--color-paprika)]">
+          Gizlilik Politikası
+        </Link>
       </p>
     </div>
   );

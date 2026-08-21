@@ -196,14 +196,7 @@ export default function ProfilePage() {
         </section>
       )}
 
-      {user && (
-        <section>
-          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
-            Premium
-          </h2>
-          <PremiumPaywall userId={user.id} compact />
-        </section>
-      )}
+      {user && <PremiumPaywall userId={user.id} compact />}
 
       {user && (
         <section>

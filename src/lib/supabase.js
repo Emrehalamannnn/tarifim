@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { Capacitor } from "@capacitor/core";
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -16,10 +17,18 @@ const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 // that exposure window; it's the standard mitigation short of a backend
 // session layer. Trade-off: signing in in one tab doesn't carry over to a
 // new tab, and closing the tab signs the user out — acceptable here.
+//
+// In the packaged iOS app (Capacitor WKWebView) that trade-off inverts:
+// sessionStorage is wiped every time iOS terminates the app, which would
+// force a fresh login on every relaunch. There's no third-party-script XSS
+// surface in the bundled webview, so localStorage's indefinite persistence
+// is the correct choice there.
+const sessionStore = Capacitor.isNativePlatform() ? window.localStorage : window.sessionStorage;
+
 export const supabase = url && anonKey
   ? createClient(url, anonKey, {
       auth: {
-        storage: window.sessionStorage,
+        storage: sessionStore,
         persistSession: true,
         autoRefreshToken: true,
       },
@@ -27,3 +36,4 @@ export const supabase = url && anonKey
   : null;
 
 export const isSupabaseConfigured = Boolean(supabase);
+export const supabaseUrl = url;

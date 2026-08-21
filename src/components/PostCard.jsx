@@ -28,6 +28,7 @@ export default function PostCard({
   onOpenComments,
   onShare,
   onDelete,
+  onReport,
 }) {
   const navigate = useNavigate();
   const [shareFeedback, setShareFeedback] = useState(false);
@@ -139,6 +140,16 @@ export default function PostCard({
             className="text-xs text-[var(--color-tomato)]"
           >
             Sil
+          </button>
+        )}
+        {currentUserId && !post.ownedByMe && !post.isOfficial && onReport && (
+          <button
+            onClick={() => onReport(post)}
+            aria-label="Paylaşımı şikayet et"
+            title="Şikayet et"
+            className="text-sm text-[var(--color-ink-soft)] active:scale-90"
+          >
+            🚩
           </button>
         )}
       </div>

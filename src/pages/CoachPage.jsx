@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import recipes from "../data/recipes.json";
 import { useAuth } from "../hooks/useAuth";
@@ -6,7 +7,6 @@ import { useSubscription } from "../hooks/useSubscription";
 import { useAiCoach } from "../hooks/useAiCoach";
 import { useAppStore, cartRecipeIdsFrom } from "../store/useAppStore";
 import PageFade from "../components/PageFade";
-import PremiumPaywall from "../components/PremiumPaywall";
 import LoginPanel from "../components/LoginPanel";
 
 const recipesById = new Map(recipes.map((r) => [r.id, r]));
@@ -78,15 +78,11 @@ export default function CoachPage() {
     );
   }
 
+  // Premium (and with it this coach) isn't purchasable yet — StoreKit isn't
+  // wired up — so non-premium users never see this surface: the Koç tab is
+  // hidden in BottomNav and a direct navigation lands back on the feed.
   if (!isPremium || error === "premium_required") {
-    return (
-      <PageFade className="flex flex-1 flex-col gap-4 px-5 py-5">
-        <header>
-          <h1 className="text-xl font-bold text-[var(--color-ink)]">Koç</h1>
-        </header>
-        <PremiumPaywall userId={user.id} />
-      </PageFade>
-    );
+    return <Navigate to="/" replace />;
   }
 
   function handleSubmit(e) {
@@ -105,7 +101,8 @@ export default function CoachPage() {
         <div>
           <h1 className="text-xl font-bold text-[var(--color-ink)]">Sağlık Koçun</h1>
           <p className="text-xs text-[var(--color-ink-soft)]">
-            Sepetindeki tariflere ve tercihlerine göre tavsiye al.
+            Sepetindeki tariflere ve tercihlerine göre tavsiye al. Mesajların ve beslenme tercihlerin,
+            yanıt üretmek için yapay zeka sağlayıcımız Anthropic'e iletilir. Koç tıbbi tavsiye vermez.
           </p>
         </div>
       </header>

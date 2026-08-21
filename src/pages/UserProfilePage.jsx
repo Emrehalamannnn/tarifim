@@ -3,6 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useFollowStats, useIsFollowing } from "../hooks/useFollows";
 import { useProfile, useProfileLikeTotal } from "../hooks/useProfile";
 import { useUserPosts } from "../hooks/useUserPosts";
+import { useBlockedIds } from "../hooks/useModeration";
 import PageFade from "../components/PageFade";
 import Avatar from "../components/Avatar";
 import EmptyState from "../components/EmptyState";
@@ -16,8 +17,20 @@ export default function UserProfilePage() {
   const { likeTotal } = useProfileLikeTotal(id);
   const { posts } = useUserPosts(id);
   const { status: followStatus } = useIsFollowing(user?.id, id, profile?.is_private);
+  const { blockedIds, block, unblock } = useBlockedIds(user?.id);
   const isSelf = user?.id === id;
-  const isLocked = Boolean(profile?.is_private) && !isSelf && followStatus !== "accepted";
+  const isBlocked = blockedIds.has(id);
+  const isLocked =
+    isBlocked || (Boolean(profile?.is_private) && !isSelf && followStatus !== "accepted");
+
+  async function handleToggleBlock() {
+    try {
+      if (isBlocked) await unblock(id);
+      else await block(id);
+    } catch (err) {
+      console.error("Failed to update block", err);
+    }
+  }
 
   if (loading) {
     return (
@@ -94,12 +107,14 @@ export default function UserProfilePage() {
         )}
 
         <div className="flex items-center gap-2">
-          <FollowButton
-            currentUserId={user?.id}
-            targetUserId={id}
-            targetIsPrivate={profile.is_private}
-          />
-          {user && !isSelf && (
+          {!isBlocked && (
+            <FollowButton
+              currentUserId={user?.id}
+              targetUserId={id}
+              targetIsPrivate={profile.is_private}
+            />
+          )}
+          {user && !isSelf && !isBlocked && (
             <Link
               to={`/messages/${id}`}
               className="rounded-full bg-[var(--color-cream)] px-5 py-2 text-sm font-semibold text-[var(--color-ink-soft)] active:scale-95"
@@ -107,15 +122,31 @@ export default function UserProfilePage() {
               Mesaj Gönder
             </Link>
           )}
+          {user && !isSelf && (
+            <button
+              onClick={handleToggleBlock}
+              className="rounded-full bg-[var(--color-cream)] px-5 py-2 text-sm font-semibold text-[var(--color-tomato)] active:scale-95"
+            >
+              {isBlocked ? "Engeli Kaldır" : "Engelle"}
+            </button>
+          )}
         </div>
       </section>
 
       {isLocked ? (
-        <EmptyState
-          emoji="🔒"
-          title="Bu hesap gizli"
-          description="Takip isteği gönder, kabul edildiğinde paylaşımlarını görebilirsin."
-        />
+        isBlocked ? (
+          <EmptyState
+            emoji="🚫"
+            title="Bu kullanıcıyı engelledin"
+            description="Paylaşımları ve mesajları sana gösterilmez. İstediğin zaman engeli kaldırabilirsin."
+          />
+        ) : (
+          <EmptyState
+            emoji="🔒"
+            title="Bu hesap gizli"
+            description="Takip isteği gönder, kabul edildiğinde paylaşımlarını görebilirsin."
+          />
+        )
       ) : (
         <section>
           <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">

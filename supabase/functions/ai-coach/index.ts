@@ -16,6 +16,13 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const MAX_MESSAGES = 40;
+const MAX_MESSAGE_LENGTH = 4000;
+const MAX_TOTAL_CONTENT_LENGTH = 12000;
+
+const RATE_LIMIT_MAX_REQUESTS = 20;
+const RATE_LIMIT_WINDOW_MINUTES = 10;
+
 const SYSTEM_PROMPT = `Sen Tarifim uygulamasının yapay zeka sağlık koçusun. Kullanıcıların sepetindeki tariflere, kalori bilgilerine ve beslenme tercihlerine göre kişiselleştirilmiş, samimi ve pratik beslenme/sağlık tavsiyeleri veriyorsun.
 
 Kurallar:
@@ -64,9 +71,56 @@ Deno.serve(async (req) => {
       return json({ error: "Premium subscription required" }, 403);
     }
 
+    // Service-role client, distinct from the user-scoped `supabase` above:
+    // ai_rate_limits has no PostgREST-facing policies (see schema.sql), so
+    // only a genuine service-role request can read or write it.
+    const admin = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+
+    await admin
+      .from("ai_rate_limits")
+      .delete()
+      .lt("created_at", new Date(Date.now() - 86_400_000).toISOString());
+
+    const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MINUTES * 60_000).toISOString();
+    const { count } = await admin
+      .from("ai_rate_limits")
+      .select("*", { count: "exact", head: true })
+      .eq("identifier", user.id)
+      .eq("action", "ai-coach")
+      .gte("created_at", windowStart);
+
+    if ((count ?? 0) >= RATE_LIMIT_MAX_REQUESTS) {
+      return json(
+        { error: `Too many requests. Please try again in ${RATE_LIMIT_WINDOW_MINUTES} minutes.` },
+        429
+      );
+    }
+
+    await admin.from("ai_rate_limits").insert({ identifier: user.id, action: "ai-coach" });
+
     const { messages, context } = await req.json();
     if (!Array.isArray(messages) || messages.length === 0) {
       return json({ error: "messages[] is required" }, 400);
+    }
+    if (messages.length > MAX_MESSAGES) {
+      return json({ error: `Too many messages (max ${MAX_MESSAGES})` }, 400);
+    }
+
+    let totalContentLength = 0;
+    for (const message of messages) {
+      if (!message || typeof message.content !== "string") {
+        return json({ error: "Each message must have string content" }, 400);
+      }
+      if (message.content.length > MAX_MESSAGE_LENGTH) {
+        return json({ error: `Message exceeds max length of ${MAX_MESSAGE_LENGTH} characters` }, 400);
+      }
+      totalContentLength += message.content.length;
+    }
+    if (totalContentLength > MAX_TOTAL_CONTENT_LENGTH) {
+      return json({ error: `Combined message content exceeds max length of ${MAX_TOTAL_CONTENT_LENGTH} characters` }, 400);
     }
 
     const contextLines = [];
@@ -78,7 +132,7 @@ Deno.serve(async (req) => {
 
     const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
     const response = await anthropic.messages.create({
-      model: "claude-opus-5",
+      model: "claude-opus-4-8",
       max_tokens: 1024,
       system: contextLines.length
         ? `${SYSTEM_PROMPT}\n\nKullanıcı bağlamı:\n${contextLines.join("\n")}`

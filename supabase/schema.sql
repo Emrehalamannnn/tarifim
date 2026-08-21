@@ -344,18 +344,62 @@ alter table public.posts add column if not exists share_count integer not null d
 alter table public.posts add column if not exists recipe_text text;
 alter table public.posts add column if not exists recipe_is_ai_generated boolean not null default false;
 
+-- Dedupe ledger behind increment_post_share below. Not client-facing at all
+-- (RLS on, zero policies), same pattern as auth_rate_limits: only the
+-- security-definer function — which bypasses RLS — reads or writes it, so a
+-- client can't delete its own rows to re-share the same post for another
+-- increment.
+create table if not exists public.post_shares (
+  post_id uuid not null references public.posts (id) on delete cascade,
+  user_id uuid not null references public.profiles (id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (post_id, user_id)
+);
+
+alter table public.post_shares enable row level security;
+
 -- No blanket UPDATE policy exists on posts (a client could otherwise rewrite
 -- someone else's title/photo). This function is the one narrow write a
 -- client can make: bump share_count by 1, nothing else, on any post.
+--
+-- Anonymous callers are rejected and every increment is recorded per
+-- (post, user): the counter only moves the first time a given user shares a
+-- given post, so hammering the RPC directly — the trivial abuse this
+-- endpoint invites, since the count is public UI — is a no-op after the
+-- first call. Inflating the number now costs one real account per
+-- increment instead of one HTTP request.
 create or replace function public.increment_post_share(post_id uuid)
 returns void
-language sql
+language plpgsql
 security definer set search_path = public
 as $$
-  update public.posts set share_count = share_count + 1 where id = post_id;
+declare
+  requester uuid := auth.uid();
+begin
+  if requester is null then
+    raise exception 'not authenticated';
+  end if;
+
+  insert into public.post_shares (post_id, user_id)
+  values (increment_post_share.post_id, requester)
+  on conflict do nothing;
+
+  -- FOUND is false when the ON CONFLICT arm swallowed the insert, i.e. this
+  -- user already shared this post before.
+  if found then
+    update public.posts
+    set share_count = share_count + 1
+    where id = increment_post_share.post_id;
+  end if;
+end;
 $$;
 
-grant execute on function public.increment_post_share(uuid) to authenticated, anon;
+-- EXECUTE on a new function is granted to PUBLIC by default, which covers
+-- the anon role — revoking from both is what actually takes the RPC away
+-- from logged-out callers.
+revoke execute on function public.increment_post_share(uuid) from public;
+revoke execute on function public.increment_post_share(uuid) from anon;
+grant execute on function public.increment_post_share(uuid) to authenticated;
 
 create index if not exists posts_created_at_idx on public.posts (created_at desc);
 create index if not exists posts_author_id_idx on public.posts (author_id);
@@ -399,6 +443,26 @@ create policy "users can delete their own posts"
     or exists (select 1 from public.profiles where id = auth.uid() and is_owner = true)
   );
 
+-- Shared visibility predicate for everything hanging off a post
+-- (post_likes / post_comments / comment_likes below). Deliberately NOT
+-- security definer: a plain (invoker) function inlines into the calling
+-- query, so `posts` is read with the *caller's* RLS applied and this
+-- returns true only when the "posts are publicly readable" policy above
+-- would have handed the caller that row. One definition, automatically in
+-- step with the post policy — no second copy of the private-account rules
+-- to drift.
+create or replace function public.post_is_visible(post_id uuid)
+returns boolean
+language sql
+stable
+security invoker
+set search_path = public
+as $$
+  select exists (select 1 from public.posts where id = post_is_visible.post_id);
+$$;
+
+grant execute on function public.post_is_visible(uuid) to authenticated, anon;
+
 -- ============================================================
 -- post_likes: replaces the local `likes`/`likedByMe` fields on a post.
 -- ============================================================
@@ -411,23 +475,22 @@ create table if not exists public.post_likes (
 
 alter table public.post_likes enable row level security;
 
--- NOTE on privacy: post_likes/post_comments/post_saves deliberately do NOT
--- re-check the parent post's author-privacy here (unlike the posts select
--- policy above). Once a private author's post is filtered out of `posts`,
--- its id is never surfaced to a stranger by any query in this app —
--- PostDetailPage/CommentsModal/usePostComments all key off ids that came
--- from an already-RLS-filtered posts result. The only residual exposure is
--- a client hitting this table directly with an already-known post id from
--- before the account went private — narrow, low-value, MVP-acceptable.
+-- Privacy: interaction rows inherit the parent post's visibility rather
+-- than being world-readable. The previous `using (true)` leaked a private
+-- account's engagement — who liked what, and (via post_comments) comment
+-- text itself — to anyone who knew or guessed a post id, including ids
+-- captured while the account was still public. Relying on "the app never
+-- surfaces those ids" only holds for the app's own queries; PostgREST is a
+-- public API and the id is the only thing gating it.
 drop policy if exists "post likes are publicly readable" on public.post_likes;
-create policy "post likes are publicly readable"
+create policy "post likes are visible with the post"
   on public.post_likes for select
-  using (true);
+  using (public.post_is_visible(post_id));
 
 drop policy if exists "users can like as themselves" on public.post_likes;
 create policy "users can like as themselves"
   on public.post_likes for insert
-  with check (auth.uid() = user_id);
+  with check (auth.uid() = user_id and public.post_is_visible(post_id));
 
 drop policy if exists "users can unlike their own like" on public.post_likes;
 create policy "users can unlike their own like"
@@ -449,15 +512,17 @@ create index if not exists post_comments_post_id_idx on public.post_comments (po
 
 alter table public.post_comments enable row level security;
 
+-- Same inheritance as post_likes above — a private account's comment
+-- threads are content, not just metadata.
 drop policy if exists "comments are publicly readable" on public.post_comments;
-create policy "comments are publicly readable"
+create policy "comments are visible with the post"
   on public.post_comments for select
-  using (true);
+  using (public.post_is_visible(post_id));
 
 drop policy if exists "users can comment as themselves" on public.post_comments;
 create policy "users can comment as themselves"
   on public.post_comments for insert
-  with check (auth.uid() = author_id);
+  with check (auth.uid() = author_id and public.post_is_visible(post_id));
 
 drop policy if exists "users can delete their own comments" on public.post_comments;
 create policy "users can delete their own comments"
@@ -483,15 +548,22 @@ create table if not exists public.comment_likes (
 
 alter table public.comment_likes enable row level security;
 
+-- Reached through post_comments rather than posts directly: that table's
+-- own SELECT policy (above) already resolves to the parent post's
+-- visibility, and RLS applies to this subquery too, so an invisible
+-- comment yields no row here either.
 drop policy if exists "comment likes are publicly readable" on public.comment_likes;
-create policy "comment likes are publicly readable"
+create policy "comment likes are visible with the comment"
   on public.comment_likes for select
-  using (true);
+  using (exists (select 1 from public.post_comments c where c.id = comment_likes.comment_id));
 
 drop policy if exists "users can like comments as themselves" on public.comment_likes;
 create policy "users can like comments as themselves"
   on public.comment_likes for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id
+    and exists (select 1 from public.post_comments c where c.id = comment_likes.comment_id)
+  );
 
 drop policy if exists "users can unlike their own comment like" on public.comment_likes;
 create policy "users can unlike their own comment like"
@@ -559,6 +631,66 @@ drop policy if exists "users can unsave their own save" on public.post_saves;
 create policy "users can unsave their own save"
   on public.post_saves for delete
   using (auth.uid() = user_id);
+
+-- ============================================================
+-- user_blocks: user-to-user blocking, required for a UGC app by App Store
+-- Guideline 1.2. The client filters blocked authors out of the feed and
+-- comments, and the direct_messages insert policy above/below refuses
+-- messages in either direction between a blocked pair. Rows are private to
+-- the blocker — the blocked user is never told.
+-- ============================================================
+create table if not exists public.user_blocks (
+  blocker_id uuid not null references public.profiles (id) on delete cascade,
+  blocked_id uuid not null references public.profiles (id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (blocker_id, blocked_id),
+  constraint user_blocks_no_self_block check (blocker_id <> blocked_id)
+);
+
+alter table public.user_blocks enable row level security;
+
+drop policy if exists "users can read their own blocks" on public.user_blocks;
+create policy "users can read their own blocks"
+  on public.user_blocks for select
+  using (auth.uid() = blocker_id);
+
+drop policy if exists "users can block as themselves" on public.user_blocks;
+create policy "users can block as themselves"
+  on public.user_blocks for insert
+  with check (auth.uid() = blocker_id);
+
+drop policy if exists "users can unblock their own block" on public.user_blocks;
+create policy "users can unblock their own block"
+  on public.user_blocks for delete
+  using (auth.uid() = blocker_id);
+
+-- ============================================================
+-- post_reports: user reports of objectionable posts (App Store Guideline
+-- 1.2 — reporting must create something actionable). Any logged-in user
+-- can file one report per post; only the admin (is_owner) account can read
+-- them to act on the content. No update/delete policies — reports are an
+-- append-only moderation log.
+-- ============================================================
+create table if not exists public.post_reports (
+  id uuid primary key default gen_random_uuid(),
+  post_id uuid not null references public.posts (id) on delete cascade,
+  reporter_id uuid not null references public.profiles (id) on delete cascade,
+  reason text check (reason is null or char_length(reason) <= 500),
+  created_at timestamptz not null default now(),
+  unique (post_id, reporter_id)
+);
+
+alter table public.post_reports enable row level security;
+
+drop policy if exists "only the admin can read reports" on public.post_reports;
+create policy "only the admin can read reports"
+  on public.post_reports for select
+  using (exists (select 1 from public.profiles where id = auth.uid() and is_owner = true));
+
+drop policy if exists "users can report as themselves" on public.post_reports;
+create policy "users can report as themselves"
+  on public.post_reports for insert
+  with check (auth.uid() = reporter_id);
 
 -- ============================================================
 -- subscriptions: processor-agnostic premium entitlement, one row per user.
@@ -630,10 +762,20 @@ create policy "participants can read their direct messages"
   on public.direct_messages for select
   using (auth.uid() = sender_id or auth.uid() = recipient_id);
 
+-- Sending also requires that neither side has blocked the other (see
+-- user_blocks below) — blocking must actually stop contact, not just hide
+-- posts in the feed.
 drop policy if exists "users can send direct messages as themselves" on public.direct_messages;
 create policy "users can send direct messages as themselves"
   on public.direct_messages for insert
-  with check (auth.uid() = sender_id);
+  with check (
+    auth.uid() = sender_id
+    and not exists (
+      select 1 from public.user_blocks
+      where (blocker_id = recipient_id and blocked_id = sender_id)
+         or (blocker_id = sender_id and blocked_id = recipient_id)
+    )
+  );
 
 -- Adds direct_messages to the publication Supabase's client-side Realtime
 -- subscribes through. Safe to re-run — errors only if already a member,
@@ -698,16 +840,65 @@ create index if not exists auth_rate_limits_lookup_idx
 alter table public.auth_rate_limits enable row level security;
 
 -- ============================================================
+-- ai_rate_limits: same pattern as auth_rate_limits above, but backs the
+-- generate-recipe/ai-coach Edge Functions' per-user throttling instead of
+-- login attempts. identifier is the caller's auth.uid() (both functions
+-- require a valid session already), not an email/IP, since the abuse this
+-- guards against is a signed-in account hammering the Anthropic-backed
+-- endpoints, not credential stuffing. RLS on with zero policies — only the
+-- Edge Functions' service-role client can read or write it.
+-- ============================================================
+create table if not exists public.ai_rate_limits (
+  id uuid primary key default gen_random_uuid(),
+  identifier text not null,
+  action text not null check (action in ('generate-recipe', 'ai-coach')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists ai_rate_limits_lookup_idx
+  on public.ai_rate_limits (identifier, action, created_at);
+
+alter table public.ai_rate_limits enable row level security;
+
+-- ============================================================
 -- Storage bucket for post photos (replaces base64 data-URL-in-localStorage).
+--
+-- Not public: objects are uploaded to "<author_id>/<file>", and the bucket
+-- being `public: true` used to make every file fetchable from its bare URL
+-- regardless of RLS, which defeated private accounts entirely (their post
+-- photos were still readable by anyone with the link). Private now, so
+-- reads must go through the SELECT policy below and the frontend fetches
+-- via a signed URL (see src/lib/mediaUrls.js) instead of getPublicUrl.
 -- ============================================================
 insert into storage.buckets (id, name, public)
-values ('post-photos', 'post-photos', true)
-on conflict (id) do nothing;
+values ('post-photos', 'post-photos', false)
+on conflict (id) do update set public = false;
 
+-- Mirrors the "posts are publicly readable" policy above, keyed off the
+-- uploader's id folder prefix instead of posts.author_id (there's no direct
+-- FK from storage.objects to posts, but every post-photos upload path
+-- starts with the author's own id, so the same private/owner/follower rule
+-- applies one level down).
 drop policy if exists "post photos are publicly readable" on storage.objects;
-create policy "post photos are publicly readable"
+drop policy if exists "post photos are visible to owner/followers" on storage.objects;
+create policy "post photos are visible to owner/followers"
   on storage.objects for select
-  using (bucket_id = 'post-photos');
+  using (
+    bucket_id = 'post-photos'
+    and (
+      auth.uid() = ((storage.foldername(name))[1])::uuid
+      or not exists (
+        select 1 from public.profiles
+        where id = ((storage.foldername(name))[1])::uuid and is_private = true
+      )
+      or exists (
+        select 1 from public.follows
+        where follows.follower_id = auth.uid()
+          and follows.following_id = ((storage.foldername(name))[1])::uuid
+          and follows.status = 'accepted'
+      )
+    )
+  );
 
 drop policy if exists "authenticated users can upload post photos" on storage.objects;
 create policy "authenticated users can upload post photos"
@@ -721,15 +912,32 @@ create policy "users can delete their own post photos"
 
 -- ============================================================
 -- Storage bucket for post videos (TikTok-style UGC recipe clips).
+-- Same private-bucket treatment as post-photos above.
 -- ============================================================
 insert into storage.buckets (id, name, public)
-values ('post-videos', 'post-videos', true)
-on conflict (id) do nothing;
+values ('post-videos', 'post-videos', false)
+on conflict (id) do update set public = false;
 
 drop policy if exists "post videos are publicly readable" on storage.objects;
-create policy "post videos are publicly readable"
+drop policy if exists "post videos are visible to owner/followers" on storage.objects;
+create policy "post videos are visible to owner/followers"
   on storage.objects for select
-  using (bucket_id = 'post-videos');
+  using (
+    bucket_id = 'post-videos'
+    and (
+      auth.uid() = ((storage.foldername(name))[1])::uuid
+      or not exists (
+        select 1 from public.profiles
+        where id = ((storage.foldername(name))[1])::uuid and is_private = true
+      )
+      or exists (
+        select 1 from public.follows
+        where follows.follower_id = auth.uid()
+          and follows.following_id = ((storage.foldername(name))[1])::uuid
+          and follows.status = 'accepted'
+      )
+    )
+  );
 
 drop policy if exists "authenticated users can upload post videos" on storage.objects;
 create policy "authenticated users can upload post videos"

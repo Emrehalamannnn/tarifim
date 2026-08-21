@@ -151,6 +151,11 @@ export default function AddedToCartOverlay({ recipe, onClose, onSeePrices }) {
               <span className="text-sm font-bold">{currency.format(cheapest.total)}</span>
             </div>
           )}
+          {cheapest && (
+            <p className="mx-6 mt-1.5 text-[10px] text-[var(--color-ink-soft)]">
+              Fiyatlar tahminidir, güncel market fiyatlarını yansıtmayabilir.
+            </p>
+          )}
 
           <div className="flex flex-col gap-2 px-6 pb-6 pt-4">
             <button

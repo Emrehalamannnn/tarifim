@@ -12,6 +12,7 @@ import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
 import Avatar from "../components/Avatar";
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 const USERNAME_PATTERN = /^[a-z0-9_.]{3,20}$/;
 
@@ -63,7 +64,7 @@ function FollowRequestRow({ request, onApprove, onReject }) {
 }
 
 export default function SettingsPage() {
-  const { user, profile, signOut, refreshProfile, updateEmail, updatePassword } = useAuth();
+  const { user, profile, signOut, deleteAccount, refreshProfile, updateEmail, updatePassword } = useAuth();
   const { requests, approve, reject } = useFollowRequests(user?.id);
   const theme = useAppStore((s) => s.theme);
   const setTheme = useAppStore((s) => s.setTheme);
@@ -72,9 +73,9 @@ export default function SettingsPage() {
   const dietaryFilter = useAppStore((s) => s.dietaryFilter);
   const setDietaryFilter = useAppStore((s) => s.setDietaryFilter);
   const resetDeck = useAppStore((s) => s.resetDeck);
-  const [notifLikes, setNotifLikes] = useState(true);
-  const [notifComments, setNotifComments] = useState(true);
-  const [notifFollows, setNotifFollows] = useState(true);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
 
   const [name, setName] = useState(profile?.name ?? "");
   const [nameSaving, setNameSaving] = useState(false);
@@ -197,6 +198,19 @@ export default function SettingsPage() {
     } finally {
       setFeedbackSending(false);
     }
+  }
+
+  async function handleDeleteAccount() {
+    setDeleteConfirmOpen(false);
+    setDeleting(true);
+    setDeleteError(null);
+    const { error } = await deleteAccount();
+    if (error) {
+      setDeleteError(error.message);
+      setDeleting(false);
+    }
+    // On success the session is cleared and this page re-renders into the
+    // logged-out LoginPanel state on its own — nothing else to do here.
   }
 
   async function handlePrivacyChange(nextIsPrivate) {
@@ -431,6 +445,22 @@ export default function SettingsPage() {
           >
             Çıkış Yap
           </button>
+
+          <div className="border-t border-[var(--color-cream-dark)] pt-3">
+            <p className="text-xs font-semibold text-[var(--color-ink-soft)]">Hesabı Sil</p>
+            <p className="mt-1 text-[11px] text-[var(--color-ink-soft)]">
+              Hesabın, paylaşımların, yorumların, mesajların ve yüklediğin medya kalıcı olarak silinir.
+              Bu işlem geri alınamaz.
+            </p>
+            <button
+              onClick={() => setDeleteConfirmOpen(true)}
+              disabled={deleting}
+              className="mt-2 self-start rounded-full bg-[var(--color-tomato)] px-4 py-2 text-xs font-semibold text-[var(--color-cream)] active:scale-95 disabled:opacity-60"
+            >
+              {deleting ? "Siliniyor…" : "Hesabımı Kalıcı Olarak Sil"}
+            </button>
+            {deleteError && <p className="mt-1.5 text-xs text-[var(--color-tomato)]">{deleteError}</p>}
+          </div>
         </div>
       </section>
 
@@ -512,25 +542,6 @@ export default function SettingsPage() {
         <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">Uygulama</h2>
         <div className="flex flex-col gap-4 rounded-2xl bg-[var(--color-surface)] p-4 shadow-sm">
           <div>
-            <p className="mb-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">
-              Bildirimler <span className="normal-case text-[var(--color-ink-soft)]/70">(cihazında, yakında)</span>
-            </p>
-            <div className="flex flex-col gap-2">
-              <NotificationToggle label="Beğeniler" enabled={notifLikes} onToggle={() => setNotifLikes((v) => !v)} />
-              <NotificationToggle
-                label="Yorumlar"
-                enabled={notifComments}
-                onToggle={() => setNotifComments((v) => !v)}
-              />
-              <NotificationToggle
-                label="Yeni takipçiler"
-                enabled={notifFollows}
-                onToggle={() => setNotifFollows((v) => !v)}
-              />
-            </div>
-          </div>
-
-          <div>
             <p className="mb-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">Deste</p>
             <button
               onClick={resetDeck}
@@ -542,32 +553,25 @@ export default function SettingsPage() {
 
           <div>
             <p className="mb-1 text-xs font-semibold text-[var(--color-ink-soft)]">Hakkında</p>
-            <p className="text-[11px] text-[var(--color-ink-soft)]">Tarifim · sürüm 1.0.0 (MVP)</p>
+            <p className="text-[11px] text-[var(--color-ink-soft)]">Tarifim · sürüm 1.0.0</p>
+            <Link
+              to="/privacy"
+              className="mt-1.5 inline-block text-xs font-semibold text-[var(--color-paprika)]"
+            >
+              Gizlilik Politikası →
+            </Link>
           </div>
         </div>
       </section>
-    </PageFade>
-  );
-}
 
-function NotificationToggle({ label, enabled, onToggle }) {
-  return (
-    <button
-      onClick={onToggle}
-      className="flex items-center justify-between rounded-full bg-[var(--color-cream)] px-3.5 py-2"
-    >
-      <span className="text-sm text-[var(--color-ink)]">{label}</span>
-      <span
-        className={`relative h-5 w-9 rounded-full transition-colors ${
-          enabled ? "bg-[var(--color-olive)]" : "bg-[var(--color-cream-dark)]"
-        }`}
-      >
-        <span
-          className={`absolute left-0.5 top-0.5 h-4 w-4 rounded-full bg-[var(--color-surface)] shadow transition-transform ${
-            enabled ? "translate-x-4" : "translate-x-0"
-          }`}
-        />
-      </span>
-    </button>
+      <ConfirmDialog
+        open={deleteConfirmOpen}
+        title="Hesabını kalıcı olarak sil?"
+        description="Hesabın, paylaşımların, yorumların, beğenilerin, takipçilerin, mesajların ve yüklediğin tüm medya kalıcı olarak silinecek. Bu işlem geri alınamaz."
+        confirmLabel="Evet, Hesabımı Sil"
+        onConfirm={handleDeleteAccount}
+        onCancel={() => setDeleteConfirmOpen(false)}
+      />
+    </PageFade>
   );
 }

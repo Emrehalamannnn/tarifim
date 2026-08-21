@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useCommunityFeed } from "../hooks/useCommunityFeed";
 import { useFollowingIds } from "../hooks/useFollowingIds";
+import { reportPost } from "../hooks/useModeration";
 import PageFade from "../components/PageFade";
+import ConfirmDialog from "../components/ConfirmDialog";
 import PostCard from "../components/PostCard";
 import PostCardSkeleton from "../components/PostCardSkeleton";
 import CreatePostModal from "../components/CreatePostModal";
@@ -22,6 +24,20 @@ export default function SocialPage() {
   const [audienceFilter, setAudienceFilter] = useState("all");
   const [tagFilter, setTagFilter] = useState(null);
   const [sort, setSort] = useState("recent");
+  const [reportTarget, setReportTarget] = useState(null);
+  const [reportDone, setReportDone] = useState(false);
+
+  async function handleReportConfirm() {
+    const target = reportTarget;
+    setReportTarget(null);
+    try {
+      await reportPost(user.id, target.id);
+      setReportDone(true);
+      window.setTimeout(() => setReportDone(false), 2500);
+    } catch (err) {
+      console.error("Failed to report post", err);
+    }
+  }
 
   const activeFilterCount =
     (audienceFilter !== "all" ? 1 : 0) + (tagFilter !== null ? 1 : 0) + (sort !== "recent" ? 1 : 0);
@@ -135,9 +151,25 @@ export default function SocialPage() {
                 onOpenComments={setCommentsPostId}
                 onShare={incrementShare}
                 onDelete={deletePost}
+                onReport={setReportTarget}
               />
             ))}
       </ul>
+
+      {reportDone && (
+        <p className="mx-4 mb-2 rounded-xl bg-[var(--color-cream)] px-3.5 py-2.5 text-xs text-[var(--color-olive)]">
+          Şikayetin alındı, en kısa sürede incelenecek ✓
+        </p>
+      )}
+
+      <ConfirmDialog
+        open={reportTarget !== null}
+        title="Paylaşımı şikayet et"
+        description={`"${reportTarget?.title ?? ""}" paylaşımını uygunsuz içerik olarak bildirmek istiyor musun? Şikayetler moderasyon ekibi tarafından incelenir.`}
+        confirmLabel="Şikayet Et"
+        onConfirm={handleReportConfirm}
+        onCancel={() => setReportTarget(null)}
+      />
 
       {user && (
         <CreatePostModal

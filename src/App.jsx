@@ -20,6 +20,7 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const MessagesPage = lazy(() => import("./pages/MessagesPage"));
 const NewMessagePage = lazy(() => import("./pages/NewMessagePage"));
 const ConversationPage = lazy(() => import("./pages/ConversationPage"));
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
 
 function RequireOnboarding({ children }) {
   const hasOnboarded = useAppStore((s) => s.hasOnboarded);
@@ -38,6 +39,9 @@ export default function App() {
         <Suspense fallback={null}>
         <Routes>
           <Route path="/onboarding" element={<OnboardingPage />} />
+          {/* Deliberately outside RequireOnboarding — the privacy policy
+              must be reachable before any account/onboarding step. */}
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route
             path="/"
             element={

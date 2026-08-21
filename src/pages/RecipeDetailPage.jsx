@@ -253,6 +253,10 @@ export default function RecipeDetailPage() {
                 </div>
               ))}
             </div>
+
+            <p className="mt-3 text-[11px] text-[var(--color-ink-soft)]">
+              Fiyatlar tahmini ve temsilidir; marketlerin güncel fiyatlarını birebir yansıtmayabilir.
+            </p>
           </>
         )}
       </section>

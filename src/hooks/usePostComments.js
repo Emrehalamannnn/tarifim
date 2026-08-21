@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
+import { fetchBlockedIds } from "./useModeration";
 
 // Comments for a single post, loaded lazily (only while a CommentsModal for
 // that post is open) rather than as part of useCommunityFeed's feed query.
@@ -29,8 +30,12 @@ export function usePostComments(postId, currentUserId) {
       console.error("Failed to load comments", error);
       setComments([]);
     } else {
+      // Comments from users the viewer has blocked are dropped, matching
+      // the feed-level filtering in useCommunityFeed.
+      const blockedIds = await fetchBlockedIds(currentUserId);
+      const visible = blockedIds.size ? data.filter((c) => !blockedIds.has(c.author_id)) : data;
       setComments(
-        data.map((c) => ({
+        visible.map((c) => ({
           id: c.id,
           postId: c.post_id,
           parentCommentId: c.parent_comment_id,

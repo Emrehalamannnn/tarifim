@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
+import { resolveMediaUrls } from "../lib/mediaUrls";
+import { fetchBlockedIds } from "./useModeration";
 import ingredients from "../data/ingredients.json";
 
 const OFFICIAL_AUTHOR_NAME = "Tarifim Mutfağı";
@@ -40,8 +42,19 @@ export function useCommunityFeed(currentUserId) {
       return;
     }
 
+    // Posts from users the viewer has blocked never reach the feed.
+    const blockedIds = await fetchBlockedIds(currentUserId);
+    const visible = blockedIds.size
+      ? data.filter((post) => !blockedIds.has(post.author_id))
+      : data;
+
+    // post-photos/post-videos are private buckets — resolve the stored
+    // "public"-shaped URLs into short-lived signed URLs the viewer is
+    // actually authorized to read (see src/lib/mediaUrls.js).
+    const resolve = await resolveMediaUrls(visible.flatMap((post) => [post.photo_url, post.video_url]));
+
     setPosts(
-      data.map((post) => ({
+      visible.map((post) => ({
         id: post.id,
         author: post.author_id ? post.author?.name ?? "Bilinmeyen" : OFFICIAL_AUTHOR_NAME,
         authorId: post.author_id,
@@ -52,8 +65,8 @@ export function useCommunityFeed(currentUserId) {
         isOfficial: post.author_id === null,
         recipeId: post.recipe_id,
         tags: post.tags ?? [],
-        photoUrl: post.photo_url,
-        videoUrl: post.video_url,
+        photoUrl: resolve(post.photo_url),
+        videoUrl: resolve(post.video_url),
         shares: post.share_count ?? 0,
         title: post.title,
         description: post.description,
