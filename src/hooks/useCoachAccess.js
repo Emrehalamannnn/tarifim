@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
-// Pre-StoreKit gate for the AI coach: there's no purchasable entitlement
-// yet, so access is restricted to a single allowed account instead of a real
-// subscription check (see useSubscription). The allowlist itself lives only
-// in the coach-access Edge Function's AI_COACH_ALLOWED_EMAIL secret — never
-// in frontend source — so this hook just asks the server what the signed-in
-// user is authorized for. This is a UI-only convenience (hide/show the tab
-// and page); the ai-coach Edge Function re-checks the same allowlist
+// AI Coach access gate, backed by a real Apple auto-renewable subscription.
+// coach-access checks the caller's server-verified premium entitlement
+// (public.subscriptions, only ever written after independent Apple
+// verification — see supabase/functions/_shared/apple-subscription.ts) and
+// returns a single boolean. This is a UI-only convenience (hide/show the tab
+// and page); the ai-coach Edge Function re-checks the same entitlement
 // server-side against the caller's verified session, so this hook can never
-// itself grant access to the API. Swap coach-access's body for a
-// subscriptions-table lookup once purchases ship; every call site here only
-// ever reads the single boolean.
+// itself grant access to the API.
 export function useCoachAccess(user) {
   const [allowed, setAllowed] = useState(false);
 

@@ -3,25 +3,23 @@
 // is re-verified here rather than trusted from the client (a client could
 // otherwise call this function directly without a valid Supabase session).
 //
-// Pre-StoreKit release: there's no purchasable entitlement yet, so access is
-// restricted to a single allowed account (AI_COACH_ALLOWED_EMAIL secret,
-// never in frontend source — see useCoachAccess.js/coach-access) instead of
-// a subscription check. isCoachAllowed is checked against user.email as
-// returned by supabase.auth.getUser() — that call re-verifies the bearer
-// token against Supabase Auth itself, so this is the server's own view of
-// who signed in, never a value the client could supply. Swap isCoachAllowed's
-// body for a `subscriptions` table lookup (same shape as the rest of the
-// app's premium gating) once purchases ship; every caller below only ever
-// sees the single boolean, so that swap is a one-function change.
+// Gated behind a real Apple auto-renewable subscription: hasActivePremium
+// (see _shared/apple-subscription.ts) reads public.subscriptions, which is
+// only ever written by apple-subscription/subscription-status after
+// independently verifying the purchase with Apple's App Store Server API --
+// never client-writable, never derived from client-reported StoreKit state.
 //
 // Deploy: supabase functions deploy ai-coach
 // Secrets:
 //   supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
-//   supabase secrets set AI_COACH_ALLOWED_EMAIL=someone@example.com
+//   (Apple IAP secrets — APPLE_IAP_KEY_ID, APPLE_IAP_ISSUER_ID,
+//   APPLE_IAP_PRIVATE_KEY, APPLE_BUNDLE_ID — are set once and shared with
+//   apple-subscription/subscription-status/coach-access.)
 // (SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided automatically by
 // the Edge Functions runtime — do not set them yourself.)
 import { createClient } from "npm:@supabase/supabase-js@2";
 import Anthropic from "npm:@anthropic-ai/sdk@0.68";
+import { hasActivePremium } from "../_shared/apple-subscription.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -51,12 +49,6 @@ function truncate(value: string, maxChars: number): string {
 
 const RATE_LIMIT_MAX_REQUESTS = 20;
 const RATE_LIMIT_WINDOW_MINUTES = 10;
-
-function isCoachAllowed(user: { email?: string | null; email_confirmed_at?: string | null }): boolean {
-  const allowed = Deno.env.get("AI_COACH_ALLOWED_EMAIL")?.toLowerCase().trim();
-  const email = user.email?.toLowerCase().trim();
-  return !!allowed && !!email && !!user.email_confirmed_at && email === allowed;
-}
 
 const SYSTEM_PROMPT = `Sen Tarifim uygulamasının yapay zeka sağlık koçusun. Kullanıcıların sepetindeki tariflere, kalori bilgilerine ve beslenme tercihlerine göre kişiselleştirilmiş, samimi ve pratik beslenme/sağlık tavsiyeleri veriyorsun.
 
@@ -115,17 +107,19 @@ Deno.serve(async (req) => {
       return json({ error: "Invalid session" }, 401);
     }
 
-    if (!isCoachAllowed(user)) {
-      return json({ error: "Coach access not available for this account" }, 403);
-    }
-
     // Service-role client, distinct from the user-scoped `supabase` above:
     // ai_rate_limits has no PostgREST-facing policies (see schema.sql), so
-    // only a genuine service-role request can read or write it.
+    // only a genuine service-role request can read or write it. Also used
+    // below for the premium entitlement check, ahead of both rate-limit
+    // consumption and the Anthropic call.
     const admin = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
+
+    if (!(await hasActivePremium(admin, user.id))) {
+      return json({ error: "Premium subscription required" }, 403);
+    }
 
     await admin
       .from("ai_rate_limits")

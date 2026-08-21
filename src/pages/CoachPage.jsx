@@ -7,6 +7,7 @@ import { useAiCoach } from "../hooks/useAiCoach";
 import { useAppStore, cartRecipeIdsFrom } from "../store/useAppStore";
 import PageFade from "../components/PageFade";
 import LoginPanel from "../components/LoginPanel";
+import PremiumPaywall from "../components/PremiumPaywall";
 
 const recipesById = new Map(recipes.map((r) => [r.id, r]));
 
@@ -74,16 +75,11 @@ export default function CoachPage() {
       <PageFade className="flex flex-1 flex-col gap-6 px-5 py-5">
         <header>
           <h1 className="text-xl font-bold text-[var(--color-ink)]">Koç</h1>
+          <p className="text-xs text-[var(--color-ink-soft)]">
+            AI Koç, Tarifim Premium'un bir parçasıdır.
+          </p>
         </header>
-        <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-          <span className="text-3xl">🩺</span>
-          <p className="text-sm font-semibold text-[var(--color-ink)]">
-            Sağlık koçu şu anda kullanıma açık değil
-          </p>
-          <p className="max-w-xs text-xs text-[var(--color-ink-soft)]">
-            Bu özellik yakında tüm kullanıcılar için sunulacak.
-          </p>
-        </div>
+        <PremiumPaywall userId={user.id} />
       </PageFade>
     );
   }

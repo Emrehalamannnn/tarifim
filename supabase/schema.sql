@@ -747,13 +747,12 @@ create policy "users can report as themselves"
 -- subscriptions: processor-agnostic premium entitlement, one row per user.
 -- Deliberately has NO client-facing insert/update policy — a user must
 -- never be able to grant themselves premium by calling the API directly.
--- Real writes will come from a trusted server context once a payment
--- processor is wired up: for iOS, Apple's App Store Server Notifications
--- (or RevenueCat's webhook) hitting a Supabase Edge Function that uses the
--- service_role key, which bypasses RLS entirely. Until then, the only way
--- to flip a user to premium is manually in the SQL Editor (also runs as
--- postgres, bypasses RLS) — see the INSERT template at the bottom of this
--- file's comments and CLAUDE.md's "Subscriptions" section.
+-- Real writes come from the apple-subscription and subscription-status Edge
+-- Functions (service_role key, bypasses RLS), which only write a row after
+-- independently verifying the purchase with Apple's App Store Server API —
+-- see supabase/functions/_shared/apple-subscription.ts. A manual SQL Editor
+-- insert (also runs as postgres, bypasses RLS) still works for local testing
+-- — see the INSERT template at the bottom of this file's comments.
 -- ============================================================
 create table if not exists public.subscriptions (
   user_id uuid primary key references public.profiles (id) on delete cascade,
@@ -765,6 +764,14 @@ create table if not exists public.subscriptions (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Apple's subscription lineage identifier -- stable across renewals/plan
+-- changes for the same subscription, unlike store_transaction_id (which is
+-- the specific transaction apple-subscription last verified). Populated by
+-- apple-subscription/subscription-status (see supabase/functions/_shared/
+-- apple-subscription.ts); not used for lookups yet, kept for any future
+-- App Store Server Notifications webhook that needs to key off it.
+alter table public.subscriptions add column if not exists original_transaction_id text;
 
 alter table public.subscriptions enable row level security;
 

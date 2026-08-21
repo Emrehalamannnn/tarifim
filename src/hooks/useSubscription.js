@@ -1,28 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
 
-// Read-only view of the current user's entitlement (public.subscriptions —
-// see supabase/schema.sql). No client-side write path exists on purpose:
-// a user must never be able to grant themselves premium. Until a payment
-// processor is wired up (StoreKit/RevenueCat on iOS), the only way a row
-// gets here is a manual SQL Editor insert for testing.
+// Authoritative entitlement source: subscription-status re-verifies with
+// Apple's App Store Server API when the cached row looks stale before
+// answering (see supabase/functions/subscription-status). isPremium is never
+// derived from local StoreKit state or a direct table read — only from this
+// endpoint's response, which is itself only ever populated by an
+// Apple-verified purchase/restore (see supabase/functions/apple-subscription).
 export function useSubscription(userId) {
-  const [subscription, setSubscription] = useState(null);
+  const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
     if (!isSupabaseConfigured || !userId) {
-      setSubscription(null);
+      setStatus(null);
       setLoading(false);
       return;
     }
     setLoading(true);
-    const { data } = await supabase
-      .from("subscriptions")
-      .select("*")
-      .eq("user_id", userId)
-      .maybeSingle();
-    setSubscription(data);
+    const { data, error } = await supabase.functions.invoke("subscription-status");
+    setStatus(error ? null : data);
     setLoading(false);
   }, [userId]);
 
@@ -30,10 +27,12 @@ export function useSubscription(userId) {
     refresh();
   }, [refresh]);
 
-  const isPremium =
-    subscription?.plan === "premium" &&
-    subscription?.status === "active" &&
-    (!subscription.current_period_end || new Date(subscription.current_period_end) > new Date());
-
-  return { subscription, isPremium, loading, refresh };
+  return {
+    subscription: status
+      ? { status: status.status, current_period_end: status.currentPeriodEnd }
+      : null,
+    isPremium: Boolean(status?.isPremium),
+    loading,
+    refresh,
+  };
 }
