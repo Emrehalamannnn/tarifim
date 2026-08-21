@@ -1,6 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
 
+// profiles.email is intentionally excluded — the database no longer grants
+// anon/authenticated SELECT on that column (see schema.sql), and Supabase
+// Auth's session user (session.user.email below) is the authoritative
+// source for the signed-in user's own email everywhere in the app.
+const PROFILE_COLUMNS =
+  "id, name, avatar_url, provider, created_at, is_verified, is_owner, is_private, username";
+
 // Real Supabase auth session, replacing useAppStore's old mocked
 // `user`/`login`/`logout`. Session state deliberately does NOT live in the
 // zustand-persisted store — Supabase already persists its own session token
@@ -49,7 +56,7 @@ export function useAuth() {
     if (!isSupabaseConfigured || !session?.user) return;
     const { data } = await supabase
       .from("profiles")
-      .select("*")
+      .select(PROFILE_COLUMNS)
       .eq("id", session.user.id)
       .single();
     setProfile(data);
@@ -63,7 +70,7 @@ export function useAuth() {
     let cancelled = false;
     supabase
       .from("profiles")
-      .select("*")
+      .select(PROFILE_COLUMNS)
       .eq("id", session.user.id)
       .single()
       .then(({ data }) => {

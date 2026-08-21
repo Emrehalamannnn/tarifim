@@ -19,6 +19,10 @@ graphify-out/
 .claude/
 .claude-flow/
 
+# Local MCP config — the tracked copy previously embedded this project's
+# production Supabase project_ref in a public repo; keep it local-only.
+.mcp.json
+
 # iOS (Capacitor, Swift Package Manager)
 ios/App/build/
 ios/DerivedData/

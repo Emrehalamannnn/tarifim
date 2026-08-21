@@ -4,17 +4,20 @@
 // otherwise call this function directly without a valid Supabase session).
 //
 // Pre-StoreKit release: there's no purchasable entitlement yet, so access is
-// hardcoded to a single allowed account instead of a subscription check.
-// COACH_ALLOWED_EMAILS is checked against user.email as returned by
-// supabase.auth.getUser() — that call re-verifies the bearer token against
-// Supabase Auth itself, so this is the server's own view of who signed in,
-// never a value the client could supply. Swap isCoachAllowed's body for a
-// `subscriptions` table lookup (same shape as the rest of the app's premium
-// gating) once purchases ship; every caller below only ever sees the single
-// boolean, so that swap is a one-function change.
+// restricted to a single allowed account (AI_COACH_ALLOWED_EMAIL secret,
+// never in frontend source — see useCoachAccess.js/coach-access) instead of
+// a subscription check. isCoachAllowed is checked against user.email as
+// returned by supabase.auth.getUser() — that call re-verifies the bearer
+// token against Supabase Auth itself, so this is the server's own view of
+// who signed in, never a value the client could supply. Swap isCoachAllowed's
+// body for a `subscriptions` table lookup (same shape as the rest of the
+// app's premium gating) once purchases ship; every caller below only ever
+// sees the single boolean, so that swap is a one-function change.
 //
 // Deploy: supabase functions deploy ai-coach
-// Secret: supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
+// Secrets:
+//   supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
+//   supabase secrets set AI_COACH_ALLOWED_EMAIL=someone@example.com
 // (SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided automatically by
 // the Edge Functions runtime — do not set them yourself.)
 import { createClient } from "npm:@supabase/supabase-js@2";
@@ -49,11 +52,10 @@ function truncate(value: string, maxChars: number): string {
 const RATE_LIMIT_MAX_REQUESTS = 20;
 const RATE_LIMIT_WINDOW_MINUTES = 10;
 
-const COACH_ALLOWED_EMAILS = ["dunyasiemh@gmail.com"];
-
 function isCoachAllowed(user: { email?: string | null; email_confirmed_at?: string | null }): boolean {
+  const allowed = Deno.env.get("AI_COACH_ALLOWED_EMAIL")?.toLowerCase().trim();
   const email = user.email?.toLowerCase().trim();
-  return !!email && !!user.email_confirmed_at && COACH_ALLOWED_EMAILS.includes(email);
+  return !!allowed && !!email && !!user.email_confirmed_at && email === allowed;
 }
 
 const SYSTEM_PROMPT = `Sen Tarifim uygulamasının yapay zeka sağlık koçusun. Kullanıcıların sepetindeki tariflere, kalori bilgilerine ve beslenme tercihlerine göre kişiselleştirilmiş, samimi ve pratik beslenme/sağlık tavsiyeleri veriyorsun.

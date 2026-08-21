@@ -149,6 +149,24 @@ create trigger on_auth_user_created
   for each row execute function public.handle_new_user();
 
 -- ============================================================
+-- Column-level lockdown for profiles.email. The "profiles are publicly
+-- readable" policy above is row-level only (`using (true)`) — it can't stop
+-- a client from selecting the email column on someone else's row, and
+-- Postgres has no column-scoped RLS. Revoking table-wide SELECT and
+-- re-granting it for only the non-email columns closes that off at the
+-- privilege layer regardless of what any client-side query asks for, while
+-- leaving every public-profile field (name, avatar, username, verification/
+-- privacy flags) untouched. Supabase Auth (the JWT/session user, e.g.
+-- session.user.email in useAuth.js) remains the authoritative source for a
+-- user's own email — the column stays only because handle_new_user() above
+-- still writes it and other server-side/definer code may still read it.
+-- ============================================================
+revoke select on public.profiles from anon, authenticated;
+grant select (
+  id, name, avatar_url, provider, created_at, is_verified, is_owner, is_private, username
+) on public.profiles to anon, authenticated;
+
+-- ============================================================
 -- follows: brand new — the mocked follower/following counts
 -- (src/lib/mockSocial.js) had no real graph behind them at all.
 --
@@ -906,6 +924,13 @@ insert into storage.buckets (id, name, public)
 values ('post-photos', 'post-photos', false)
 on conflict (id) do update set public = false;
 
+-- Reject arbitrary/executable binaries at the bucket level, not just via
+-- client-side <input accept>. 15 MB comfortably covers a compressed photo.
+update storage.buckets
+set allowed_mime_types = array['image/jpeg', 'image/png', 'image/webp'],
+    file_size_limit = 15728640
+where id = 'post-photos';
+
 -- Mirrors the "posts are publicly readable" policy above, keyed off the
 -- uploader's id folder prefix instead of posts.author_id (there's no direct
 -- FK from storage.objects to posts, but every post-photos upload path
@@ -932,10 +957,23 @@ create policy "post photos are visible to owner/followers"
     )
   );
 
+-- Path convention is "<uploader auth.uid()>/<file>" (see ProfilePage/post
+-- upload call sites) — enforced here, not just assumed, so an authenticated
+-- user can never write into another user's folder.
 drop policy if exists "authenticated users can upload post photos" on storage.objects;
 create policy "authenticated users can upload post photos"
   on storage.objects for insert
-  with check (bucket_id = 'post-photos' and auth.role() = 'authenticated');
+  with check (
+    bucket_id = 'post-photos'
+    and auth.role() = 'authenticated'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );
+
+drop policy if exists "users can update their own post photos" on storage.objects;
+create policy "users can update their own post photos"
+  on storage.objects for update
+  using (bucket_id = 'post-photos' and owner = auth.uid())
+  with check (bucket_id = 'post-photos' and (storage.foldername(name))[1] = auth.uid()::text);
 
 drop policy if exists "users can delete their own post photos" on storage.objects;
 create policy "users can delete their own post photos"
@@ -949,6 +987,13 @@ create policy "users can delete their own post photos"
 insert into storage.buckets (id, name, public)
 values ('post-videos', 'post-videos', false)
 on conflict (id) do update set public = false;
+
+-- 100 MB comfortably covers a short compressed recipe clip while blocking
+-- arbitrary/executable uploads.
+update storage.buckets
+set allowed_mime_types = array['video/mp4', 'video/quicktime', 'video/webm'],
+    file_size_limit = 104857600
+where id = 'post-videos';
 
 drop policy if exists "post videos are publicly readable" on storage.objects;
 drop policy if exists "post videos are visible to owner/followers" on storage.objects;
@@ -974,7 +1019,17 @@ create policy "post videos are visible to owner/followers"
 drop policy if exists "authenticated users can upload post videos" on storage.objects;
 create policy "authenticated users can upload post videos"
   on storage.objects for insert
-  with check (bucket_id = 'post-videos' and auth.role() = 'authenticated');
+  with check (
+    bucket_id = 'post-videos'
+    and auth.role() = 'authenticated'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );
+
+drop policy if exists "users can update their own post videos" on storage.objects;
+create policy "users can update their own post videos"
+  on storage.objects for update
+  using (bucket_id = 'post-videos' and owner = auth.uid())
+  with check (bucket_id = 'post-videos' and (storage.foldername(name))[1] = auth.uid()::text);
 
 drop policy if exists "users can delete their own post videos" on storage.objects;
 create policy "users can delete their own post videos"
@@ -988,6 +1043,13 @@ insert into storage.buckets (id, name, public)
 values ('avatars', 'avatars', true)
 on conflict (id) do nothing;
 
+-- 5 MB is generous headroom above the client-side resize (ProfilePage.jsx
+-- resizes to 400px/0.82 quality before upload).
+update storage.buckets
+set allowed_mime_types = array['image/jpeg', 'image/png', 'image/webp'],
+    file_size_limit = 5242880
+where id = 'avatars';
+
 drop policy if exists "avatars are publicly readable" on storage.objects;
 create policy "avatars are publicly readable"
   on storage.objects for select
@@ -996,7 +1058,17 @@ create policy "avatars are publicly readable"
 drop policy if exists "authenticated users can upload avatars" on storage.objects;
 create policy "authenticated users can upload avatars"
   on storage.objects for insert
-  with check (bucket_id = 'avatars' and auth.role() = 'authenticated');
+  with check (
+    bucket_id = 'avatars'
+    and auth.role() = 'authenticated'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );
+
+drop policy if exists "users can update their own avatars" on storage.objects;
+create policy "users can update their own avatars"
+  on storage.objects for update
+  using (bucket_id = 'avatars' and owner = auth.uid())
+  with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
 
 drop policy if exists "users can delete their own avatars" on storage.objects;
 create policy "users can delete their own avatars"

@@ -19,6 +19,14 @@ const corsHeaders = {
 const RATE_LIMIT_MAX_REQUESTS = 15;
 const RATE_LIMIT_WINDOW_MINUTES = 10;
 
+// Bounds total per-account Anthropic spend across a day — the 10-minute
+// burst window above resets on its own, so without this a single account
+// could otherwise call this endpoint every 10 minutes all day long. Doesn't
+// stop someone from creating many accounts, but caps the damage any one of
+// them can do (see the P1 note this was added for).
+const DAILY_LIMIT_MAX_REQUESTS = 50;
+const DAILY_LIMIT_WINDOW_MS = 86_400_000;
+
 const MAX_TITLE_LENGTH = 200;
 const MAX_DESCRIPTION_LENGTH = 1000;
 const MAX_INGREDIENTS = 30;
@@ -74,18 +82,30 @@ Deno.serve(async (req) => {
       .lt("created_at", new Date(Date.now() - 86_400_000).toISOString());
 
     const windowStart = new Date(Date.now() - RATE_LIMIT_WINDOW_MINUTES * 60_000).toISOString();
-    const { count } = await admin
-      .from("ai_rate_limits")
-      .select("*", { count: "exact", head: true })
-      .eq("identifier", user.id)
-      .eq("action", "generate-recipe")
-      .gte("created_at", windowStart);
+    const dayStart = new Date(Date.now() - DAILY_LIMIT_WINDOW_MS).toISOString();
+    const [{ count }, { count: dailyCount }] = await Promise.all([
+      admin
+        .from("ai_rate_limits")
+        .select("*", { count: "exact", head: true })
+        .eq("identifier", user.id)
+        .eq("action", "generate-recipe")
+        .gte("created_at", windowStart),
+      admin
+        .from("ai_rate_limits")
+        .select("*", { count: "exact", head: true })
+        .eq("identifier", user.id)
+        .eq("action", "generate-recipe")
+        .gte("created_at", dayStart),
+    ]);
 
     if ((count ?? 0) >= RATE_LIMIT_MAX_REQUESTS) {
       return json(
         { error: `Too many requests. Please try again in ${RATE_LIMIT_WINDOW_MINUTES} minutes.` },
         429
       );
+    }
+    if ((dailyCount ?? 0) >= DAILY_LIMIT_MAX_REQUESTS) {
+      return json({ error: "Daily generation limit reached. Please try again tomorrow." }, 429);
     }
 
     await admin.from("ai_rate_limits").insert({ identifier: user.id, action: "generate-recipe" });

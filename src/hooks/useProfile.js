@@ -15,7 +15,11 @@ export function useProfile(userId) {
       return;
     }
     setLoading(true);
-    const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, name, avatar_url, is_owner, is_verified, is_private")
+      .eq("id", userId)
+      .single();
     if (error) {
       console.error("Failed to load profile", error);
       setProfile(null);
