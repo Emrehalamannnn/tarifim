@@ -664,6 +664,39 @@ create policy "users can unblock their own block"
   on public.user_blocks for delete
   using (auth.uid() = blocker_id);
 
+-- The "users can read their own blocks" policy above (auth.uid() =
+-- blocker_id) means a plain subquery against user_blocks — run as the
+-- inserting client under RLS — can only ever see blocks that client placed
+-- itself. It can never see a block placed *against* it, which is exactly
+-- the direction the direct_messages insert policy needs to check. This
+-- function is security definer so it reads user_blocks as its owner
+-- (bypassing RLS) instead of as the caller, while still only ever
+-- evaluating the relationship between auth.uid() and one caller-supplied
+-- recipient — it doesn't expose any row data, just a boolean. search_path
+-- is empty and every reference is schema-qualified so it can't be
+-- redirected by a caller-controlled search_path.
+create or replace function public.can_send_direct_message(recipient_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select auth.uid() is not null
+    and not exists (
+      select 1
+      from public.user_blocks
+      where (user_blocks.blocker_id = auth.uid() and user_blocks.blocked_id = can_send_direct_message.recipient_id)
+         or (user_blocks.blocker_id = can_send_direct_message.recipient_id and user_blocks.blocked_id = auth.uid())
+    );
+$$;
+
+-- EXECUTE on a new function is granted to PUBLIC by default; revoke from
+-- both public and anon so only a logged-in client can call it at all.
+revoke execute on function public.can_send_direct_message(uuid) from public;
+revoke execute on function public.can_send_direct_message(uuid) from anon;
+grant execute on function public.can_send_direct_message(uuid) to authenticated;
+
 -- ============================================================
 -- post_reports: user reports of objectionable posts (App Store Guideline
 -- 1.2 — reporting must create something actionable). Any logged-in user
@@ -764,17 +797,16 @@ create policy "participants can read their direct messages"
 
 -- Sending also requires that neither side has blocked the other (see
 -- user_blocks below) — blocking must actually stop contact, not just hide
--- posts in the feed.
+-- posts in the feed. Delegates to can_send_direct_message() rather than a
+-- plain user_blocks subquery here: under this caller's own RLS, a block
+-- placed against them (not by them) would be invisible and the check would
+-- silently no-op — see that function's comment above.
 drop policy if exists "users can send direct messages as themselves" on public.direct_messages;
 create policy "users can send direct messages as themselves"
   on public.direct_messages for insert
   with check (
     auth.uid() = sender_id
-    and not exists (
-      select 1 from public.user_blocks
-      where (blocker_id = recipient_id and blocked_id = sender_id)
-         or (blocker_id = sender_id and blocked_id = recipient_id)
-    )
+    and public.can_send_direct_message(recipient_id)
   );
 
 -- Adds direct_messages to the publication Supabase's client-side Realtime
