@@ -4,15 +4,31 @@ import BottomNav from "./components/BottomNav";
 import ResetPasswordModal from "./components/ResetPasswordModal";
 import { useAppStore } from "./store/useAppStore";
 import { useThemeSync } from "./hooks/useThemeSync";
+// SocialPage and OnboardingPage are the only two possible cold-start entry
+// routes (RequireOnboarding sends every fresh launch to one or the other).
+// They're imported eagerly, not lazily — BottomNav renders outside the
+// Suspense boundary below and paints on the very first commit regardless of
+// whether the routed page has loaded, so lazy-loading the entry route
+// creates a real window, on every cold launch, where BottomNav looks fully
+// interactive but the actual page underneath hasn't mounted yet: taps land
+// correctly, there's just nothing there to handle them until React.lazy's
+// import() (plus every shared chunk that route statically imports) resolves.
+// In Capacitor's WKWebView that import() is served through a custom
+// WKURLSchemeHandler with real fixed per-request overhead, not a normal
+// cached HTTP fetch, so a handful of chunk requests can add up to a
+// noticeable, fully deterministic multi-second gap on every fresh open —
+// which is exactly the reported symptom. Making the entry route part of the
+// main bundle removes the wait instead of masking it.
+import OnboardingPage from "./pages/OnboardingPage";
+import SocialPage from "./pages/SocialPage";
 
-// Lazy-loaded so the initial page load only fetches/transforms the one
-// route actually being shown, instead of every page in the app up front.
+// Every other route is only reached via in-app navigation once the app is
+// already warm, so lazy-loading them causes no equivalent first-impression
+// gap — kept lazy so the initial bundle isn't paying for pages not shown yet.
 const SwipeDeckPage = lazy(() => import("./pages/SwipeDeckPage"));
 const CartPage = lazy(() => import("./pages/CartPage"));
 const RecipeDetailPage = lazy(() => import("./pages/RecipeDetailPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
-const OnboardingPage = lazy(() => import("./pages/OnboardingPage"));
-const SocialPage = lazy(() => import("./pages/SocialPage"));
 const PostDetailPage = lazy(() => import("./pages/PostDetailPage"));
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
 const CoachPage = lazy(() => import("./pages/CoachPage"));
