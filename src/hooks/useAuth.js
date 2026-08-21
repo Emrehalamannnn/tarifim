@@ -28,6 +28,18 @@ export function useAuth() {
     const { data: subscription } = supabase.auth.onAuthStateChange((event, newSession) => {
       setSession(newSession);
       if (event === "PASSWORD_RECOVERY") setPasswordRecovery(true);
+
+      // After an OAuth/recovery redirect, Supabase strips the token
+      // fragment from the URL via history.replaceState — which doesn't
+      // fire `hashchange`, so HashRouter never notices and stays stuck on
+      // whatever unmatched route it rendered for the raw fragment (see
+      // App.jsx's CatchAll). Force a real hashchange to resync it once
+      // Supabase's own cleanup has run. No-op for a normal in-app route
+      // (hash already starts with "#/"), so this doesn't touch ordinary
+      // navigation or background token refreshes.
+      if (!window.location.hash.startsWith("#/")) {
+        window.location.hash = "/";
+      }
     });
 
     return () => subscription.subscription.unsubscribe();
