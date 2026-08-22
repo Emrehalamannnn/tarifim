@@ -157,7 +157,7 @@ public class StoreKitPlugin: CAPPlugin, CAPBridgedPlugin {
         case .freeTrial: paymentMode = "freeTrial"
         case .payAsYouGo: paymentMode = "payAsYouGo"
         case .payUpFront: paymentMode = "payUpFront"
-        @unknown default: paymentMode = "unknown"
+        default: paymentMode = "unknown"
         }
         return [
             "displayPrice": offer.displayPrice,
