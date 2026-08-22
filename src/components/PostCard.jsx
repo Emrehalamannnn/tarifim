@@ -141,6 +141,11 @@ export default function PostCard({
               </span>
             )}
           </p>
+          {!post.isOfficial && post.selectedTitle && (
+            <p className="truncate text-[10px] font-semibold text-[var(--color-olive)]">
+              {post.selectedTitle.title}
+            </p>
+          )}
           <p className="text-[11px] text-[var(--color-ink-soft)]">
             {dateFormatter.format(new Date(post.createdAt))}
           </p>

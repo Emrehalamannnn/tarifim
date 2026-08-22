@@ -4,10 +4,13 @@ import { useFollowStats, useIsFollowing } from "../hooks/useFollows";
 import { useProfile, useProfileLikeTotal } from "../hooks/useProfile";
 import { useUserPosts } from "../hooks/useUserPosts";
 import { useBlockedIds } from "../hooks/useModeration";
+import { useAchievements } from "../hooks/useAchievements";
 import PageFade from "../components/PageFade";
 import Avatar from "../components/Avatar";
 import EmptyState from "../components/EmptyState";
 import FollowButton from "../components/FollowButton";
+import GamificationHeader from "../components/GamificationHeader";
+import AchievementGallery from "../components/AchievementGallery";
 
 export default function UserProfilePage() {
   const { id } = useParams();
@@ -18,6 +21,7 @@ export default function UserProfilePage() {
   const { posts } = useUserPosts(id);
   const { status: followStatus } = useIsFollowing(user?.id, id, profile?.is_private);
   const { blockedIds, block, unblock } = useBlockedIds(user?.id);
+  const achievements = useAchievements(id, user?.id);
   const isSelf = user?.id === id;
   const isBlocked = blockedIds.has(id);
   const isLocked =
@@ -106,6 +110,12 @@ export default function UserProfilePage() {
           </div>
         )}
 
+        {!isLocked && (
+          <div className="w-full border-t border-[var(--color-cream-dark)] pt-3">
+            <GamificationHeader achievements={achievements} />
+          </div>
+        )}
+
         <div className="flex items-center gap-2">
           {!isBlocked && (
             <FollowButton
@@ -148,33 +158,37 @@ export default function UserProfilePage() {
           />
         )
       ) : (
-        <section>
-          <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
-            Paylaşımlar
-          </h2>
-          {posts.length === 0 ? (
-            <p className="text-xs text-[var(--color-ink-soft)]">Henüz bir paylaşımı yok.</p>
-          ) : (
-            <div className="grid grid-cols-3 gap-2">
-              {posts.map((post) => (
-                <Link
-                  key={post.id}
-                  to={`/post/${post.id}`}
-                  className="relative aspect-square overflow-hidden rounded-xl bg-[var(--color-cream)]"
-                >
-                  {post.videoUrl ? (
-                    <>
-                      <video src={post.videoUrl} className="h-full w-full object-cover" muted playsInline />
-                      <span className="absolute right-1 top-1 text-xs drop-shadow">🎥</span>
-                    </>
-                  ) : (
-                    <img src={post.photoUrl} alt={post.title} className="h-full w-full object-cover" />
-                  )}
-                </Link>
-              ))}
-            </div>
-          )}
-        </section>
+        <>
+          <section>
+            <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-[var(--color-ink-soft)]">
+              Paylaşımlar
+            </h2>
+            {posts.length === 0 ? (
+              <p className="text-xs text-[var(--color-ink-soft)]">Henüz bir paylaşımı yok.</p>
+            ) : (
+              <div className="grid grid-cols-3 gap-2">
+                {posts.map((post) => (
+                  <Link
+                    key={post.id}
+                    to={`/post/${post.id}`}
+                    className="relative aspect-square overflow-hidden rounded-xl bg-[var(--color-cream)]"
+                  >
+                    {post.videoUrl ? (
+                      <>
+                        <video src={post.videoUrl} className="h-full w-full object-cover" muted playsInline />
+                        <span className="absolute right-1 top-1 text-xs drop-shadow">🎥</span>
+                      </>
+                    ) : (
+                      <img src={post.photoUrl} alt={post.title} className="h-full w-full object-cover" />
+                    )}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <AchievementGallery achievements={achievements} />
+        </>
       )}
     </PageFade>
   );

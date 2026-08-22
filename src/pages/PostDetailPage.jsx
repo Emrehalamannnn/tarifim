@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useCommunityFeed } from "../hooks/useCommunityFeed";
+import { useSelectedTitles } from "../hooks/useGamification";
 import PageFade from "../components/PageFade";
 import PostCard from "../components/PostCard";
 import CommentsModal from "../components/CommentsModal";
@@ -17,6 +18,8 @@ export default function PostDetailPage() {
   const [commentsOpen, setCommentsOpen] = useState(false);
 
   const post = posts.find((p) => p.id === id);
+  const selectedTitles = useSelectedTitles(useMemo(() => (post ? [post.authorId] : []), [post]));
+  const postWithTitle = post ? { ...post, selectedTitle: selectedTitles[post.authorId] ?? null } : null;
 
   if (loading) {
     return (
@@ -55,7 +58,7 @@ export default function PostDetailPage() {
       </header>
       <ul className="flex flex-col gap-3 px-4 pb-4">
         <PostCard
-          post={post}
+          post={postWithTitle}
           currentUserId={user?.id}
           currentUserIsOwner={profile?.is_owner ?? false}
           onToggleLike={toggleLike}

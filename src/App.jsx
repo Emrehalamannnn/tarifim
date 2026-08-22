@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { HashRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import BottomNav from "./components/BottomNav";
 import ResetPasswordModal from "./components/ResetPasswordModal";
+import AchievementUnlockToast from "./components/AchievementUnlockToast";
 import { useAppStore } from "./store/useAppStore";
 import { useThemeSync } from "./hooks/useThemeSync";
 // SocialPage and OnboardingPage are the only two possible cold-start entry
@@ -160,6 +161,7 @@ export default function App() {
       </div>
       <BottomNavGate />
       <ResetPasswordModal />
+      <AchievementUnlockToast />
     </HashRouter>
   );
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useCommunityFeed } from "../hooks/useCommunityFeed";
 import { useFollowingIds } from "../hooks/useFollowingIds";
+import { useSelectedTitles } from "../hooks/useGamification";
 import { reportPost } from "../hooks/useModeration";
 import PageFade from "../components/PageFade";
 import ConfirmDialog from "../components/ConfirmDialog";
@@ -55,6 +56,15 @@ export default function SocialPage() {
     }
     return result;
   }, [posts, audienceFilter, tagFilter, sort, followingIds]);
+
+  // Subtle selected-title line under each post's username (see PostCard) —
+  // one batched lookup across every visible author, not one per post.
+  const visibleAuthorIds = useMemo(() => visiblePosts.map((p) => p.authorId), [visiblePosts]);
+  const selectedTitles = useSelectedTitles(visibleAuthorIds);
+  const visiblePostsWithTitles = useMemo(
+    () => visiblePosts.map((p) => ({ ...p, selectedTitle: selectedTitles[p.authorId] ?? null })),
+    [visiblePosts, selectedTitles]
+  );
 
   async function handleSubmit(post) {
     await addPost(post);
@@ -131,7 +141,7 @@ export default function SocialPage() {
         </p>
       )}
 
-      {!loading && visiblePosts.length === 0 && (audienceFilter !== "following" || followingIds.size > 0) && (
+      {!loading && visiblePostsWithTitles.length === 0 && (audienceFilter !== "following" || followingIds.size > 0) && (
         <p className="mx-4 mb-2 rounded-xl bg-[var(--color-cream)] px-3.5 py-2.5 text-xs text-[var(--color-ink-soft)]">
           Bu filtrelere uyan bir paylaşım yok.
         </p>
@@ -140,7 +150,7 @@ export default function SocialPage() {
       <ul className="flex flex-col gap-3 px-4 pb-4">
         {loading
           ? Array.from({ length: 3 }).map((_, i) => <PostCardSkeleton key={i} />)
-          : visiblePosts.map((post) => (
+          : visiblePostsWithTitles.map((post) => (
               <PostCard
                 key={post.id}
                 post={post}

@@ -20,6 +20,28 @@
   --color-olive: #5c7a3f;
   --color-olive-dark: #40592b;
   --color-tomato: #d13b3b;
+
+  /* Achievement badge rarity frames (see src/lib/achievementRarity.js).
+     Each tier is a two/three-stop gradient plus a matching glow color, kept
+     in the same warm/earthy family as the palette above rather than
+     generic game-UI purple/rainbow — bronze/silver/gold/platinum read as
+     metallic, legendary is the one on-brand paprika->saffron exception. */
+  --tier-bronze-1: #c98a4b;
+  --tier-bronze-2: #8a5a2b;
+  --tier-bronze-glow: rgba(184, 118, 63, 0.35);
+  --tier-silver-1: #e4e8eb;
+  --tier-silver-2: #a7adb4;
+  --tier-silver-glow: rgba(167, 173, 180, 0.35);
+  --tier-gold-1: #f8cf5c;
+  --tier-gold-2: #c8850a;
+  --tier-gold-glow: rgba(243, 167, 18, 0.4);
+  --tier-platinum-1: #eaf2f5;
+  --tier-platinum-2: #9fb4c2;
+  --tier-platinum-glow: rgba(133, 172, 194, 0.4);
+  --tier-legendary-1: #ff9a5c;
+  --tier-legendary-2: #e2572b;
+  --tier-legendary-3: #f3a712;
+  --tier-legendary-glow: rgba(226, 87, 43, 0.45);
 }
 
 /* System preference, only when the user hasn't explicitly forced a theme
@@ -37,6 +59,23 @@
     --color-olive: #82a862;
     --color-olive-dark: #5c7a3f;
     --color-tomato: #ef5d5a;
+
+    --tier-bronze-1: #d99f66;
+    --tier-bronze-2: #9c6a37;
+    --tier-bronze-glow: rgba(217, 159, 102, 0.4);
+    --tier-silver-1: #f0f3f5;
+    --tier-silver-2: #b7bdc4;
+    --tier-silver-glow: rgba(203, 210, 216, 0.4);
+    --tier-gold-1: #ffdb7a;
+    --tier-gold-2: #d99a1a;
+    --tier-gold-glow: rgba(255, 219, 122, 0.45);
+    --tier-platinum-1: #f2f8fa;
+    --tier-platinum-2: #b3c6d2;
+    --tier-platinum-glow: rgba(179, 198, 210, 0.45);
+    --tier-legendary-1: #ffb27a;
+    --tier-legendary-2: #ff7a4d;
+    --tier-legendary-3: #f5b52e;
+    --tier-legendary-glow: rgba(255, 122, 77, 0.5);
   }
 }
 
@@ -54,6 +93,23 @@
   --color-olive: #82a862;
   --color-olive-dark: #5c7a3f;
   --color-tomato: #ef5d5a;
+
+  --tier-bronze-1: #d99f66;
+  --tier-bronze-2: #9c6a37;
+  --tier-bronze-glow: rgba(217, 159, 102, 0.4);
+  --tier-silver-1: #f0f3f5;
+  --tier-silver-2: #b7bdc4;
+  --tier-silver-glow: rgba(203, 210, 216, 0.4);
+  --tier-gold-1: #ffdb7a;
+  --tier-gold-2: #d99a1a;
+  --tier-gold-glow: rgba(255, 219, 122, 0.45);
+  --tier-platinum-1: #f2f8fa;
+  --tier-platinum-2: #b3c6d2;
+  --tier-platinum-glow: rgba(179, 198, 210, 0.45);
+  --tier-legendary-1: #ffb27a;
+  --tier-legendary-2: #ff7a4d;
+  --tier-legendary-3: #f5b52e;
+  --tier-legendary-glow: rgba(255, 122, 77, 0.5);
 }
 
 html,
@@ -124,4 +180,26 @@ body {
     border-inline: 1px solid var(--color-cream-dark);
     box-shadow: 0 0 40px rgba(43, 29, 18, 0.08);
   }
+}
+
+/* Legendary achievement badge shimmer — used only on unlock toasts and the
+   large detail-modal presentation (see AchievementBadge.jsx's `animated`
+   prop), never on static gallery grids, so this never runs at any real
+   scale on-screen at once. Respects prefers-reduced-motion by simply never
+   applying the animation class in that case (handled in JS via
+   matchMedia, not here) — this rule alone is inert until that class is
+   present. */
+@keyframes achievement-legendary-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.achievement-legendary-shimmer {
+  background-size: 220% 220%;
+  animation: achievement-legendary-shimmer 2.4s ease-in-out infinite;
 }

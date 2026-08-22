@@ -5,6 +5,7 @@ import { useFollowStats } from "../hooks/useFollows";
 import { useSavedPosts } from "../hooks/useSavedPosts";
 import { useUserPosts } from "../hooks/useUserPosts";
 import { useFeedback } from "../hooks/useFeedback";
+import { useAchievements } from "../hooks/useAchievements";
 import { supabase } from "../lib/supabase";
 import { resizeImageFile } from "../lib/resizeImage";
 import { getCroppedImageFile } from "../lib/cropImage";
@@ -13,6 +14,8 @@ import LoginPanel from "../components/LoginPanel";
 import PremiumPaywall from "../components/PremiumPaywall";
 import FollowListModal from "../components/FollowListModal";
 import ImageCropModal from "../components/ImageCropModal";
+import GamificationHeader from "../components/GamificationHeader";
+import AchievementGallery from "../components/AchievementGallery";
 import { initialsFrom } from "../lib/mockSocial";
 
 const PROVIDER_LABELS = {
@@ -27,6 +30,7 @@ export default function ProfilePage() {
   const { posts: savedPosts } = useSavedPosts(user?.id);
   const { posts: userPosts } = useUserPosts(user?.id);
   const { feedback } = useFeedback(profile?.is_owner ?? false);
+  const achievements = useAchievements(user?.id, user?.id);
   const [avatarUploading, setAvatarUploading] = useState(false);
   const [avatarCropSrc, setAvatarCropSrc] = useState(null);
   const [followListType, setFollowListType] = useState(null);
@@ -152,6 +156,10 @@ export default function ProfilePage() {
               <p className="text-[11px] text-[var(--color-ink-soft)]">Takip Edilen</p>
             </button>
           </div>
+
+          <div className="w-full border-t border-[var(--color-cream-dark)] pt-3">
+            <GamificationHeader achievements={achievements} />
+          </div>
         </section>
       )}
 
@@ -162,6 +170,8 @@ export default function ProfilePage() {
         open={followListType !== null}
         onClose={() => setFollowListType(null)}
       />
+
+      {user && <AchievementGallery achievements={achievements} />}
 
       {profile?.is_owner && (
         <section>
