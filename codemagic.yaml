@@ -16,6 +16,11 @@ workflows:
       node: latest
       xcode: latest
       cocoapods: default
+      ios_signing:
+        provisioning_profiles:
+          - tarifim_appstore
+        certificates:
+          - tarifim_distribution
     scripts:
       - name: Install npm dependencies
         script: |
