@@ -68,8 +68,16 @@ public class AuthPlugin: CAPPlugin, CAPBridgedPlugin {
             call.reject("No presenting view controller available")
             return
         }
+
+        // Same raw/hashed nonce contract as Apple above: Google only ever
+        // sees the SHA-256 digest (replay protection), while the raw nonce
+        // goes back to JS so supabase.auth.signInWithIdToken() can verify it
+        // against the digest embedded in the ID token it receives.
+        let rawNonce = AuthPlugin.randomNonceString()
+        let hashedNonce = AuthPlugin.sha256(rawNonce)
+
         DispatchQueue.main.async {
-            GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { signInResult, error in
+            GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController, nonce: hashedNonce) { signInResult, error in
                 if let error {
                     let nsError = error as NSError
                     if nsError.domain == kGIDSignInErrorDomain, nsError.code == GIDSignInError.canceled.rawValue {
@@ -85,7 +93,8 @@ public class AuthPlugin: CAPPlugin, CAPBridgedPlugin {
                 }
                 call.resolve([
                     "idToken": idToken,
-                    "accessToken": user.accessToken.tokenString
+                    "accessToken": user.accessToken.tokenString,
+                    "nonce": rawNonce
                 ])
             }
         }

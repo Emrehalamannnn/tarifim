@@ -60,6 +60,10 @@ html,
 body,
 #root {
   height: 100%;
+  /* Stops scroll chaining from bubbling up into the native WKWebView
+     document scroll/bounce once an inner container hits its own edge --
+     inner containers (e.g. App.jsx's route div) keep their own scrolling. */
+  overscroll-behavior: none;
 }
 
 /* iOS Safari/WKWebView keeps its double-tap-to-zoom gesture recognizer

@@ -97,11 +97,12 @@ export function useAuth() {
       });
     }
     try {
-      const { idToken, accessToken } = await NativeAuth.signInWithGoogle();
+      const { idToken, accessToken, nonce } = await NativeAuth.signInWithGoogle();
       return supabase.auth.signInWithIdToken({
         provider: "google",
         token: idToken,
         access_token: accessToken,
+        nonce,
       });
     } catch (err) {
       // User dismissed the Google sign-in sheet — not a real failure.
