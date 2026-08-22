@@ -51,7 +51,7 @@ export default function App() {
   useThemeSync();
   return (
     <HashRouter>
-      <div className="flex flex-1 flex-col overflow-y-auto">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-none">
         <Suspense fallback={null}>
         <Routes>
           <Route path="/onboarding" element={<OnboardingPage />} />

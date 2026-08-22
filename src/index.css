@@ -59,7 +59,15 @@
 html,
 body,
 #root {
+  width: 100%;
   height: 100%;
+  /* Document itself must never be the scrollable element -- only the
+     page-content region inside #root (App.jsx's route div) scrolls. Without
+     this, a taller-than-viewport #root (see below) makes the whole document
+     natively scrollable/draggable in the WKWebView, which overscroll-behavior
+     alone does not prevent (it only blocks bounce/chaining, not scrolling
+     itself). */
+  overflow: hidden;
   /* Stops scroll chaining from bubbling up into the native WKWebView
      document scroll/bounce once an inner container hits its own edge --
      inner containers (e.g. App.jsx's route div) keep their own scrolling. */
@@ -96,7 +104,13 @@ body {
 #root {
   max-width: 480px;
   margin: 0 auto;
-  min-height: 100svh;
+  /* height (not min-height): #root must be pinned to exactly the viewport,
+     never allowed to grow taller than it. min-height let flex children with
+     unconstrained content push #root beyond 100svh, which is what let the
+     whole document drag/scroll by a few px -- see App.jsx's route wrapper
+     min-h-0 fix, which is the other half of this. 100dvh (dynamic viewport)
+     tracks the real WKWebView viewport more reliably than svh here. */
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   position: relative;
