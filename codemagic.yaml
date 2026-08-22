@@ -35,9 +35,7 @@ workflows:
           fi
       - name: Set up automatic code signing
         script: |
-          xcode-project use-profiles \
-            --project "ios/App/App.xcodeproj" \
-            --target "$XCODE_SCHEME"
+          xcode-project use-profiles --project "$CM_BUILD_DIR/ios/App/App.xcodeproj"
       - name: Increment build number
         script: |
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID" || echo "0")
