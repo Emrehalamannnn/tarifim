@@ -77,7 +77,12 @@ public class AuthPlugin: CAPPlugin, CAPBridgedPlugin {
         let hashedNonce = AuthPlugin.sha256(rawNonce)
 
         DispatchQueue.main.async {
-            GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController, nonce: hashedNonce) { signInResult, error in
+            GIDSignIn.sharedInstance.signIn(
+                withPresenting: presentingViewController,
+                hint: nil,
+                additionalScopes: nil,
+                nonce: hashedNonce
+            ) { signInResult, error in
                 if let error {
                     let nsError = error as NSError
                     if nsError.domain == kGIDSignInErrorDomain, nsError.code == GIDSignInError.canceled.rawValue {
