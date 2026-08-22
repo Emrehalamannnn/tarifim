@@ -1,5 +1,6 @@
 import UIKit
 import Capacitor
+import GoogleSignIn
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -15,6 +16,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        // GoogleSignIn falls back to a system browser sheet when the Google
+        // app isn't installed; it completes by reopening the app via the
+        // reversed-client-id URL scheme registered in Info.plist, which
+        // lands here.
+        for context in URLContexts where GIDSignIn.sharedInstance.handle(context.url) {
+            return
+        }
         SceneDelegateProxy.shared.scene(scene, openURLContexts: URLContexts)
     }
 

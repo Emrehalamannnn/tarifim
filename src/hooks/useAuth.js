@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase, isSupabaseConfigured } from "../lib/supabase";
+import { NativeAuth, isNativeIOS } from "../lib/nativeAuth";
 
 // profiles.email is intentionally excluded — the database no longer grants
 // anon/authenticated SELECT on that column (see schema.sql), and Supabase
@@ -81,18 +82,66 @@ export function useAuth() {
     };
   }, [session?.user?.id]);
 
+  // Native iOS can't use browser-redirect OAuth: the WKWebView has no
+  // origin to redirect back to, and Apple's redirect can land on
+  // localhost. There, AuthPlugin.swift drives the platform SDK directly
+  // (AuthenticationServices / GoogleSignIn-iOS) and hands back a provider
+  // identity token, which signInWithIdToken() exchanges for a Supabase
+  // session with no browser round-trip at all. Real browsers (web dev/prod)
+  // keep the redirect-based flow.
   async function signInWithGoogle() {
-    return supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: window.location.origin },
-    });
+    if (!isNativeIOS()) {
+      return supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin },
+      });
+    }
+    try {
+      const { idToken, accessToken } = await NativeAuth.signInWithGoogle();
+      return supabase.auth.signInWithIdToken({
+        provider: "google",
+        token: idToken,
+        access_token: accessToken,
+      });
+    } catch (err) {
+      // User dismissed the Google sign-in sheet — not a real failure.
+      if (err?.code === "CANCELED") return { error: null };
+      return { error: { message: "Google ile giriş başarısız." } };
+    }
   }
 
   async function signInWithApple() {
-    return supabase.auth.signInWithOAuth({
-      provider: "apple",
-      options: { redirectTo: window.location.origin },
-    });
+    if (!isNativeIOS()) {
+      return supabase.auth.signInWithOAuth({
+        provider: "apple",
+        options: { redirectTo: window.location.origin },
+      });
+    }
+    try {
+      const { identityToken, nonce, givenName, familyName } = await NativeAuth.signInWithApple();
+      const { data, error } = await supabase.auth.signInWithIdToken({
+        provider: "apple",
+        token: identityToken,
+        nonce,
+      });
+      // Apple only ever includes the user's name on their FIRST
+      // authorization for this app — capture it into Supabase user
+      // metadata now, since a later sign-in won't include it again.
+      if (!error && (givenName || familyName)) {
+        await supabase.auth.updateUser({
+          data: {
+            given_name: givenName,
+            family_name: familyName,
+            full_name: [givenName, familyName].filter(Boolean).join(" "),
+          },
+        });
+      }
+      return { data, error };
+    } catch (err) {
+      // User dismissed the Apple sign-in sheet — not a real failure.
+      if (err?.code === "CANCELED") return { error: null };
+      return { error: { message: "Apple ile giriş başarısız." } };
+    }
   }
 
   // Real email+password account creation — replaces the old magic-link flow

@@ -72,5 +72,22 @@
 	<string>Tarifim needs access to your photo library so you can choose a photo or video to share in a post.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<!-- GoogleSignIn-iOS reads this automatically (no explicit GIDConfiguration
+	     needed) -- the iOS OAuth client ID from Google Cloud Console >
+	     APIs & Services > Credentials. -->
+	<key>GIDClientID</key>
+	<string>405489453402-9hsh1h1adkuvn81dpgci773e0amahfvv.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- The SAME client ID above, reversed (com.googleusercontent.apps.XXXX
+				     -> reverse the dot-separated segments). Required so the system
+				     browser fallback can hand control back to the app. -->
+				<string>com.googleusercontent.apps.405489453402-9hsh1h1adkuvn81dpgci773e0amahfvv</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

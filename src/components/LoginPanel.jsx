@@ -6,11 +6,13 @@ import { isPasswordStrongEnough } from "../lib/passwordStrength";
 
 const USERNAME_PATTERN = /^[a-z0-9_.]{3,20}$/;
 
-// Real Supabase auth: Google/Apple are OAuth redirects (each needs its
-// provider enabled with real credentials in the Supabase dashboard before
-// the button will work — see CLAUDE.md "Real accounts & social backend").
-// Email is real email+password (signUp / signInWithPassword, the latter
-// routed through the rate-limited auth-login Edge Function — see useAuth).
+// Real Supabase auth: on web, Google/Apple are OAuth redirects; on native
+// iOS, useAuth routes them through AuthPlugin.swift's native SDKs instead
+// (see useAuth.js). Either way each provider needs to be enabled with real
+// credentials in the Supabase dashboard before the button will work — see
+// CLAUDE.md "Real accounts & social backend". Email is real email+password
+// (signUp / signInWithPassword, the latter routed through the rate-limited
+// auth-login Edge Function — see useAuth).
 //
 // Markup follows a password-manager-friendly sign-in form shape: a real
 // <form>, a labeled email input with autoComplete="username" (the token a
@@ -48,6 +50,18 @@ export default function LoginPanel() {
     setError(null);
     setConfirmSent(false);
     setResetSent(false);
+  }
+
+  async function handleAppleSignIn() {
+    setError(null);
+    const { error: appleError } = await signInWithApple();
+    if (appleError) setError(appleError.message);
+  }
+
+  async function handleGoogleSignIn() {
+    setError(null);
+    const { error: googleError } = await signInWithGoogle();
+    if (googleError) setError(googleError.message);
   }
 
   async function handleSubmit(e) {
@@ -128,13 +142,13 @@ export default function LoginPanel() {
           <>
             <div className="flex flex-col gap-2.5">
               <button
-                onClick={signInWithApple}
+                onClick={handleAppleSignIn}
                 className="flex items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-sm font-semibold text-white active:scale-95"
               >
                 <span></span> Apple ile Giriş Yap
               </button>
               <button
-                onClick={signInWithGoogle}
+                onClick={handleGoogleSignIn}
                 className="flex items-center justify-center gap-2 rounded-full border border-[var(--color-cream-dark)] bg-[var(--color-surface)] px-4 py-3 text-sm font-semibold text-[var(--color-ink)] active:scale-95"
               >
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#4285F4] text-[10px] font-bold text-white">
